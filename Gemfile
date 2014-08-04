@@ -12,8 +12,7 @@ gem 'coffee-rails', '~> 4.0.0'
 
 gem 'jquery-rails'
 gem 'turbolinks'
-
-gem 'nokogiri'
+gem 'mechanize'
 
 group :development do
   gem 'spring'
