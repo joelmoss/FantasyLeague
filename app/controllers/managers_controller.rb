@@ -22,17 +22,6 @@ class ManagersController < ApplicationController
     add_breadcrumb 'Edit', [:edit, @manager]
   end
 
-  # POST /managers
-  def create
-    @manager = Manager.new(manager_params)
-
-    if @manager.save
-      redirect_to @manager, notice: 'Manager was successfully created.'
-    else
-      render :new
-    end
-  end
-
   # PATCH/PUT /managers/1
   def update
     if @manager.update(manager_params)

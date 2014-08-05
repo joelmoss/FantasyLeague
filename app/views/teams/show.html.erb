@@ -1,0 +1,13 @@
+<h1 class="page-header">
+  <div class="pull-right">
+    <%= link_to 'Edit', [:edit, @team] if current_manager.admin? %>
+  </div>
+  <%= @team %>
+</h1>
+
+<dl>
+  <dt>Name</dt>
+    <dd><%= @team.name %></dd>
+  <dt>Manager</dt>
+    <dd><%= link_to @team.manager, @team.manager %></dd>
+</dl>

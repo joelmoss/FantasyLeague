@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140805112908) do
+ActiveRecord::Schema.define(version: 20140805200006) do
 
   create_table "fixtures", force: true do |t|
     t.string   "home_team",  limit: 32, null: false
@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(version: 20140805112908) do
   add_index "managers", ["reset_password_token"], name: "index_managers_on_reset_password_token", unique: true, using: :btree
 
   create_table "player_seasons", force: true do |t|
-    t.string   "season",                 null: false
+    t.integer  "season",                 null: false
     t.integer  "player_id",              null: false
     t.integer  "pld",        default: 0
     t.integer  "gls",        default: 0
@@ -88,5 +88,15 @@ ActiveRecord::Schema.define(version: 20140805112908) do
 
   add_index "players", ["full_name"], name: "index_players_on_full_name", unique: true, using: :btree
   add_index "players", ["short_name"], name: "index_players_on_short_name", using: :btree
+
+  create_table "teams", force: true do |t|
+    t.string   "name",       null: false
+    t.integer  "manager_id"
+    t.integer  "budget"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "teams", ["name"], name: "index_teams_on_name", unique: true, using: :btree
 
 end

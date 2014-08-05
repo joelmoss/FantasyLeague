@@ -3,6 +3,8 @@ class Manager < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_many :teams
+
   scope :approved, -> { where approved: true }
 
   after_create :send_admin_mail
