@@ -1,0 +1,61 @@
+<h1 class="page-header">
+  <div class="pull-right">
+    <%- if @player.substitute? -%>
+      <span class="substitute fa-stack" title="Substitute" data-toggle="tooltip" data-placement="left">
+    <%- else -%>
+      <span class="substitute fa-stack highlight" title="Starting 11" data-toggle="tooltip" data-placement="left">
+    <%- end -%>
+      <%= icon :square, '', class: 'fa-stack-2x' %>
+      <%= icon :user, '', class: 'fa-stack-1x fa-inverse' %>
+    </span>
+    <%= link_to @team, @team %>
+  </div>
+
+  <div class="label label-<%= position_colour @player.position %>" title="<%= @player.full_position %>" data-toggle="tooltip"><%= @player.position %></div>
+  <%= @player %>
+  <small><%= @player.club_name %></small>
+</h1>
+<h4 class="page-sub-header">
+  playing for <%= link_to @team, @team %>
+</h4>
+
+<ul class="nav nav-tabs" role="tablist">
+  <li class="active"><a href="#details" role="tab" data-toggle="tab" data-no-turbolink>Details</a></li>
+  <li><a href="#seasons" role="tab" data-toggle="tab" data-no-turbolink>Previous Seasons <span class="badge"><%= @player.seasons.count %></span></a></li>
+</ul>
+
+<div class="tab-content">
+  <div class="tab-pane fade in active" id="details">
+    Purchased <abbr title="<%= @player.created_at %>" data-toggle="tooltip"><%= time_ago_in_words @player.created_at %> ago</abbr> for &pound;<%= @player.purchase_price %>m
+  </div>
+
+  <div class="tab-pane fade" id="seasons">
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>Season</th>
+          <th>PLD</th>
+          <th>GLS</th>
+          <th>ASS</th>
+          <th>CS</th>
+          <th>GA</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <%- @player.seasons.each do |season| -%>
+          <tr>
+            <td><strong><%= season %></strong></td>
+            <td><%= season.pld %></td>
+            <td><%= season.gls %></td>
+            <td><%= season.ass %></td>
+            <td><%= season.cs %></td>
+            <td><%= season.ga %></td>
+            <td><%= season.tot %></td>
+          </tr>
+        <%- end -%>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -3,7 +3,7 @@ class Manager < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :teams
+  has_one :team
 
   scope :approved, -> { where approved: true }
 

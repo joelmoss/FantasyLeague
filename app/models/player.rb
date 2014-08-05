@@ -1,8 +1,8 @@
 class Player < ActiveRecord::Base
 
   has_many :seasons, class_name: 'PlayerSeason'
-  has_many :squads
-  has_many :teams, through: :squads
+  has_many :team_players
+  has_many :teams, through: :team_players
 
   POSITIONS = {
     g: 'Goalkeeper',

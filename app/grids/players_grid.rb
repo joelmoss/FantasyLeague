@@ -12,14 +12,16 @@ class PlayersGrid
 
   column :position, header: 'Pos' do |asset|
     format(asset.position) do |value|
-      content_tag :div, value, class: "label label-info"
+      content_tag :div, value, class: "label label-#{position_colour(value)}", title: asset.full_position, data: { toggle: 'tooltip', placement: 'right' }
     end
   end
+
   column :short_name, header: 'Name' do |asset|
     format(asset.short_name) do |value|
       link_to value, asset
     end
   end
+
   column :club
 
 end

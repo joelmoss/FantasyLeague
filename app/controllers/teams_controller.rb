@@ -42,7 +42,7 @@ class TeamsController < ApplicationController
 
   def show
     add_breadcrumb @team, @team
-    @grid = SquadGrid.new(params[:squad_grid]) do |scope|
+    @grid = TeamPlayersGrid.new(params[:team_players_grid]) do |scope|
       scope.where team_id: @team.id
     end
   end

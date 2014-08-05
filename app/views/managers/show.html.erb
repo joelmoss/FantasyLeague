@@ -1,6 +1,6 @@
 <h1 class="page-header">
   <div class="pull-right">
-    <%= link_to 'Edit', [:edit, @manager] if current_manager.admin? %>
+    <%= link_to icon('pencil', 'edit'), [:edit, @manager] if current_manager.admin? %>
   </div>
   <%= @manager %>
 </h1>
@@ -10,4 +10,6 @@
     <dd><%= @manager.name %></dd>
   <dt>Email</dt>
     <dd><%= mail_to @manager.email %></dd>
+  <dt>Team</dt>
+    <dd><%= @manager.team ? link_to(@manager.team, @manager.team) : 'n/a' %></dd>
 </dl>

@@ -4,12 +4,12 @@ Rails.application.routes.draw do
 
   root 'pages#index'
 
-  resources :teams
+  resources :teams do
+    resources :team_players, path: :players, as: :players, except: [:index]
+  end
   resources :players, only: [ :index, :show ]
   resources :managers, except: [ :new, :create ] do
-    member do
-      patch 'approve'
-    end
+    patch :approve, on: :member
   end
 
 end

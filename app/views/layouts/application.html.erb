@@ -31,7 +31,7 @@
             <ul class="nav navbar-nav">
               <li class="<%= 'active' if controller_name == 'players' %>"><%= link_to 'Players', players_path %></li>
               <li class="<%= 'active' if controller_name == 'managers' %>"><%= link_to 'Managers', managers_path %></li>
-              <li class="<%= 'active' if controller_name == 'teams' %>"><%= link_to 'Teams', teams_path %></li>
+              <li class="<%= 'active' if %w(teams team_players).include?(controller_name) %>"><%= link_to 'Teams', teams_path %></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">

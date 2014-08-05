@@ -1,20 +1,26 @@
 <h1 class="page-header">
   <div class="pull-right">
-    <%= link_to 'Edit', [:edit, @team] if current_manager.admin? %>
+    <%= link_to icon('pencil', 'edit'), [:edit, @team] if current_manager.admin? %>
   </div>
   <%= @team %>
 </h1>
 
-<dl>
-  <dt>Name</dt>
-    <dd><%= @team.name %></dd>
-  <dt>Manager</dt>
-    <dd><%= link_to @team.manager, @team.manager %></dd>
-</dl>
+<h4 class="page-sub-header">
+  <div class="pull-right">budget: &pound;<%= @team.budget %>m</div>
+  managed by <%= link_to @team.manager, @team.manager %>
+</h4>
 
-<section>
-  <h4 class="page-header">Players <span class="badge"><%= @team.players.count %></span></h4>
-  <%= datagrid_form_for @grid, :method => :get, :url => players_path %>
-  <%= datagrid_table @grid, html: { class: 'table table-striped table-hover' } %>
-</section>
+<ul class="nav nav-tabs" role="tablist">
+  <li class="active">
+    <a href="#players" role="tab" data-toggle="tab" data-no-turbolink>
+      Players <span class="badge"><%= @team.players.count %></span>
+    </a>
+  </li>
+</ul>
+
+<div class="tab-content">
+  <div class="tab-pane fade in active" id="players">
+    <%= datagrid_table @grid, html: { class: 'table table-striped table-hover' } %>
+  </div>
+</div>
 

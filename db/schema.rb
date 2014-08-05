@@ -89,7 +89,7 @@ ActiveRecord::Schema.define(version: 20140805203617) do
   add_index "players", ["full_name"], name: "index_players_on_full_name", unique: true, using: :btree
   add_index "players", ["short_name"], name: "index_players_on_short_name", using: :btree
 
-  create_table "squads", force: true do |t|
+  create_table "team_players", force: true do |t|
     t.boolean  "substitute",                             default: true, null: false
     t.decimal  "purchase_price", precision: 5, scale: 2
     t.integer  "player_id"
@@ -98,7 +98,7 @@ ActiveRecord::Schema.define(version: 20140805203617) do
     t.datetime "updated_at"
   end
 
-  add_index "squads", ["player_id", "team_id"], name: "index_squads_on_player_id_and_team_id", using: :btree
+  add_index "team_players", ["player_id", "team_id"], name: "index_team_players_on_player_id_and_team_id", using: :btree
 
   create_table "teams", force: true do |t|
     t.string   "name",                               null: false

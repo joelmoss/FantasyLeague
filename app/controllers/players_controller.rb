@@ -10,9 +10,8 @@ class PlayersController < ApplicationController
     @grid = PlayersGrid.new(params[:players_grid])
   end
 
-  # GET /players/1
   def show
-    add_breadcrumb @player, @player
+    add_breadcrumb @player.short_name, @player
   end
 
 

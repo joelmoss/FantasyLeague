@@ -11,6 +11,7 @@ gem 'bootstrap-sass'
 gem 'font-awesome-sass'
 gem 'jquery-rails'
 gem 'turbolinks'
+gem 'jquery-turbolinks'
 gem 'nprogress-rails'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
