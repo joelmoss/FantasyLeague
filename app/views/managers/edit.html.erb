@@ -1,6 +1,9 @@
-<h1>Editing manager</h1>
+<h1 class="page-header">
+  <div class="pull-right">
+    <%= link_to raw('&laquo; back'), @manager %>
+  </div>
+  Editing Manager
+  <small><%= @manager %></small>
+</h1>
 
 <%= render 'form' %>
-
-<%= link_to 'Show', @manager %> |
-<%= link_to 'Back', managers_path %>

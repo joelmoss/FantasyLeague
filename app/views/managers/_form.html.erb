@@ -1,4 +1,4 @@
-<%= form_for(@manager) do |f| %>
+<%= simple_form_for @manager do |f| %>
   <% if @manager.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@manager.errors.count, "error") %> prohibited this manager from being saved:</h2>
@@ -11,7 +11,10 @@
     </div>
   <% end %>
 
-  <div class="actions">
-    <%= f.submit %>
+  <%= f.input :name, required: true %>
+  <%= f.input :email, required: true %>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
   </div>
 <% end %>

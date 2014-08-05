@@ -6,7 +6,8 @@
       <th width="10"></th>
       <th width="10"></th>
       <th>Name</th>
-      <th colspan="2"></th>
+      <th width="10"></th>
+      <th width="10"></th>
     </tr>
   </thead>
 
@@ -16,8 +17,8 @@
         <td><%= icon('bookmark', '', title: 'Administrator', data: { toggle: 'tooltip', placement: 'right' }) if manager.admin? %></td>
         <td><%= mail_to manager.email, icon('envelope') %></td>
         <td><%= link_to manager, manager %></td>
-        <td><%= link_to 'Edit', [:edit, manager] %></td>
-        <td><%= link_to 'Destroy', manager, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to icon('pencil'), [:edit, manager]if current_manager.admin? %></td>
+        <td><%= link_to icon('times'), manager, method: :delete, data: { confirm: 'Are you sure?' } if current_manager != manager && current_manager.admin? %></td>
       </tr>
     <% end %>
   </tbody>

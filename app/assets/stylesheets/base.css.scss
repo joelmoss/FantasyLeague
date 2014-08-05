@@ -12,4 +12,13 @@ body {
 
 h1.page-header {
   margin-bottom: 40px;
+
+  .pull-right {
+    font-size: 0.4em;
+    margin-top: 20px;
+  }
+}
+
+.breadcrumb li {
+  @extend .active;
 }

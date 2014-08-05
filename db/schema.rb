@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140805094307) do
+ActiveRecord::Schema.define(version: 20140805112908) do
 
   create_table "fixtures", force: true do |t|
     t.string   "home_team",  limit: 32, null: false
@@ -40,20 +40,21 @@ ActiveRecord::Schema.define(version: 20140805094307) do
   add_index "fixtures_players", ["fixture_id", "player_id"], name: "index_fixtures_players_on_fixture_id_and_player_id", using: :btree
 
   create_table "managers", force: true do |t|
-    t.string   "email",                  default: "",    null: false
-    t.string   "encrypted_password",     default: "",    null: false
+    t.string   "email",                             default: "",    null: false
+    t.string   "encrypted_password",                default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,     null: false
+    t.integer  "sign_in_count",                     default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.boolean  "approved",               default: false, null: false
-    t.boolean  "admin",                  default: false, null: false
+    t.boolean  "approved",                          default: false, null: false
+    t.boolean  "admin",                             default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "name",                   limit: 64
   end
 
   add_index "managers", ["approved"], name: "index_managers_on_approved", using: :btree

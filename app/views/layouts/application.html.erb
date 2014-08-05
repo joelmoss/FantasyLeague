@@ -29,17 +29,27 @@
 
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <li <%= 'class="active' if controller_name == 'players' %>><%= link_to 'Players', players_path %></li>
-              <li <%= 'class="active' if controller_name == 'managers' %>><%= link_to 'Managers', managers_path %></li>
+              <li class="<%= 'active' if controller_name == 'players' %>"><%= link_to 'Players', players_path %></li>
+              <li class="<%= 'active' if controller_name == 'managers' %>"><%= link_to 'Managers', managers_path %></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-              <li><%= link_to 'Sign in', new_manager_session_path %></li>
+              <%- if signed_in? -%>
+                <li><%= link_to 'Sign out', destroy_manager_session_path, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+              <%- else -%>
+                <li><%= link_to 'Sign in', new_manager_session_path %></li>
+              <%- end -%>
             </ul>
           </div>
         </div>
       </div>
     </header>
+
+    <section class="container">
+      <ol class="breadcrumb">
+        <%= render_breadcrumbs tag: 'li', separator: '' %>
+      </ol>
+    </section>
 
     <main role="main" class="container">
       <%= render 'layouts/messages' %>

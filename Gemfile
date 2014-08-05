@@ -17,6 +17,7 @@ gem 'turbolinks'
 gem 'mechanize'
 gem 'pages'
 gem 'devise'
+gem 'breadcrumbs_on_rails'
 gem 'simple_form'
 
 group :development do

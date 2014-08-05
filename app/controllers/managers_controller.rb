@@ -3,6 +3,8 @@ class ManagersController < ApplicationController
   before_action :authenticate_manager!
   before_action :set_manager, only: [ :show, :edit, :update, :destroy ]
 
+  add_breadcrumb 'Managers', :managers_path
+
 
   # GET /managers
   def index
@@ -11,15 +13,13 @@ class ManagersController < ApplicationController
 
   # GET /managers/1
   def show
-  end
-
-  # GET /managers/new
-  def new
-    @manager = Manager.new
+    add_breadcrumb @manager, @manager
   end
 
   # GET /managers/1/edit
   def edit
+    add_breadcrumb @manager, @manager
+    add_breadcrumb 'Edit', [:edit, @manager]
   end
 
   # POST /managers
@@ -48,7 +48,9 @@ class ManagersController < ApplicationController
     redirect_to managers_url, notice: 'Manager was successfully destroyed.'
   end
 
+
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_manager
       @manager = Manager.find(params[:id])
@@ -56,6 +58,7 @@ class ManagersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def manager_params
-      params[:manager]
+      params.require(:manager).permit(:name, :email)
     end
+
 end

@@ -5,7 +5,7 @@ class Manager < ActiveRecord::Base
 
 
   def to_s
-    email
+    name || email
   end
 
   def active_for_authentication?
