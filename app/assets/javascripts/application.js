@@ -14,4 +14,13 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require turbolinks
+//= require nprogress
+//= require nprogress-turbolinks
+//= require nprogress-ajax
 //= require global
+
+
+$ ->
+
+  # Enable tooltips
+  $('[data-toggle=tooltip]').tooltip();

@@ -2,7 +2,7 @@ class Player < ActiveRecord::Base
 
   has_many :seasons, class_name: 'PlayerSeason'
 
-  NAMES = {
+  POSITIONS = {
     g: 'Goalkeeper',
     f: 'Full-back',
     c: 'Centre-back',
@@ -43,7 +43,7 @@ class Player < ActiveRecord::Base
   end
 
   def full_position
-    NAMES[read_attribute(:position).to_sym]
+    POSITIONS[read_attribute(:position).to_sym]
   end
 
   def club_name

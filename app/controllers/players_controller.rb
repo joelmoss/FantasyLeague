@@ -7,7 +7,7 @@ class PlayersController < ApplicationController
 
 
   def index
-    @players = Player.all
+    @grid = PlayersGrid.new(params[:players_grid])
   end
 
   # GET /players/1

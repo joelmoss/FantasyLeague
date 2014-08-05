@@ -28,3 +28,35 @@ h1.page-header {
 .breadcrumb li {
   @extend .active;
 }
+
+table {
+  th.position {
+    width: 60px
+  }
+
+  tr div.order {
+    float: right;
+  }
+}
+
+.datagrid-form {
+  padding: 5px 5px 8px;
+  margin-bottom: 10px;
+
+  .datagrid-filter {
+    margin: 5px;
+
+    label {
+      font-weight: normal;
+      text-align: right;
+      padding-right: 12px;
+      margin: 7px 0 0 0;
+    }
+
+    input[class*='filter'] {
+      border: 1px solid #cccccc;
+      border-radius: 3px;
+      padding: 3px 7px;
+    }
+  }
+}

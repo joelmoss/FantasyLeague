@@ -7,28 +7,31 @@ gem 'mysql2'
 gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer',  platforms: :ruby
-
 gem 'bootstrap-sass'
 gem 'font-awesome-sass'
 gem 'jquery-rails'
 gem 'turbolinks'
+gem 'nprogress-rails'
+# See https://github.com/sstephenson/execjs#readme for more supported runtimes
+# gem 'therubyracer',  platforms: :ruby
+
 gem 'mechanize'
 gem 'pages'
 gem 'devise'
 gem 'breadcrumbs_on_rails'
-gem 'simple_form'
+gem 'simple_form', '3.1.0.rc2'
 gem 'maildown'
+gem 'datagrid'
 
 group :development do
   gem 'spring'
   gem 'byebug'
-  gem 'guard-rails'
-  gem 'guard-bundler'
-  gem 'guard-livereload'
   gem 'quiet_assets'
   gem 'puma'
   gem 'better_errors'
   gem 'binding_of_caller'
+
+  gem 'guard-rails', require: false
+  gem 'guard-bundler', require: false
+  gem 'guard-livereload', require: false
 end
