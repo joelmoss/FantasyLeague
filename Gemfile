@@ -11,11 +11,13 @@ gem 'coffee-rails', '~> 4.0.0'
 # gem 'therubyracer',  platforms: :ruby
 
 gem 'bootstrap-sass'
+gem 'font-awesome-sass'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'mechanize'
 gem 'pages'
 gem 'devise'
+gem 'simple_form'
 
 group :development do
   gem 'spring'

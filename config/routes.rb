@@ -4,6 +4,6 @@ Rails.application.routes.draw do
   root 'pages#index'
 
   resources :players, only: [ :index, :show ]
-  resources :managers
+  resources :managers, except: [ :new, :create ]
 
 end

@@ -4,6 +4,10 @@ class Manager < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
 
+  def to_s
+    email
+  end
+
   def active_for_authentication?
     super && approved?
   end

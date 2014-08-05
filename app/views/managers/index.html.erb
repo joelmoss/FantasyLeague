@@ -1,0 +1,24 @@
+<h1 class="page-header">Listing managers</h1>
+
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th width="10"></th>
+      <th width="10"></th>
+      <th>Name</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @managers.each do |manager| %>
+      <tr>
+        <td><%= icon('bookmark', '', title: 'Administrator', data: { toggle: 'tooltip', placement: 'right' }) if manager.admin? %></td>
+        <td><%= mail_to manager.email, icon('envelope') %></td>
+        <td><%= link_to manager, manager %></td>
+        <td><%= link_to 'Edit', [:edit, manager] %></td>
+        <td><%= link_to 'Destroy', manager, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
