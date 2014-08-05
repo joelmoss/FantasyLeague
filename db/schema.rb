@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140805200006) do
+ActiveRecord::Schema.define(version: 20140805203617) do
 
   create_table "fixtures", force: true do |t|
     t.string   "home_team",  limit: 32, null: false
@@ -89,10 +89,21 @@ ActiveRecord::Schema.define(version: 20140805200006) do
   add_index "players", ["full_name"], name: "index_players_on_full_name", unique: true, using: :btree
   add_index "players", ["short_name"], name: "index_players_on_short_name", using: :btree
 
+  create_table "squads", force: true do |t|
+    t.boolean  "substitute",                             default: true, null: false
+    t.decimal  "purchase_price", precision: 5, scale: 2
+    t.integer  "player_id"
+    t.integer  "team_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "squads", ["player_id", "team_id"], name: "index_squads_on_player_id_and_team_id", using: :btree
+
   create_table "teams", force: true do |t|
-    t.string   "name",       null: false
+    t.string   "name",                               null: false
     t.integer  "manager_id"
-    t.integer  "budget"
+    t.decimal  "budget",     precision: 5, scale: 2
     t.datetime "created_at"
     t.datetime "updated_at"
   end
