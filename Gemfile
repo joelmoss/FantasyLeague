@@ -15,6 +15,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'mechanize'
 gem 'pages'
+gem 'devise'
 
 group :development do
   gem 'spring'
@@ -24,4 +25,6 @@ group :development do
   gem 'guard-livereload'
   gem 'quiet_assets'
   gem 'puma'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
