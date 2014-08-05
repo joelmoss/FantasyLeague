@@ -19,6 +19,7 @@ gem 'pages'
 gem 'devise'
 gem 'breadcrumbs_on_rails'
 gem 'simple_form'
+gem 'maildown'
 
 group :development do
   gem 'spring'

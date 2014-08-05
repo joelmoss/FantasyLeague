@@ -4,6 +4,10 @@ Rails.application.routes.draw do
   root 'pages#index'
 
   resources :players, only: [ :index, :show ]
-  resources :managers, except: [ :new, :create ]
+  resources :managers, except: [ :new, :create ] do
+    member do
+      patch 'approve'
+    end
+  end
 
 end

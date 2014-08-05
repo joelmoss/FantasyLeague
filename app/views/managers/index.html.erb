@@ -14,7 +14,15 @@
   <tbody>
     <% @managers.each do |manager| %>
       <tr>
-        <td><%= icon('bookmark', '', title: 'Administrator', data: { toggle: 'tooltip', placement: 'right' }) if manager.admin? %></td>
+        <td>
+          <%- if manager.approved? -%>
+            <%- if manager.admin? -%>
+              <div class="label label-info" data-toggle="tooltip" data-placement="right" title="Administrator">admin</div>
+            <%- end -%>
+          <%- else -%>
+            <%= link_to 'approve', approve_manager_path(manager), method: :patch, class: 'btn btn-xs btn-warning' %>
+          <%- end -%>
+        </td>
         <td><%= mail_to manager.email, icon('envelope') %></td>
         <td><%= link_to manager, manager %></td>
         <td><%= link_to icon('pencil'), [:edit, manager]if current_manager.admin? %></td>

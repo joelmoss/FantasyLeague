@@ -1,14 +1,14 @@
 class ManagersController < ApplicationController
 
   before_action :authenticate_manager!
-  before_action :set_manager, only: [ :show, :edit, :update, :destroy ]
+  before_action :set_manager, only: [ :show, :edit, :update, :destroy, :approve ]
 
   add_breadcrumb 'Managers', :managers_path
 
 
   # GET /managers
   def index
-    @managers = Manager.all
+    @managers = current_manager.admin? ? Manager.all.order(:approved) : Manager.all.approved
   end
 
   # GET /managers/1
@@ -42,6 +42,14 @@ class ManagersController < ApplicationController
     end
   end
 
+  def approve
+    if @manager.update(approved: true)
+      redirect_to :back, notice: 'Manager was successfully approved.'
+    else
+      render @manager
+    end
+  end
+
   # DELETE /managers/1
   def destroy
     @manager.destroy
@@ -53,7 +61,11 @@ class ManagersController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_manager
-      @manager = Manager.find(params[:id])
+      @manager = if current_manager.admin?
+        Manager.find(params[:id])
+      else
+        Manager.approved.find(params[:id])
+      end
     end
 
     # Only allow a trusted parameter "white list" through.
