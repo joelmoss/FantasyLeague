@@ -13,6 +13,12 @@ body {
 h1.page-header {
   margin-bottom: 40px;
 
+  > .label {
+    font-size: 50%;
+    position: relative;
+    top: -6px;
+  }
+
   .pull-right {
     font-size: 0.4em;
     margin-top: 20px;
