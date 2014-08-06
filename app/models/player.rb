@@ -1,8 +1,8 @@
 class Player < ActiveRecord::Base
 
   has_many :seasons, class_name: 'PlayerSeason'
-  has_many :team_players
-  has_many :teams, through: :team_players
+  has_one :team_player
+  has_one :team, through: :team_player
 
   POSITIONS = {
     g: 'Goalkeeper',
@@ -50,6 +50,10 @@ class Player < ActiveRecord::Base
 
   def club_name
     CLUBS[read_attribute(:club).downcase.to_sym]
+  end
+
+  def free_agent?
+    !team_player.present?
   end
 
 end

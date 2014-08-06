@@ -11,5 +11,6 @@
     <%# https://github.com/rails/rails/pull/14949 -%>
     <% empty_parameter = Rails.version >= "4.1.0" && Rails.version <= '4.1.2' ? nil : {}-%>
     <%= link_to I18n.t('datagrid.form.reset').html_safe, url_for(grid.to_param => empty_parameter), :class => "datagrid-reset" %>
+    (showing <%= grid.rows.count %> matching records)
   </div>
 <% end unless grid.filters.empty? -%>
