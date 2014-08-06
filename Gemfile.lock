@@ -70,6 +70,7 @@ GEM
     erubis (2.7.0)
     eventmachine (1.0.3)
     execjs (2.2.1)
+    ffaker (1.24.0)
     ffi (1.9.3)
     font-awesome-sass (4.1.0)
       sass (~> 3.2)
@@ -221,6 +222,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   datagrid
   devise
+  ffaker
   font-awesome-sass
   guard-bundler
   guard-livereload

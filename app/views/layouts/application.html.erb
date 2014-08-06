@@ -24,11 +24,12 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">Fantasy League</a>
+            <a class="navbar-brand" href="/">FANTASY LEAGUE</a>
           </div>
 
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
+              <li class="<%= 'active' if controller_name == 'dashboard' %>"><%= link_to 'Dashboard', root_path %></li>
               <li class="<%= 'active' if controller_name == 'players' %>"><%= link_to 'Players', players_path %></li>
               <li class="<%= 'active' if controller_name == 'managers' %>"><%= link_to 'Managers', managers_path %></li>
               <li class="<%= 'active' if %w(teams team_players).include?(controller_name) %>"><%= link_to 'Teams', teams_path %></li>
@@ -36,9 +37,10 @@
 
             <ul class="nav navbar-nav navbar-right">
               <%- if signed_in? -%>
-                <li><%= link_to 'Sign out', destroy_manager_session_path, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+                <li class="navbar-text">Signed in as <%= current_manager %></li>
+                <li><%= link_to icon('sign-out', 'Sign out'), destroy_manager_session_path, method: :delete, data: { confirm: 'Are you sure?' } %></li>
               <%- else -%>
-                <li><%= link_to 'Sign in', new_manager_session_path %></li>
+                <li><%= link_to icon('sign-in', 'Sign in'), new_manager_session_path %></li>
               <%- end -%>
             </ul>
           </div>

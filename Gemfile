@@ -31,6 +31,7 @@ group :development do
   gem 'puma'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'ffaker'
 
   gem 'guard-rails', require: false
   gem 'guard-bundler', require: false

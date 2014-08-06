@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   devise_for :managers
 
-  root 'pages#index'
+  root 'dashboard#index'
 
   resources :teams do
     resources :team_players, path: :players, as: :players, except: [:index]

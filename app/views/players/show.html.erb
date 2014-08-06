@@ -1,23 +1,30 @@
 <h1 class="page-header">
   <div class="pull-right">
-    <%- if @player.team_player.substitute? -%>
-      <span class="substitute fa-stack" title="Substitute" data-toggle="tooltip" data-placement="left">
+    <%- if @player.team_player -%>
+      <%- if @player.team_player.substitute? -%>
+        <span class="substitute fa-stack" title="Substitute" data-toggle="tooltip" data-placement="left">
+      <%- else -%>
+        <span class="substitute fa-stack highlight" title="Starting 11" data-toggle="tooltip" data-placement="left">
+      <%- end -%>
+        <%= icon :square, '', class: 'fa-stack-2x' %>
+        <%= icon :user, '', class: 'fa-stack-1x fa-inverse' %>
+      </span>
+      <%= link_to @player.team, @player.team %>
     <%- else -%>
-      <span class="substitute fa-stack highlight" title="Starting 11" data-toggle="tooltip" data-placement="left">
+      <%= icon :user, 'free agent' %>
     <%- end -%>
-      <%= icon :square, '', class: 'fa-stack-2x' %>
-      <%= icon :user, '', class: 'fa-stack-1x fa-inverse' %>
-    </span>
-    <%= link_to @player.team, @player.team %>
   </div>
 
   <div class="label label-primary" title="<%= @player.full_position %>" data-toggle="tooltip"><%= @player.position %></div>
   <%= @player %>
   <small><%= @player.club_name %></small>
 </h1>
-<h4 class="page-sub-header">
-  playing for <%= link_to @player.team, @player.team %>
-</h4>
+
+<%- if @player.team_player -%>
+  <h4 class="page-sub-header">
+    playing for <%= link_to @player.team, @player.team %>
+  </h4>
+<%- end -%>
 
 <section>
   <h4 class="page-header">Previous Seasons</h4>

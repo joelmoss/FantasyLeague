@@ -6,6 +6,7 @@ class Manager < ActiveRecord::Base
   has_one :team
 
   scope :approved, -> { where approved: true }
+  scope :unapproved, -> { where approved: false }
 
   after_create :send_admin_mail
 

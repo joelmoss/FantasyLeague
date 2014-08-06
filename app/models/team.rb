@@ -4,12 +4,18 @@ class Team < ActiveRecord::Base
   has_many :team_players
   has_many :players, through: :team_players
 
+  DEFAULT_BUDGET = 100
+
   validates :name, presence: true,
                    uniqueness: { case_sensitive: false }
 
 
   def to_s
     name
+  end
+
+  def budget
+    (val = read_attribute(:budget)).blank? ? DEFAULT_BUDGET : val
   end
 
 end

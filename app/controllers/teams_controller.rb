@@ -12,12 +12,12 @@ class TeamsController < ApplicationController
   end
 
   def new
-    @team = Team.new
+    @team = current_manager.build_team
   end
 
   # POST /teams
   def create
-    @team = Team.new(team_params)
+    @team = current_manager.build_team(team_params)
     if @team.save
       redirect_to @team, notice: 'Team was successfully created.'
     else

@@ -8,7 +8,11 @@ class ManagersController < ApplicationController
 
   # GET /managers
   def index
-    @managers = current_manager.admin? ? Manager.all.order(:approved) : Manager.all.approved
+    @managers = if current_manager.admin?
+      Manager.all.order(:approved).includes(:team)
+    else
+      Manager.all.approved.includes(:team)
+    end
   end
 
   # GET /managers/1

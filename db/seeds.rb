@@ -5,3 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+1.upto(10).each do
+  Manager.create name: Faker::Name.name, email: Faker::Internet.email, password: 'p4ssw0rd', password_confirmation: 'p4ssw0rd'
+end
