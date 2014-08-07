@@ -89,6 +89,6 @@ Rails.application.configure do
     user_name: ENV['MANDRILL_USERNAME'],
     password: ENV['MANDRILL_APIKEY'],
     domain: 'heroku.com',
-    authentication: :plain
+    authentication: :plain,
     enable_starttls_auto: true  }
 end
