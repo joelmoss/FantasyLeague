@@ -1,8 +1,9 @@
 source 'https://rubygems.org'
 
+ruby '2.1.2'
 
 gem 'rails', '4.1.4'
-gem 'mysql2'
+gem 'pg'
 
 gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
@@ -23,6 +24,11 @@ gem 'breadcrumbs_on_rails'
 gem 'simple_form', '3.1.0.rc2'
 gem 'maildown'
 gem 'datagrid'
+
+
+group :production do
+  gem 'rails_12factor'
+end
 
 group :development do
   gem 'spring'

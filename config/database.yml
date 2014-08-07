@@ -10,10 +10,9 @@
 #   http://dev.mysql.com/doc/refman/5.0/en/old-client.html
 #
 default: &default
-  adapter: mysql2
-  encoding: utf8
+  adapter: postgresql
+  encoding: unicode
   pool: 5
-  username: root
   password:
   host: localhost
 
@@ -50,5 +49,4 @@ test:
 production:
   <<: *default
   database: fantasyfootball_production
-  username: fantasyfootball
   password: <%= ENV['FANTASYFOOTBALL_DATABASE_PASSWORD'] %>
