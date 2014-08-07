@@ -96,13 +96,15 @@ task scrape: :environment do
 
         seasons_page.search('#PreviousSeasons > table tbody tr').each do |row|
           cells = row.search('td')
-          record.seasons.create! season: cells[0].content.to_i,
-                                 pld: cells[1].content.to_i,
-                                 gls: cells[2].content.to_i,
-                                 ass: cells[3].content.to_i,
-                                 cs: cells[4].content.to_i,
-                                 ga: cells[5].content.to_i,
-                                 tot: cells[6].content.to_i
+          begin
+            record.seasons.create! season: cells[0].content.to_i,
+                                   pld: cells[1].content.to_i,
+                                   gls: cells[2].content.to_i,
+                                   ass: cells[3].content.to_i,
+                                   cs: cells[4].content.to_i,
+                                   ga: cells[5].content.to_i,
+                                   tot: cells[6].content.to_i
+          rescue; end
         end
       end
     # rescue => e
