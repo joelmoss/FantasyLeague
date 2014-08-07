@@ -32,15 +32,15 @@ task scrape: :environment do
     position.delete('pos')
     @position = positions[position.first.to_sym]
 
-    player_link = player.css('td:nth-child(2) a').first
-    @is_new = !!player.css('td:nth-child(2) span.new')
+    @is_new = !player.css('td:nth-child(2) span.new').empty?
 
+    player_link = player.css('td:nth-child(2) a').first
     @short_name = player_link.content
     @club = player.css('td:nth-child(5) a').first.content.strip
 
     puts "[#{@position.upcase}] #{@short_name}"
 
-    sleep 2
+    sleep 1
 
     begin
       agent.transact do
@@ -99,13 +99,13 @@ task scrape: :environment do
         seasons_page.search('#PreviousSeasons > table tbody tr').each do |row|
           cells = row.search('td')
           begin
-            record.seasons.create! season: cells[0].content.to_i,
-                                   pld: cells[1].content.to_i,
-                                   gls: cells[2].content.to_i,
-                                   ass: cells[3].content.to_i,
-                                   cs: cells[4].content.to_i,
-                                   ga: cells[5].content.to_i,
-                                   tot: cells[6].content.to_i
+            record.seasons.create season: cells[0].content.to_i,
+                                  pld: cells[1].content.to_i,
+                                  gls: cells[2].content.to_i,
+                                  ass: cells[3].content.to_i,
+                                  cs: cells[4].content.to_i,
+                                  ga: cells[5].content.to_i,
+                                  tot: cells[6].content.to_i
           rescue; end
         end
       end
