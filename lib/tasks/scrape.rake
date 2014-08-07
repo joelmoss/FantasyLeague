@@ -33,6 +33,7 @@ task scrape: :environment do
     @position = positions[position.first.to_sym]
 
     player_link = player.css('td:nth-child(2) a').first
+    @is_new = !!player.css('td:nth-child(2) span.new')
 
     @short_name = player_link.content
     @club = player.css('td:nth-child(5) a').first.content.strip
@@ -85,7 +86,8 @@ task scrape: :environment do
         record.update_attributes short_name: @short_name,
                                  image: @image,
                                  club: @club,
-                                 position: @position
+                                 position: @position,
+                                 is_new: @is_new
 
         # Previous seasons
         seasons_page = if testing
