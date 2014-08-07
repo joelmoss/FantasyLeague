@@ -10,7 +10,7 @@ class Manager < ActiveRecord::Base
   scope :approved, -> { where approved: true }
   scope :unapproved, -> { where approved: false }
 
-  before_create :make_first_admin
+  before_create :make_first_approved
   after_create :send_admin_mail
 
   validates :name, presence: true,
