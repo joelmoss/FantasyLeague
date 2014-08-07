@@ -48,5 +48,5 @@ test:
 #
 production:
   <<: *default
-  database: fantasyfootball_production
-  password: <%= ENV['FANTASYFOOTBALL_DATABASE_PASSWORD'] %>
+  database: fantasyleague_production
+  password: <%= ENV['FANTASYLEAGUE_DATABASE_PASSWORD'] %>
