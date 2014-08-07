@@ -10,6 +10,7 @@ class Manager < ActiveRecord::Base
   scope :approved, -> { where approved: true }
   scope :unapproved, -> { where approved: false }
 
+  before_create :make_first_admin
   after_create :send_admin_mail
 
   validates :name, presence: true,
@@ -34,6 +35,13 @@ class Manager < ActiveRecord::Base
 
 
   private
+
+    def make_first_approved
+      if Manager.count < 1
+        self.admin = true
+        self.approved = true
+      end
+    end
 
     def send_admin_mail
       AdminMailer.new_user_waiting_for_approval(self).deliver
