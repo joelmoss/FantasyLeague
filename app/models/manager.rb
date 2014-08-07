@@ -4,6 +4,8 @@ class Manager < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_one :team
+  has_many :watches
+  has_many :watchings, through: :watches, source: :player
 
   scope :approved, -> { where approved: true }
   scope :unapproved, -> { where approved: false }

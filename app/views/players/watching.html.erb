@@ -1,0 +1,11 @@
+<h1 class="page-header">Players <small>Your Watch List</small></h1>
+
+<%- if @grid.assets.empty? -%>
+  <div class="alert alert-warning">
+    <strong>You aren't watching any players right now!</strong>
+    Check out the <%= link_to 'player list', players_path %> to find players to watch.
+  </div>
+<%- else -%>
+  <%= datagrid_form_for @grid, :method => :get, :url => players_path %>
+  <%= datagrid_table @grid, html: { class: 'table table-striped table-hover' } %>
+<%- end -%>

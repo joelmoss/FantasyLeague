@@ -3,6 +3,8 @@ class Player < ActiveRecord::Base
   has_many :seasons, class_name: 'PlayerSeason'
   has_one :team_player
   has_one :team, through: :team_player
+  has_many :watches
+  has_many :watchers, through: :watches, source: :manager
 
   POSITIONS = {
     g: 'Goalkeeper',

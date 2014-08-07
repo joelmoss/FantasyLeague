@@ -20,11 +20,22 @@
   <small><%= @player.club_name %></small>
 </h1>
 
-<%- if @player.team_player -%>
-  <h4 class="page-sub-header">
-    playing for <%= link_to @player.team, @player.team %>
-  </h4>
-<%- end -%>
+<div class="page-sub-header clearfix">
+  <div class="pull-left">
+    <%- if @player.team_player -%>
+      <h4>
+        playing for <%= link_to @player.team, @player.team %>
+      </h4>
+    <%- end -%>
+  </div>
+  <div class="pull-right">
+    <%- if current_manager.watchings.exists? @player -%>
+      <%= link_to icon(:eye, 'Stop Watching'), unwatch_player_path, method: :delete, class: 'btn btn-success btn-sm' %>
+    <%- else -%>
+      <%= link_to icon(:eye, 'Watch player'), watch_player_path, method: :post, class: 'btn btn-default btn-sm' %>
+    <%- end -%>
+  </div>
+</div>
 
 <section>
   <h4 class="page-header">Previous Seasons</h4>

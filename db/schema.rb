@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140805203617) do
+ActiveRecord::Schema.define(version: 20140806183038) do
 
   create_table "fixtures", force: true do |t|
     t.string   "home_team",  limit: 32, null: false
@@ -98,7 +98,7 @@ ActiveRecord::Schema.define(version: 20140805203617) do
     t.datetime "updated_at"
   end
 
-  add_index "team_players", ["player_id", "team_id"], name: "index_team_players_on_player_id_and_team_id", using: :btree
+  add_index "team_players", ["player_id", "team_id"], name: "index_squads_on_player_id_and_team_id", using: :btree
 
   create_table "teams", force: true do |t|
     t.string   "name",                               null: false
@@ -109,5 +109,12 @@ ActiveRecord::Schema.define(version: 20140805203617) do
   end
 
   add_index "teams", ["name"], name: "index_teams_on_name", unique: true, using: :btree
+
+  create_table "watches", force: true do |t|
+    t.integer  "player_id"
+    t.integer  "manager_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

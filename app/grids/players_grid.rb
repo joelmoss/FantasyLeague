@@ -17,6 +17,7 @@ class PlayersGrid
     end
   end
 
+
   column :position, header: 'Pos' do |asset|
     format(asset.position) do |value|
       content_tag :div, value, class: "label label-#{position_colour(value)}", title: asset.full_position, data: { toggle: 'tooltip', placement: 'right' }
@@ -33,7 +34,9 @@ class PlayersGrid
 
   column :team do |asset|
     format(asset.team) do |value|
-      link_to_unless asset.free_agent?, value, value
+      link_to_unless asset.free_agent?, value, value do
+        '-'
+      end
     end
   end
 
