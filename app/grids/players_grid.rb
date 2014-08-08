@@ -47,11 +47,11 @@ class PlayersGrid
   end
 
   %w( pld gls ass cs ga ).each do |type|
-    column(type, header: type.upcase) { previous_season.try(type) || 0 }
+    column(type, header: type.upcase) { previous_season.try(type) || '-' }
   end
 
   from = Date.today.year - 1
   to = (from + 1).to_s[-2,2]
-  column(:tot, header: "#{from}/#{to}") { previous_season.try(:tot) || 0 }
+  column(:tot, header: "#{from}/#{to}", order: 'player_seasons.tot') { previous_season.try(:tot) || '-' }
 
 end

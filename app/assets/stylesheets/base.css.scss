@@ -61,7 +61,7 @@ h1.page-header {
 
 table {
   th.position {
-    width: 60px
+    width: 60px;
   }
 
   th.substitute {
@@ -113,11 +113,12 @@ table {
   td.cs,
   td.ga,
   td.tot {
-    text-align: right;
+    // text-align: right;
   }
 
-  tr div.order {
-    float: right;
+  tr span.order {
+    float: left;
+    padding-left: 5px;
   }
 }
 

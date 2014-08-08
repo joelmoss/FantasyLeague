@@ -1,4 +1,4 @@
-<div class="order">
+<span class="order">
   <%- if grid.as_query.has_key?(:descending) && column.name.to_s === grid.as_query[:order].to_s -%>
     <%= link_to(
       icon('sort-asc'),
@@ -14,4 +14,4 @@
       url_for(grid.param_name => grid.as_query.merge(:order => column.name, :descending => false )),
       :class => "asc") %>
   <%- end -%>
-</div>
+</span>
