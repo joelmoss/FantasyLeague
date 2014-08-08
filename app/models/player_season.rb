@@ -2,6 +2,8 @@ class PlayerSeason < ActiveRecord::Base
 
   belongs_to :player
 
+  default_scope { order(season: :desc) }
+
 
   def to_s
     season

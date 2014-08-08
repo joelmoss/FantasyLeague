@@ -24,7 +24,7 @@ gem 'breadcrumbs_on_rails'
 gem 'simple_form', '3.1.0.rc2'
 gem 'maildown'
 gem 'datagrid'
-
+gem 'paranoia'
 
 group :production do
   gem 'rails_12factor'

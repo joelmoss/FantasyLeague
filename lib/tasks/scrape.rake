@@ -1,22 +1,22 @@
-positions = {
-  pos1: 'g',
-  pos2: 'f',
-  pos3: 'c',
-  pos4: 'm',
-  pos6: 's'
-}
-
+positions = %w( g f c m s )
 metrics = {
   pld: 'played',
   gls: 'goals',
   ass: 'assists',
   cs: 'clean sheets',
-  ga: 'goals against'
+  ga: 'goals against',
+  tot: 'total'
 }
 
 
+# TODO: alert for new players
+#       alert for removed players
+#       alert for players moving clubs
+desc 'Scrape player data from FantasyLeague.com'
 task scrape: :environment do
   testing = ENV['TEST']
+
+  records_updated = []
 
   agent = Mechanize.new
 
@@ -30,15 +30,15 @@ task scrape: :environment do
 
     position = player.css('td:nth-child(1) div').first[:class].split
     position.delete('pos')
-    @position = positions[position.first.to_sym]
+    @position = (@position = position.first.last.to_i) == 6 ? @position-2 : @position-1
 
     @is_new = !player.css('td:nth-child(2) span.new').empty?
 
     player_link = player.css('td:nth-child(2) a').first
     @short_name = player_link.content
-    @club = player.css('td:nth-child(5) a').first.content.strip
+    @club = Club.find_by(short_name: player.css('td:nth-child(5) a').first.content.strip.downcase)
 
-    puts "[#{@position.upcase}] #{@short_name}"
+    puts "[#{Player::POSITIONS[@position][:abbr]}] #{@short_name.ljust(20)} (#{@club.short_name})"
 
     sleep 1
 
@@ -56,7 +56,7 @@ task scrape: :environment do
         content = content.search('> #playerProfile')
         @image = content.search('> img.profile-image').first[:src]
 
-        # Premier League Form
+        # Home/away form
         # form = {
         #   home: metrics,
         #   away: metrics
@@ -83,11 +83,38 @@ task scrape: :environment do
 
         # Create the player
         record = Player.find_or_initialize_by(full_name: @full_name)
-        record.update_attributes short_name: @short_name,
-                                 image: @image,
-                                 club: @club,
-                                 position: @position,
-                                 is_new: @is_new
+        record.club = @club
+        record.short_name = @short_name
+        record.image = @image
+        record.position = @position
+        record.is_new = @is_new
+
+        # Is the player new?
+        if record.new_record?
+          # TODO: send notification of new player
+        else
+          # Has the players club changed?
+          if record.club_id_changed?
+            # TODO: send notification that club has changed
+          end
+        end
+
+        record.save
+        records_updated << record.id
+
+        # Premier League Form
+        current_season = Date.today.year
+        points = metrics
+        cells = content.search('#premierLeagueForm tfoot tr:first-child td')
+        null, points[:pld], points[:gls], points[:ass], points[:cs], points[:ga], points[:tot] = cells.map do |i|
+          i.content.to_i
+        end
+        if record.seasons.exists?(season: current_season)
+          season = record.seasons.where(season: current_season).first
+          season.update_attributes points
+        else
+          record.seasons.create({ season: current_season }.merge(points))
+        end
 
         # Previous seasons
         seasons_page = if testing
@@ -98,7 +125,7 @@ task scrape: :environment do
 
         seasons_page.search('#PreviousSeasons > table tbody tr').each do |row|
           cells = row.search('td')
-          begin
+          if !record.seasons.exists?(season: cells[0].content.to_i)
             record.seasons.create season: cells[0].content.to_i,
                                   pld: cells[1].content.to_i,
                                   gls: cells[2].content.to_i,
@@ -106,7 +133,7 @@ task scrape: :environment do
                                   cs: cells[4].content.to_i,
                                   ga: cells[5].content.to_i,
                                   tot: cells[6].content.to_i
-          rescue; end
+          end
         end
       end
     # rescue => e
@@ -115,4 +142,13 @@ task scrape: :environment do
 
     exit if testing
   end
+
+  # Find and destroy any removed players.
+  puts "\nThese players are no longer playing in the Premiership and will be removed:"
+  (Player.all.pluck(:id) - records_updated).each do |id|
+    player = Player.find(id)
+    puts " [#{player.id}] #{player}"
+    player.destroy
+  end
+
 end

@@ -101,6 +101,21 @@ table {
     }
   }
 
+  th.pld,
+  th.gls,
+  th.ass,
+  th.cs,
+  th.ga,
+  th.tot,
+  td.pld,
+  td.gls,
+  td.ass,
+  td.cs,
+  td.ga,
+  td.tot {
+    text-align: right;
+  }
+
   tr div.order {
     float: right;
   }

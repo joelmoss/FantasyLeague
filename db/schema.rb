@@ -11,10 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140807185932) do
+ActiveRecord::Schema.define(version: 20140808005842) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "clubs", force: true do |t|
+    t.string   "name",       limit: 64, null: false
+    t.string   "short_name", limit: 3,  null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "fixtures", force: true do |t|
     t.string   "home_team",  limit: 32, null: false
@@ -82,14 +89,17 @@ ActiveRecord::Schema.define(version: 20140807185932) do
   create_table "players", force: true do |t|
     t.string   "short_name", limit: 64,                 null: false
     t.string   "full_name",  limit: 64,                 null: false
-    t.string   "club",       limit: 3,                  null: false
-    t.string   "position",   limit: 1,                  null: false
     t.string   "image",                                 null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "is_new",                default: false, null: false
+    t.integer  "club_id"
+    t.datetime "deleted_at"
+    t.integer  "position",   limit: 2
   end
 
+  add_index "players", ["club_id"], name: "index_players_on_club_id", using: :btree
+  add_index "players", ["deleted_at"], name: "index_players_on_deleted_at", using: :btree
   add_index "players", ["full_name"], name: "index_players_on_full_name", unique: true, using: :btree
   add_index "players", ["short_name"], name: "index_players_on_short_name", using: :btree
 

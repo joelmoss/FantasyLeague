@@ -3,13 +3,13 @@ class PlayersGrid
   include Datagrid
 
   scope do
-    Player.includes(:team_player, :team)
+    Player.includes(:team_player, :team, :club, :previous_season)
   end
 
 
   filter :full_name
-  filter :position, :enum, select: -> { Player::POSITIONS.map {|k,v| ["#{v}s",k] } }
-  filter :club, :enum, select: -> { Player::CLUBS.map {|k,v| [v,k] } }
+  filter :position, :enum, select: -> { Player::POSITIONS.map {|v,i| ["#{v[:title]}s",i] } }
+  filter :club_id, :enum, select: -> { Club.all.map {|rec| [rec,rec.id] } }
   filter :is_new, :boolean
   # filter(:free_agents, :boolean) do |val, scope|
   #   if val
@@ -36,7 +36,7 @@ class PlayersGrid
     end
   end
 
-  column :club
+  column(:club_id) { club.try(:short_name) || '?' }
 
   column :team do |asset|
     format(asset.team) do |value|
@@ -45,5 +45,13 @@ class PlayersGrid
       end
     end
   end
+
+  %w( pld gls ass cs ga ).each do |type|
+    column(type, header: type.upcase) { previous_season.try(type) || 0 }
+  end
+
+  from = Date.today.year - 1
+  to = (from + 1).to_s[-2,2]
+  column(:tot, header: "#{from}/#{to}") { previous_season.try(:tot) || 0 }
 
 end

@@ -1,4 +1,4 @@
-class CreatePlayerSeasons < ActiveRecord::Migration
+  class CreatePlayerSeasons < ActiveRecord::Migration
   def change
     create_table :player_seasons do |t|
       t.integer :season, null: false

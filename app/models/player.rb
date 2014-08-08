@@ -1,41 +1,41 @@
+# TODO: send notification when player is destroyed (no longer playing in PL)
 class Player < ActiveRecord::Base
 
+  acts_as_paranoid
+  default_scope { order(:club_id, :position) }
+
   has_many :seasons, class_name: 'PlayerSeason'
+  has_many :previous_seasons, -> { where.not(season: Date.today.year) }, class_name: 'PlayerSeason'
+  has_one :previous_season, -> { where(season: Date.today.year-1) }, class_name: 'PlayerSeason'
+  has_one :season, -> { where(season: Date.today.year) }, class_name: 'PlayerSeason'
   has_one :team_player
   has_one :team, through: :team_player
   has_many :watches
   has_many :watchers, through: :watches, source: :manager
+  belongs_to :club
 
-  POSITIONS = {
-    g: 'Goalkeeper',
-    f: 'Full-back',
-    c: 'Centre-back',
-    m: 'Midfielder',
-    s: 'Striker'
-  }
-
-  CLUBS = {
-    ars: 'Arsenal',
-    av: 'Aston Villa',
-    bur: 'Burnley',
-    che: 'Chelsea',
-    cp: 'Crystal Palace',
-    eve: 'Everton',
-    hul: 'Hull',
-    lei: 'Leicester',
-    liv: 'Liverpool',
-    mc: 'Manchester City',
-    mu: 'Manchester United',
-    new: 'Newcastle',
-    qpr: 'Queens Park Rangers',
-    sot: 'Southampton',
-    sto: 'Stoke City',
-    sun: 'Sunderland',
-    swa: 'Swansea',
-    tot: 'Tottenham Hotspurs',
-    wba: 'West Bromwich Albion',
-    wh: 'West Ham United'
-  }
+  POSITIONS = [
+    {
+      title: 'Goalkeeper',
+      abbr: 'g'
+    },
+    {
+      title: 'Full-back',
+      abbr: 'f'
+    },
+    {
+      title: 'Centre-back',
+      abbr: 'c'
+    },
+    {
+      title: 'Midfielder',
+      abbr: 'm'
+    },
+    {
+      title: 'Striker',
+      abbr: 's'
+    }
+  ]
 
 
   def to_s
@@ -43,15 +43,11 @@ class Player < ActiveRecord::Base
   end
 
   def position
-    read_attribute(:position).upcase
+    POSITIONS[read_attribute(:position)][:abbr]
   end
 
   def full_position
-    POSITIONS[read_attribute(:position).to_sym]
-  end
-
-  def club_name
-    CLUBS[read_attribute(:club).downcase.to_sym]
+    POSITIONS[read_attribute(:position)][:title]
   end
 
   def free_agent?
