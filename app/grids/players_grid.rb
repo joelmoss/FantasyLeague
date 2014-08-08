@@ -8,7 +8,7 @@ class PlayersGrid
 
 
   filter :full_name
-  filter :position, :enum, select: -> { Player::POSITIONS.map {|v,i| ["#{v[:title]}s",i] } }
+  filter :position, :enum, select: -> { Player::POSITIONS.map.with_index {|v,i| ["#{v[:title]}s",i] } }
   filter :club_id, :enum, select: -> { Club.all.map {|rec| [rec,rec.id] } }
   filter :is_new, :boolean
   # filter(:free_agents, :boolean) do |val, scope|
