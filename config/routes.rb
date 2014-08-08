@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   root 'dashboard#index'
 
+  page 'rules'
+
   resources :teams do
     resources :team_players, path: :players, as: :players, except: [:index]
   end
