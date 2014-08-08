@@ -43,7 +43,7 @@ class Player < ActiveRecord::Base
   end
 
   def position
-    POSITIONS[read_attribute(:position)][:abbr]
+    POSITIONS[read_attribute(:position)][:abbr].upcase
   end
 
   def full_position
