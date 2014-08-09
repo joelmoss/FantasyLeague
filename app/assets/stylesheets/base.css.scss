@@ -85,12 +85,16 @@ h1.page-header {
   @extend .active;
 }
 
-table {
-  th.position {
-    width: 60px;
+.dataTables_wrapper .pagination {
+  @extend .pagination-sm;
+}
+
+table.datatable {
+  thead > tr > th {
+    padding-left: 8px !important;
   }
 
-  th.substitute {
+  tr.substitute > th {
     width: 30px;
     padding: 8px 0 8px 8px !important;
 
@@ -104,7 +108,7 @@ table {
     }
   }
 
-  td.substitute {
+  tr.substitute > td {
     padding: 9px 0 8px 8px !important;
 
     .fa-stack {
@@ -127,19 +131,8 @@ table {
     }
   }
 
-  th.pld,
-  th.gls,
-  th.ass,
-  th.cs,
-  th.ga,
-  th.tot,
-  td.pld,
-  td.gls,
-  td.ass,
-  td.cs,
-  td.ga,
-  td.tot {
-    // text-align: right;
+  th[align=right] {
+    text-align: right;
   }
 
   tr span.order {

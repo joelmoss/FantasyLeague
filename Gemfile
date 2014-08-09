@@ -14,6 +14,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jquery-turbolinks'
 gem 'nprogress-rails'
+gem 'jquery-datatables-rails'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
 
@@ -23,7 +24,6 @@ gem 'devise'
 gem 'breadcrumbs_on_rails'
 gem 'simple_form', '3.1.0.rc2'
 gem 'maildown'
-gem 'datagrid'
 gem 'paranoia'
 gem 'rdiscount'
 

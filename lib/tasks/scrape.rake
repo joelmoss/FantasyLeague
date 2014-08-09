@@ -15,10 +15,10 @@ metrics = {
 desc 'Scrape player data from FantasyLeague.com'
 task scrape: :environment do
   testing = ENV['TEST']
-
   records_updated = []
-
   agent = Mechanize.new
+
+  puts "\nBeginning a new scrape...\n"
 
   page = if testing
     agent.get('http://localhost:3000/scrapetest/playerlist.html')
@@ -37,8 +37,6 @@ task scrape: :environment do
     player_link = player.css('td:nth-child(2) a').first
     @short_name = player_link.content
     @club = Club.find_by(short_name: player.css('td:nth-child(5) a').first.content.strip.downcase)
-
-    puts "[#{Player::POSITIONS[@position][:abbr]}] #{@short_name.ljust(20)} (#{@club.short_name})"
 
     sleep 1
 
@@ -92,10 +90,12 @@ task scrape: :environment do
         # Is the player new?
         if record.new_record?
           # TODO: send notification of new player
+          puts " + [#{Player::POSITIONS[@position][:abbr]}] #{@short_name.ljust(20)} (#{@club.short_name})"
         else
           # Has the players club changed?
           if record.club_id_changed?
             # TODO: send notification that club has changed
+            puts " ± [#{Player::POSITIONS[@position][:abbr]}] #{@short_name.ljust(20)} (#{@club.short_name})"
           end
         end
 
@@ -144,11 +144,12 @@ task scrape: :environment do
   end
 
   # Find and destroy any removed players.
-  puts "\nThese players are no longer playing in the Premiership and will be removed:"
   (Player.all.pluck(:id) - records_updated).each do |id|
     player = Player.find(id)
-    puts " [#{player.id}] #{player}"
+    puts " - [#{player.position}] #{player.ljust(20)} (#{player.club.short_name})"
     player.destroy
   end
+
+  puts "\nCompleted!\n"
 
 end

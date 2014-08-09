@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :players, only: [ :index, :show ] do
     post :watch, on: :member
     delete :unwatch, on: :member
+    post :toggle_watch, on: :member
     get :watching, on: :collection
   end
   resources :managers, except: [ :new, :create ] do
