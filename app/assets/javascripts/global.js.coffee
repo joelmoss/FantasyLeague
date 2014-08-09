@@ -6,6 +6,7 @@ $ ->
 
   $('#player-list').DataTable
     order: []
+    pageLength: 25
     columnDefs: [ { targets: 10, orderable: false } ]
 
   watchBtn = $('#player-list .toggle-watch-player.btn')
