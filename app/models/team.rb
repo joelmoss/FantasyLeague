@@ -4,7 +4,7 @@ class Team < ActiveRecord::Base
   has_many :team_players
   has_many :players, through: :team_players
 
-  DEFAULT_BUDGET = 100
+  DEFAULT_BUDGET = 100.0
 
   validates :name, presence: true,
                    uniqueness: { case_sensitive: false }

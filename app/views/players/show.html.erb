@@ -20,19 +20,29 @@
   <small><%= @player.club %></small>
 </h1>
 
-<div class="page-sub-header clearfix">
-  <div class="pull-left">
+<div class="page-sub-header row">
+  <div class="col-md-7">
     <%- if @player.team_player -%>
       <h4>
         playing for <%= link_to @player.team, @player.team %>
       </h4>
+    <%- elsif current_manager.admin? -%>
+
+      <%= simple_form_for @player, html: { class: 'form-inline' }, wrapper: :inline_form do |f| %>
+        <%= f.simple_fields_for :team_player, TeamPlayer.new do |tpf| %>
+          <%= tpf.association :team, as: :select, collection: Team.all, prompt: 'Team?', input_html: { class: 'input-sm' } %>
+          <%= tpf.input :purchase_price, required: true, placeholder: 'purchased for?', input_html: { class: 'input-sm' } %>
+        <%- end -%>
+        <%= f.button :submit, 'Save', class: 'btn-sm' %>
+      <%- end -%>
+
     <%- end -%>
   </div>
-  <div class="pull-right">
+  <div class="col-md-5 right">
     <%- if current_manager.watchings.exists? @player -%>
-      <%= link_to 'stop watching', toggle_watch_player_path, method: :post, data: { remote: true, watched: true }, class: 'toggle-watch-player btn btn-success btn-xs' %>
+      <%= link_to 'stop watching', toggle_watch_player_path, method: :post, data: { remote: true, watched: true }, class: 'toggle-watch-player btn btn-success btn-sm' %>
     <%- else -%>
-      <%= link_to 'watch player', toggle_watch_player_path, method: :post, data: { remote: true, watched: false}, class: 'toggle-watch-player btn btn-default btn-xs' %>
+      <%= link_to 'watch player', toggle_watch_player_path, method: :post, data: { remote: true, watched: false}, class: 'toggle-watch-player btn btn-default btn-sm' %>
     <%- end -%>
   </div>
 </div>

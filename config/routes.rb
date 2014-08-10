@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resources :teams do
     resources :team_players, path: :players, as: :players, except: [:index]
   end
-  resources :players, only: [ :index, :show ] do
+  resources :players, only: [ :index, :show, :update ] do
     post :watch, on: :member
     delete :unwatch, on: :member
     post :toggle_watch, on: :member

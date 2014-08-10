@@ -1,7 +1,7 @@
 class PlayersController < ApplicationController
 
   before_action :authenticate_manager!
-  before_action :set_player, only: [ :show, :edit, :update, :destroy, :approve, :toggle_watch ]
+  before_action :set_player, only: [ :show, :update, :toggle_watch ]
 
   add_breadcrumb 'Players', :players_path
 
@@ -12,6 +12,14 @@ class PlayersController < ApplicationController
 
   def show
     add_breadcrumb @player.short_name, @player
+  end
+
+  def update
+    if @player.update(player_params)
+      redirect_to @player, notice: 'Player was successfully updated.'
+    else
+      redirect_to @player, alert: 'Player was not updated.'
+    end
   end
 
   def toggle_watch
@@ -36,6 +44,11 @@ class PlayersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_player
       @player = Player.find(params[:id])
+    end
+
+    # Only allow a trusted parameter "white list" through.
+    def player_params
+      params.require(:player).permit(team_player_attributes: [ :team_id, :purchase_price ])
     end
 
 end

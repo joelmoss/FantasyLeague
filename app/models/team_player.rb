@@ -5,4 +5,7 @@ class TeamPlayer < ActiveRecord::Base
 
   delegate :full_position, :position, :club, :seasons, :to_s, :short_name, to: :player
 
+  validates :team_id, presence: true
+  validates :purchase_price, presence: true
+
 end
