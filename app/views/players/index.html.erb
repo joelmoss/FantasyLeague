@@ -1,86 +1,60 @@
 <h1 class="page-header">Players</h1>
 
-<table id="player-list" class="table table-striped table-hover datatable">
-  <thead>
-    <tr>
-      <th width="10">Pos</th>
-      <th>Name</th>
-      <th>Club</th>
-      <th>Team</th>
-      <%- %w( pld gls ass cs ga ).each do |type| -%>
-        <th align="right"><%= type.upcase %></th>
-      <%- end -%>
-      <th align="right"><%= from = Date.today.year - 1 %>/<%= (from + 1).to_s[-2,2] %></th>
-      <th></th>
-    </tr>
-  </thead>
+<section class="datatable">
 
-  <tfoot>
-    <tr>
-      <th>
-        <select>
-          <option value=""></option>
-          <%- Player::POSITIONS.each do |pos| -%>
-            <option value="<%= pos[:abbr].upcase %>"><%= pos[:title] %>s</option>
-          <%- end -%>
-        </select>
-      </th>
-      <th></th>
-      <th>
-        <select>
-          <option value=""></option>
-          <%- Club.all.each do |club| -%>
-            <option value="<%= club.short_name %>"><%= club %></option>
-          <%- end -%>
-        </select>
-      </th>
-      <th>
-        <select>
-          <option value=""></option>
-          <%- Team.all.each do |team| -%>
-            <option value="<%= team %>"><%= team %></option>
-          <%- end -%>
-        </select>
-      </th>
-      <th colspan="7"></th>
-    </tr>
-  </tfoot>
+  <%= render 'filters' %>
 
-  <tbody>
-    <%- @players.each do |player| -%>
+  <table id="player-list" class="table table-striped table-hover">
+    <thead>
       <tr>
-        <td>
-          <span class="label label-<%= position_colour player.position %>" title="<%= player.full_position %>" data-toggle="tooltip", data-placement="right"><%= player.position %></span>
-        </td>
-        <td>
-          <%= link_to player.short_name, player %>
-          <%= content_tag(:span, 'new', class: 'label label-warning') if player.is_new? %>
-        </td>
-        <td><%= player.club.short_name %></td>
-        <td>
-          <%= link_to_unless player.free_agent?, player.team, player.team do %>
-            -
-          <%- end -%>
-        </td>
-
+        <th width="10">Pos</th>
+        <th>Name</th>
+        <th>Club</th>
+        <th>Team</th>
         <%- %w( pld gls ass cs ga ).each do |type| -%>
-          <td align="right">
-            <%= player.previous_season.try(type) || '-' %>
-          </td>
+          <th align="right"><%= type.upcase %></th>
         <%- end -%>
-
-        <td align="right">
-          <%= player.previous_season.try(:tot) || '-' %>
-        </td>
-
-        <td>
-          <%- if player.watchers.include? current_manager -%>
-            <%= link_to 'unwatch', toggle_watch_player_path(player), method: :post, data: { remote: true, watched: true }, class: 'toggle-watch-player btn btn-success btn-xs pull-right' %>
-          <%- else -%>
-            <%= link_to 'watch', toggle_watch_player_path(player), method: :post, data: { remote: true, watched: false}, class: 'toggle-watch-player btn btn-default btn-xs pull-right' %>
-          <%- end -%>
-        </td>
+        <th align="right"><%= from = Date.today.year - 1 %>/<%= (from + 1).to_s[-2,2] %></th>
+        <th></th>
       </tr>
-    <%- end -%>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <%- @players.each do |player| -%>
+        <tr>
+          <td>
+            <span class="label label-<%= position_colour player.position %>" title="<%= player.full_position %>" data-toggle="tooltip", data-placement="right"><%= player.position %></span>
+          </td>
+          <td>
+            <%= link_to player.short_name, player %>
+            <%= content_tag(:span, 'new', class: 'label label-warning') if player.is_new? %>
+          </td>
+          <td><%= player.club.short_name %></td>
+          <td>
+            <%= link_to_unless player.free_agent?, player.team, player.team do %>
+              -
+            <%- end -%>
+          </td>
+
+          <%- %w( pld gls ass cs ga ).each do |type| -%>
+            <td align="right">
+              <%= player.previous_season.try(type) || '-' %>
+            </td>
+          <%- end -%>
+
+          <td align="right">
+            <%= player.previous_season.try(:tot) || '-' %>
+          </td>
+
+          <td>
+            <%- if player.watchers.include? current_manager -%>
+              <%= link_to 'unwatch', toggle_watch_player_path(player), method: :post, data: { remote: true, watched: true }, class: 'toggle-watch-player btn btn-success btn-xs pull-right' %>
+            <%- else -%>
+              <%= link_to 'watch', toggle_watch_player_path(player), method: :post, data: { remote: true, watched: false}, class: 'toggle-watch-player btn btn-default btn-xs pull-right' %>
+            <%- end -%>
+          </td>
+        </tr>
+      <%- end -%>
+    </tbody>
+  </table>
+
+</section>

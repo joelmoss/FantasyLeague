@@ -89,77 +89,79 @@ h1.page-header {
   @extend .pagination-sm;
 }
 
-table.datatable {
-  thead > tr > th {
-    padding-left: 8px !important;
-  }
+.datatable {
+  border-top: 1px solid #ddd;
+  padding-top: 12px;
+  margin-top: 44px;
 
-  tr.substitute > th {
-    width: 30px;
-    padding: 8px 0 8px 8px !important;
-
-    .fa-stack-2x {
-      font-size: 1.6em;
+  table {
+    thead > tr > th {
+      padding-left: 8px !important;
     }
 
-    .fa-stack-1x {
-      position: relative;
-      top: -3px;
-    }
-  }
+    tr.substitute > th {
+      width: 30px;
+      padding: 8px 0 8px 8px !important;
 
-  tr.substitute > td {
-    padding: 9px 0 8px 8px !important;
+      .fa-stack-2x {
+        font-size: 1.6em;
+      }
 
-    .fa-stack {
-      width: 1.6em;
-      height: 1.6em;
-    }
-
-    .fa-stack-2x {
-      font-size: 1.6em;
-      color: #aaa;
-
-      &.highlight {
-        color: green;
+      .fa-stack-1x {
+        position: relative;
+        top: -3px;
       }
     }
 
-    .fa-stack-1x {
-      position: relative;
-      top: -3px;
+    tr.substitute > td {
+      padding: 9px 0 8px 8px !important;
+
+      .fa-stack {
+        width: 1.6em;
+        height: 1.6em;
+      }
+
+      .fa-stack-2x {
+        font-size: 1.6em;
+        color: #aaa;
+
+        &.highlight {
+          color: green;
+        }
+      }
+
+      .fa-stack-1x {
+        position: relative;
+        top: -3px;
+      }
     }
-  }
 
-  th[align=right] {
-    text-align: right;
-  }
-
-  tr span.order {
-    float: left;
-    padding-left: 5px;
-  }
-}
-
-.datagrid-form {
-  padding: 5px 5px 8px;
-  margin-bottom: 10px;
-
-  .datagrid-filter {
-    margin: 5px;
-
-    label {
-      font-weight: normal;
+    th[align=right] {
       text-align: right;
-      padding-right: 12px;
-      margin: 7px 0 0 0;
     }
 
-    input[class*='filter'] {
-      border: 1px solid #cccccc;
-      border-radius: 3px;
-      padding: 3px 7px;
+    tr span.order {
+      float: left;
+      padding-left: 5px;
     }
+  }
+
+  #player-filters {
+    margin-bottom: 13px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+
+    > div {
+      margin: 0 4px 0 2px;
+
+      &:first-child {
+        padding: 4px 8px 0 2px;
+      }
+    }
+  }
+
+  .dataTables_filter input[type=search] {
+    margin-left: 5px;
   }
 }
 

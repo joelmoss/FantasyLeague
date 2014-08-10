@@ -1,0 +1,21 @@
+<div class="clearfix" id="player-filters">
+  <div class="pull-left">
+    <strong>Filter by:</strong>
+  </div>
+  <div class="pull-left">
+    <select id="player-filter-position" class="form-control input-sm">
+      <option value="">Position...</option>
+      <%- Player::POSITIONS.each do |pos| -%>
+        <option value="<%= pos[:abbr].upcase %>"><%= pos[:title] %>s</option>
+      <%- end -%>
+    </select>
+  </div>
+  <div class="pull-left">
+    <select id="player-filter-club" class="form-control input-sm">
+      <option value="">Club...</option>
+      <%- Club.all.each do |club| -%>
+        <option value="<%= club.short_name %>"><%= club %></option>
+      <%- end -%>
+    </select>
+  </div>
+</div>

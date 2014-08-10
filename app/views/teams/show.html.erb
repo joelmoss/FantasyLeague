@@ -15,39 +15,45 @@
   <p>Check out the <%= link_to 'player list', players_path %> for help on planning your auction targets.</p>
 <%- else -%>
 
-  <table id="team-player-list" class="table table-striped table-hover datatable">
-    <thead>
-      <tr>
-        <th width="10" class="substitute"></th>
-        <th width="10">Pos</th>
-        <th>Name</th>
-        <th>Club</th>
-        <th>Purchase Price</th>
-      </tr>
-    </thead>
-    <tbody>
-      <%- @players.each do |member| -%>
-        <tr class="substitute">
-          <td>
-            <span class="fa-stack">
-              <%- if member.substitute? -%>
-                <%= icon(:square, '', class: 'fa-stack-2x') %>
-                <%= icon(:user, '', class: 'fa-stack-1x fa-inverse', title: 'Substitute', data: { toggle: 'tooltip', placement: 'right' }) %>
-              <%- else -%>
-                <%= icon(:square, '', class: 'fa-stack-2x highlight') %>
-                <%= icon(:user, '', class: 'fa-stack-1x fa-inverse highlight', title: 'Starting 11', data: { toggle: 'tooltip', placement: 'right' }) %>
-              <%- end -%>
-            </span>
-          </td>
-          <td>
-            <span class="label label-<%= position_colour member.player.position %>" title="<%= member.player.full_position %>" data-toggle="tooltip", data-placement="right"><%= member.player.position %></span>
-          </td>
-          <td><%= link_to member.player.short_name, team_player_path(@team,member) %></td>
-          <td><%= member.player.club.short_name %></td>
-          <td>&pound;<%= member.purchase_price %>m</td>
+  <section class="datatable">
+
+    <%= render 'player_filters' %>
+
+    <table id="team-player-list" class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th width="10" class="substitute"></th>
+          <th width="10">Pos</th>
+          <th>Name</th>
+          <th>Club</th>
+          <th>Purchase Price</th>
         </tr>
-      <%- end -%>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <%- @players.each do |member| -%>
+          <tr class="substitute">
+            <td>
+              <span class="fa-stack">
+                <%- if member.substitute? -%>
+                  <%= icon(:square, '', class: 'fa-stack-2x') %>
+                  <%= icon(:user, '', class: 'fa-stack-1x fa-inverse', title: 'Substitute', data: { toggle: 'tooltip', placement: 'right' }) %>
+                <%- else -%>
+                  <%= icon(:square, '', class: 'fa-stack-2x highlight') %>
+                  <%= icon(:user, '', class: 'fa-stack-1x fa-inverse highlight', title: 'Starting 11', data: { toggle: 'tooltip', placement: 'right' }) %>
+                <%- end -%>
+              </span>
+            </td>
+            <td>
+              <span class="label label-<%= position_colour member.player.position %>" title="<%= member.player.full_position %>" data-toggle="tooltip", data-placement="right"><%= member.player.position %></span>
+            </td>
+            <td><%= link_to member.player.short_name, team_player_path(@team,member) %></td>
+            <td><%= member.player.club.short_name %></td>
+            <td>&pound;<%= member.purchase_price %>m</td>
+          </tr>
+        <%- end -%>
+      </tbody>
+    </table>
+
+  </section>
 
 <%- end -%>
