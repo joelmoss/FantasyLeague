@@ -30,9 +30,9 @@
   </div>
   <div class="pull-right">
     <%- if current_manager.watchings.exists? @player -%>
-      <%= link_to icon(:eye, 'Stop Watching'), unwatch_player_path, method: :delete, class: 'btn btn-success btn-sm' %>
+      <%= link_to 'stop watching', toggle_watch_player_path, method: :post, data: { remote: true, watched: true }, class: 'toggle-watch-player btn btn-success btn-xs' %>
     <%- else -%>
-      <%= link_to icon(:eye, 'Watch player'), watch_player_path, method: :post, class: 'btn btn-default btn-sm' %>
+      <%= link_to 'watch player', toggle_watch_player_path, method: :post, data: { remote: true, watched: false}, class: 'toggle-watch-player btn btn-default btn-xs' %>
     <%- end -%>
   </div>
 </div>

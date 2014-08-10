@@ -19,6 +19,11 @@ $ ->
     pageLength: 25
     columnDefs: [ { targets: 10, orderable: false } ]
 
+  $('#team-player-list').DataTable
+    paging: false
+    order: []
+
+
   watchBtn = $('#player-list .toggle-watch-player.btn')
   watchBtn.on 'ajax:before', (event, xhr, status)->
     $(@).text 'saving...'
@@ -31,6 +36,18 @@ $ ->
       ele.text('unwatch').data 'watched', true
 
 
+  watchBtn = $('body.players.show .toggle-watch-player')
+  watchBtn.on 'ajax:before', (event, xhr, status)->
+    $(@).text 'saving...'
+  watchBtn.on 'ajax:success', (event, xhr, status)->
+    ele = $(@)
+    ele.toggleClass('btn-success').toggleClass('btn-default')
+    if ele.data('watched')
+      ele.text('watch player').data 'watched', false
+    else
+      ele.text('stop watching').data 'watched', true
+
+
   watchTable = $('#player-watch-list').DataTable
     paging: false
     order: []
@@ -41,8 +58,3 @@ $ ->
     $(@).text 'unwatching...'
   watchBtn.on 'ajax:success', (event, xhr, status)->
     watchTable.row($(@).parents('tr')).remove().draw()
-
-
-  $('#team-player-list').DataTable
-    paging: false
-    order: []
