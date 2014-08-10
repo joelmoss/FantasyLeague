@@ -3,6 +3,13 @@ $ ->
   # Enable tooltips
   $('[data-toggle=tooltip]').tooltip()
 
+  loadScreen = $('#load-screen')
+  doc = $(document)
+  doc.on "page:fetch", ->
+    loadScreen.fadeIn()
+  doc.on "page:receive", ->
+    loadScreen.fadeOut()
+
 
   $('#managers-list').DataTable
     paging: false
