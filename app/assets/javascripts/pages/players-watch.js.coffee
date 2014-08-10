@@ -21,8 +21,8 @@ $ ->
     watchTable.column(3).search((if val then "^#{val}$" else val), true, false).draw()
 
 
-  watchBtn = $('#player-watch-list .toggle-watch-player.btn')
-  watchBtn.on 'ajax:before', (event, xhr, status)->
+  watchBtn = $('#player-watch-list')
+  watchBtn.on 'ajax:before', '.toggle-watch-player.btn', (event, xhr, status)->
     $(@).text 'unwatching...'
-  watchBtn.on 'ajax:success', (event, xhr, status)->
+  watchBtn.on 'ajax:success', '.toggle-watch-player.btn', (event, xhr, status)->
     watchTable.row($(@).parents('tr')).remove().draw()

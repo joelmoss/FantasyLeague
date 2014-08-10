@@ -22,10 +22,10 @@ $ ->
     playerTable.column(3).search((if val then "^#{val}$" else val), true, false).draw()
 
 
-  watchBtn = $('#player-list .toggle-watch-player.btn')
-  watchBtn.on 'ajax:before', (event, xhr, status)->
+  watchBtn = $('#player-list')
+  watchBtn.on 'ajax:before', '.toggle-watch-player.btn', (event, xhr, status)->
     $(@).text 'saving...'
-  watchBtn.on 'ajax:success', (event, xhr, status)->
+  watchBtn.on 'ajax:success', '.toggle-watch-player.btn', (event, xhr, status)->
     ele = $(@)
     ele.toggleClass('btn-success').toggleClass('btn-default')
     if ele.data('watched')
