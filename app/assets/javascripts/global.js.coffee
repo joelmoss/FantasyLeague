@@ -7,7 +7,9 @@ $ ->
   doc = $(document)
   doc.on "page:fetch", ->
     loadScreen.fadeIn()
-  doc.on "page:receive", ->
+  doc.on "page:change", ->
+    loadScreen.fadeOut()
+  doc.on "page:load", ->
     loadScreen.fadeOut()
 
 
