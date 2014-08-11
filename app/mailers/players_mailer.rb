@@ -7,14 +7,10 @@ class PlayersMailer < ActionMailer::Base
   #
   #   en.players.new_player.subject
   #
-  def new_players(new_players, old_players, changed_club)
+  def new_players(manager, new_players, old_players, changed_club)
     @new_players = new_players
     @old_players = old_players
     @changed_club = changed_club
-    Manager.all.each do |manager|
-      mail to: manager.email, subject: 'Fantasy League Player changes'
-    end
-
-
+    mail to: manager.email, subject: 'Fantasy League Player changes'
   end
 end

@@ -159,7 +159,9 @@ task scrape: :environment do
   end
 
   # Send email to managers about new and removed players
-  PlayersMailer.new_players(new_players, removed_players, changed_club).deliver
+  Manager.all.each do |manager|
+    PlayersMailer.new_players(manager, new_players, removed_players, changed_club).deliver
+  end
 
   puts "\nCompleted!\n"
 
