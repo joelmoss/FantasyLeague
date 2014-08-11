@@ -18,7 +18,7 @@ class PlayersController < ApplicationController
     if @player.update(player_params)
       redirect_to @player, notice: 'Player was successfully updated.'
     else
-      redirect_to @player, alert: 'Player was not updated.'
+      redirect_to @player, alert: "Player was not updated. #{@player.errors.to_hash.values.first.first}"
     end
   end
 
