@@ -3,6 +3,9 @@ class Manager < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  include PublicActivity::Model
+  tracked only: [ :create ]
+
   has_one :team
   has_many :watches
   has_many :watchings, through: :watches, source: :player

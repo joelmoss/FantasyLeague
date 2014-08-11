@@ -1,6 +1,13 @@
 # TODO: send notification when player is destroyed (no longer playing in PL)
 class Player < ActiveRecord::Base
 
+  include PublicActivity::Model
+  tracked params: { old_club: :club_id_was, new_club: :club_id },
+          on: {
+            update: proc { |model, controller|
+              model.club_id_changed?
+            }
+          }
   acts_as_paranoid
   default_scope { order(:club_id, :position) }
 

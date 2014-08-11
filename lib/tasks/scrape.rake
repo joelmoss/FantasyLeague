@@ -20,7 +20,7 @@ task scrape: :environment do
   changed_club = []
   agent = Mechanize.new
 
-  puts "\nBeginning a new scrape...\n"
+  puts "\nBeginning a new scrape...\n\n"
 
   page = if testing
     agent.get('http://localhost:3000/scrapetest/playerlist.html')

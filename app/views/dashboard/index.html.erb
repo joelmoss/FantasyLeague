@@ -26,14 +26,19 @@
   <div class="col-md-6">
 
     <%- if current_manager.admin? -%>
-      <h3 class="page-header">Admin Messages</h3>
       <%- unless @unaproved_managers.empty? -%>
+        <h3 class="page-header">Admin Messages</h3>
         <p>
           <span class="label label-primary">NEW MANAGERS</span>
           There are <%= link_to "#{@unaproved_managers.count} new managers", managers_path %> waiting to be approved!
         </p>
       <%- end -%>
     <%- end -%>
+
+    <h3 class="page-header">Activity</h3>
+    <ul class="activity">
+    <%= render_activities @activities, layout: :activity %>
+    </ul>
 
   </div>
   <div class="col-md-6">

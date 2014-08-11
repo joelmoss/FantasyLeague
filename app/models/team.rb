@@ -1,5 +1,8 @@
 class Team < ActiveRecord::Base
 
+  include PublicActivity::Model
+  tracked only: [ :create ]
+
   belongs_to :manager
   has_many :team_players
   has_many :players, through: :team_players

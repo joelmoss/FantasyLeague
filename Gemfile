@@ -26,6 +26,7 @@ gem 'simple_form', '3.1.0.rc2'
 gem 'maildown'
 gem 'paranoia'
 gem 'rdiscount'
+gem 'public_activity'
 
 group :production do
   gem 'rails_12factor'

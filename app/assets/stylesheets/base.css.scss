@@ -185,3 +185,11 @@ h1.page-header {
     margin: 0;
   }
 }
+
+
+ul.activity {
+  li h6 {
+    @extend .text-muted;
+    margin: 0 0 10px;
+  }
+}
