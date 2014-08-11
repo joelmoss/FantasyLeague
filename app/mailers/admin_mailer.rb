@@ -1,6 +1,5 @@
 class AdminMailer < ActionMailer::Base
-
-  default from: "from@example.com"
+  default from: "joel@developwithstyle.com"
 
 
   def new_user_waiting_for_approval(manager)

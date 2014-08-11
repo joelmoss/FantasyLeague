@@ -16,6 +16,8 @@ desc 'Scrape player data from FantasyLeague.com'
 task scrape: :environment do
   testing = ENV['TEST']
   records_updated = []
+  new_players = []
+  changed_club = []
   agent = Mechanize.new
 
   puts "\nBeginning a new scrape...\n"
@@ -91,15 +93,19 @@ task scrape: :environment do
         if record.new_record?
           # TODO: send notification of new player
           puts " + [#{Player::POSITIONS[@position][:abbr]}] #{@short_name.ljust(20)} (#{@club.short_name})"
+          record.save
+          new_players << record
         else
           # Has the players club changed?
           if record.club_id_changed?
             # TODO: send notification that club has changed
             puts " ± [#{Player::POSITIONS[@position][:abbr]}] #{@short_name.ljust(20)} (#{@club.short_name})"
+            changed_club << { player: record, old_club: Club.find(record.club_id_was) }
           end
+
+          record.save
         end
 
-        record.save
         records_updated << record.id
 
         # Premier League Form
@@ -144,11 +150,16 @@ task scrape: :environment do
   end
 
   # Find and destroy any removed players.
+  removed_players = []
   (Player.all.pluck(:id) - records_updated).each do |id|
     player = Player.find(id)
-    puts " - [#{player.position}] #{player.ljust(20)} (#{player.club.short_name})"
+    removed_players << player
+    puts " - [#{player.position}] #{player.to_s.ljust(20)} (#{player.club.short_name})"
     player.destroy
   end
+
+  # Send email to managers about new and removed players
+  PlayersMailer.new_players(new_players, removed_players, changed_club).deliver
 
   puts "\nCompleted!\n"
 

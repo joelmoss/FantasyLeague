@@ -1,0 +1,25 @@
+There have been some changes to the player list in the [Fantasy League!](<%= players_url %>).
+
+<%- unless @new_players.empty? -%>
+The following new players have been **added** to the Fantasy League and are now available:
+
+<%- @new_players.each do |player| -%>
+- [<%= player.position %>] [<%= player %>](<%= player_url player %>) (<%= player.club.short_name %>)
+<%- end -%>
+<%- end -%>
+
+<%- unless @old_players.empty? -%>
+The following players have been **removed** from the Fantasy League and are no longer available:
+
+<%- @old_players.each do |player| -%>
+- [<%= player.position %>] <%= player %> (<%= player.club.short_name %>)
+<%- end -%>
+<%- end -%>
+
+<%- unless @changed_club.empty? -%>
+The following players have **moved clubs**:
+
+<%- @changed_club.each do |player| -%>
+- [<%= player[:player].position %>] <%= player[:player] %> (<%= player[:old_club] %> > <%= player.club.short_name %>)
+<%- end -%>
+<%- end -%>
