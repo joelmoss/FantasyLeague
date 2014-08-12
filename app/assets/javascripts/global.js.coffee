@@ -13,18 +13,6 @@ $ ->
     loadScreen.fadeOut()
 
 
-  $('#managers-list').DataTable
-    paging: false
-    order: []
-    columnDefs: [ { targets: [0,1,4,5], orderable: false } ]
-
-
-  $('#teams-list').DataTable
-    paging: false
-    order: []
-    columnDefs: [ { targets: [2,3], orderable: false } ]
-
-
   watchBtn = $('body.players.show .toggle-watch-player')
   watchBtn.on 'ajax:before', (event, xhr, status)->
     $(@).text 'saving...'
