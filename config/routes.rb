@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   page 'rules'
 
   resources :teams do
-    resources :team_players, path: :players, as: :players, except: [:index]
+    resources :team_players, path: :players, as: :players, except: [:index] do
+      post :toggle_sub, on: :member
+    end
   end
   resources :players, only: [ :index, :show, :update ] do
     post :watch, on: :member

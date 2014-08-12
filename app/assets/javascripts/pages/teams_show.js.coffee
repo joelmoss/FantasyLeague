@@ -15,3 +15,18 @@ $ ->
   $("select#player-filter-club").on 'change', ->
     val = $(@).val()
     teamPlayerTable.column(3).search((if val then "^#{val}$" else val), true, false).draw()
+
+
+  # Toggle team sub
+  toggleSub = $('.toggle-sub')
+  toggleSub.on 'ajax:before', ->
+    $(@).toggleClass 'highlight'
+  toggleSub.on 'ajax:error', (event, xhr)->
+    $(@).toggleClass 'highlight'
+
+    drop = new Drop
+      target: @
+      classes: 'drop-theme-arrows-bounce-dark'
+      content: xhr.responseText
+      position: 'top left'
+    drop.open()

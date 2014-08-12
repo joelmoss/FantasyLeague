@@ -15,6 +15,7 @@ gem 'turbolinks'
 gem 'jquery-turbolinks'
 gem 'nprogress-rails'
 gem 'jquery-datatables-rails'
+gem 'bower-rails'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
 

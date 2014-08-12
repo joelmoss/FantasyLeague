@@ -20,5 +20,6 @@
 //= require nprogress-ajax
 //= require dataTables/jquery.dataTables
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
+//= require drop
 //= require global
 //= require_tree ./pages

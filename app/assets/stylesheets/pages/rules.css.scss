@@ -1,0 +1,19 @@
+.pages.rules {
+  h1 {
+    @extend .page-header;
+  }
+
+  h3 {
+    @extend .page-header;
+    margin-top: 45px;
+    margin-bottom: 20px;
+  }
+
+  h4 {
+    margin: 24px 0 15px;
+  }
+
+  li p {
+    margin: 0;
+  }
+}

@@ -7,7 +7,8 @@
 
 <h4 class="page-sub-header">
   <div class="pull-right">budget: &pound;<%= @team.budget %>m</div>
-  managed by <%= link_to @team.manager, @team.manager %>
+  <p>managed by <%= link_to @team.manager, @team.manager %></p>
+  <p><%= pluralize @team.players.count, 'player' %>, <%= pluralize @team.players.substitutes.count, 'substitute' %></p>
 </h4>
 
 <%- if @players.empty? -%>
@@ -30,27 +31,7 @@
         </tr>
       </thead>
       <tbody>
-        <%- @players.each do |member| -%>
-          <tr class="substitute">
-            <td>
-              <span class="fa-stack">
-                <%- if member.substitute? -%>
-                  <%= icon(:square, '', class: 'fa-stack-2x') %>
-                  <%= icon(:user, '', class: 'fa-stack-1x fa-inverse', title: 'Substitute', data: { toggle: 'tooltip', placement: 'right' }) %>
-                <%- else -%>
-                  <%= icon(:square, '', class: 'fa-stack-2x highlight') %>
-                  <%= icon(:user, '', class: 'fa-stack-1x fa-inverse highlight', title: 'Starting 11', data: { toggle: 'tooltip', placement: 'right' }) %>
-                <%- end -%>
-              </span>
-            </td>
-            <td>
-              <span class="label label-<%= position_colour member.player.position %>" title="<%= member.player.full_position %>" data-toggle="tooltip", data-placement="right"><%= member.player.position %></span>
-            </td>
-            <td><%= link_to member.player.short_name, team_player_path(@team,member) %></td>
-            <td><%= member.player.club.short_name %></td>
-            <td>&pound;<%= member.purchase_price %>m</td>
-          </tr>
-        <%- end -%>
+        <%= render @players %>
       </tbody>
     </table>
 

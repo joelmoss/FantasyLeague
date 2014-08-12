@@ -1,0 +1,42 @@
+.dataTables_wrapper .pagination {
+  @extend .pagination-sm;
+}
+
+.datatable {
+  border-top: 1px solid #ddd;
+  padding-top: 12px;
+  margin-top: 44px;
+
+  table {
+    thead > tr > th {
+      padding-left: 8px !important;
+    }
+
+    th[align=right] {
+      text-align: right;
+    }
+
+    tr span.order {
+      float: left;
+      padding-left: 5px;
+    }
+  }
+
+  #player-filters {
+    margin-bottom: 13px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+
+    > div {
+      margin: 0 4px 0 2px;
+
+      &:first-child {
+        padding: 4px 8px 0 2px;
+      }
+    }
+  }
+
+  .dataTables_filter input[type=search] {
+    margin-left: 5px;
+  }
+}

@@ -13,6 +13,8 @@
  *= require nprogress
  *= require nprogress-bootstrap
  *= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
+ *= require drop/css/drop-theme-arrows-bounce-dark
+ *= require_tree ./lib
  *= require_tree ./pages
  *= require_self
  */

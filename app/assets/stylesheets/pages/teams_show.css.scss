@@ -1,0 +1,44 @@
+body.teams.show {
+
+  .datatable #team-player-list {
+    tr.substitute > th {
+      width: 30px;
+      padding: 8px 0 8px 8px !important;
+
+      .fa-stack-2x {
+        font-size: 1.6em;
+      }
+
+      .fa-stack-1x {
+        position: relative;
+        top: -3px;
+      }
+    }
+
+    tr.substitute > td {
+      padding: 9px 0 8px 8px !important;
+
+      .toggle-sub {
+        .fa-stack {
+          width: 1.6em;
+          height: 1.6em;
+        }
+
+        .fa-stack-2x {
+          font-size: 1.6em;
+          color: #bbb;
+        }
+
+        &.highlight .fa-stack-2x {
+          color: green;
+        }
+
+        .fa-stack-1x {
+          position: relative;
+          top: -3px;
+        }
+      }
+    }
+  }
+
+}

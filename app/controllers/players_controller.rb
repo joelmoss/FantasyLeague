@@ -28,7 +28,8 @@ class PlayersController < ApplicationController
     else
       current_manager.watchings << @player
     end
-    redirect_to :back
+
+    request.xhr? ? head(:created) : redirect_to(:back)
   rescue ActionController::RedirectBackError
     redirect_to @player
   end
