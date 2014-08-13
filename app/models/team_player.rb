@@ -12,8 +12,6 @@ class TeamPlayer < ActiveRecord::Base
 
   after_create :recalculate_team_budget
 
-  default_scope { joins(:player).order 'substitute ASC, players.position ASC' }
-
 
   private
 

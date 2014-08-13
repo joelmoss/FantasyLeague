@@ -9,7 +9,7 @@ class Player < ActiveRecord::Base
             }
           }
   acts_as_paranoid
-  default_scope { order(:club_id, :position) }
+  default_scope { order :club_id, :position }
 
   has_many :seasons, class_name: 'PlayerSeason'
   has_many :previous_seasons, -> { where.not(season: Date.today.year) }, class_name: 'PlayerSeason'
