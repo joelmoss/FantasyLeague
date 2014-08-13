@@ -1,0 +1,6 @@
+<%-
+  old_team = Team.find(a.parameters[:old_team])
+  new_team = Team.find(a.parameters[:new_team])
+-%>
+
+<%= link_to old_team, old_team %> <strong>sold</strong> <%= link_to a.trackable, team_player_path(a.trackable.team, a.trackable) %> to <%= link_to new_team, new_team %> for &pound;<%= a.parameters[:purchase_price] %>m.

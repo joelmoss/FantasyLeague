@@ -1,7 +1,7 @@
 class TeamPlayersController < ApplicationController
 
   before_action :authenticate_manager!
-  before_action :set_player, only: [ :show, :toggle_sub ]
+  before_action :set_player, only: [ :show, :toggle_sub, :release ]
 
 
   def show
@@ -25,12 +25,17 @@ class TeamPlayersController < ApplicationController
     redirect_to team
   end
 
+  def release
+    @player.destroy
+    redirect_to team
+  end
+
 
   private
 
-    # Use callbacks to share common setup or constraints between actions.
     def set_player
-      @player = team.team_players.find(params[:id])
+      @player = team.team_players.with_deleted.find(params[:id])
+      redirect_to @player.player if @player.destroyed?
     end
 
     def team

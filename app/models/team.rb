@@ -31,7 +31,7 @@ class Team < ActiveRecord::Base
   end
 
   def formation(additional_player = false)
-    groups = players.starting_lineup.group_by(&:position)
+    groups = players.starting_lineup.includes(:player).group_by(&:position)
 
     if additional_player
       groups[additional_player.position] = [] if groups[additional_player.position].nil?
@@ -39,12 +39,14 @@ class Team < ActiveRecord::Base
     end
 
     # 1 goalkeeper
-    return false if groups['G'].count != 1
+    return false if (groups['G'].try(:count) || 0) != 1
 
     # 2 full-backs
-    return false if groups['F'].count != 2
+    return false if (groups['F'].try(:count) || 0) != 2
 
-    cb, md, st = groups['C'].count, groups['M'].count, groups['S'].count
+    cb = groups['C'].try(:count) || 0
+    md = groups['M'].try(:count) || 0
+    st = groups['S'].try(:count) || 0
 
     # Return the formation
     return '4-4-2' if cb == 2 && md == 4 && st == 2

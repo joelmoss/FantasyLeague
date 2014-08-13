@@ -1,0 +1,6 @@
+<%-
+  team = Team.find(a.parameters[:old_team])
+  TeamPlayer.unscoped { a.trackable }
+-%>
+
+<%= link_to team, team %> <strong>released</strong> <%= link_to a.trackable.player, a.trackable.player %>, who is now a free agent.

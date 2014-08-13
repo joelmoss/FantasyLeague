@@ -1,0 +1,6 @@
+<%-
+  team = Team.find(p[:new_team])
+  TeamPlayer.unscoped { a.trackable }
+-%>
+
+<%= link_to team, team %> <strong>purchased</strong> <%= link_to a.trackable, team_player_path(team, a.trackable) %> for &pound;<%= a.trackable.purchase_price %>m.

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :teams do
     resources :team_players, path: :players, as: :players, except: [:index] do
       post :toggle_sub, on: :member
+      delete :release, on: :member
     end
   end
   resources :players, only: [ :index, :show, :update ] do
