@@ -1,0 +1,8 @@
+<%= pluralize @team.players.count, 'player' %>, <%= pluralize @team.players.substitutes.count, 'substitute' %>.
+<%- if @team.players.starting_lineup.count != 11 -%>
+  <span class="label label-danger" role="alert">
+    This team has an incomplete starting line-up!
+  </span>
+<%- else -%>
+  Formation: <%= @team.formation %>
+<%- end -%>

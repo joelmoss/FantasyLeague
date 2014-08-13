@@ -19,14 +19,17 @@ $ ->
 
   # Toggle team sub
   toggleSub = $('.toggle-sub')
+  status = $('#team-status')
   toggleSub.on 'ajax:before', ->
     $(@).toggleClass 'highlight'
+  toggleSub.on 'ajax:complete', (event, xhr)->
+    status.html xhr.responseJSON.status
   toggleSub.on 'ajax:error', (event, xhr)->
     $(@).toggleClass 'highlight'
 
     drop = new Drop
       target: @
       classes: 'drop-theme-arrows-bounce-dark'
-      content: xhr.responseText
+      content: xhr.responseJSON.message
       position: 'top left'
     drop.open()

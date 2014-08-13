@@ -12,13 +12,18 @@ class TeamPlayersController < ApplicationController
     if @player.toggle(:substitute).save
       respond_to do |format|
         format.html { redirect_to(:back) }
-        format.js { head(:created) }
+        format.json {
+          render status: :created, json: { status: render_to_string(partial: 'teams/status') }
+        }
       end
     else
       @msg = "Player cannot be substituted. #{@player.errors.to_hash.values.first.first}"
       respond_to do |format|
         format.html { redirect_to :back, alert: @msg }
-        format.js { render status: :precondition_failed, text: @msg }
+        format.json {
+          render status: :precondition_failed, json: { status: render_to_string(partial: 'teams/status'),
+                                                       message: @msg }
+        }
       end
     end
   rescue ActionController::RedirectBackError

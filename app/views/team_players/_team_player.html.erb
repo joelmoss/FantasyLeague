@@ -1,7 +1,7 @@
 <tr class="substitute">
   <td>
     <%- if current_manager.admin? || current_manager == @team.manager -%>
-      <%= link_to toggle_sub_team_player_path(@team, team_player), method: :post, data: { remote: true, sub: team_player.substitute? }, class: "fa-stack toggle-sub#{' highlight' unless team_player.substitute?}" do %>
+      <%= link_to toggle_sub_team_player_path(@team, team_player), method: :post, data: { remote: true, type: :json, sub: team_player.substitute? }, class: "fa-stack toggle-sub#{' highlight' unless team_player.substitute?}" do %>
         <%= icon :square, '', class: 'fa-stack-2x' %>
         <%= icon :user, '', class: 'fa-stack-1x fa-inverse', title: 'Substitute', data: { toggle: 'tooltip', placement: 'right' } %>
       <%- end -%>
