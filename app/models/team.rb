@@ -38,12 +38,6 @@ class Team < ActiveRecord::Base
       groups[additional_player.position] << additional_player
     end
 
-    p "G:#{groups['G'].count}"
-    p "F:#{groups['F'].count}"
-    p "C:#{groups['C'].count}"
-    p "M:#{groups['M'].count}"
-    p "S:#{groups['S'].count}"
-
     # 1 goalkeeper
     return false if groups['G'].count != 1
 
