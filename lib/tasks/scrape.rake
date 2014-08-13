@@ -40,7 +40,7 @@ task scrape: :environment do
     @short_name = player_link.content
     @club = Club.find_by(short_name: player.css('td:nth-child(5) a').first.content.strip.downcase)
 
-    sleep 1
+    sleep 2
 
     begin
       agent.transact do
