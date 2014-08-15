@@ -8,10 +8,6 @@ metrics = {
   tot: 'total'
 }
 
-
-# TODO: alert for new players
-#       alert for removed players
-#       alert for players moving clubs
 desc 'Scrape player data from FantasyLeague.com'
 task scrape: :environment do
   testing = ENV['TEST']
@@ -188,8 +184,10 @@ task scrape: :environment do
   end
 
   # Send email to managers about new and removed players
-  Manager.all.each do |manager|
-    PlayersMailer.new_players(manager, new_players, removed_players, changed_club).deliver
+  if !new_players.empty? || !removed_players.empty? || !changed_club.empty?
+    Manager.all.each do |manager|
+      PlayersMailer.new_players(manager, new_players, removed_players, changed_club).deliver
+    end
   end
 
   puts "\nCompleted!\n"
