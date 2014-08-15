@@ -15,7 +15,7 @@ $ ->
 
   $("select#player-filter-club").on 'change', ->
     val = $(@).val()
-    teamPlayerTable.column(3).search((if val then "^#{val}$" else val), true, false).draw()
+    teamPlayerTable.column(4).search((if val then "^#{val}$" else val), true, false).draw()
 
 
   # Toggle team sub

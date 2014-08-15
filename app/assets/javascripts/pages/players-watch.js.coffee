@@ -14,11 +14,11 @@ $ ->
 
   $("select#player-filter-club").on 'change', ->
     val = $(@).val()
-    watchTable.column(2).search((if val then "^#{val}$" else val), true, false).draw()
+    watchTable.column(3).search((if val then "^#{val}$" else val), true, false).draw()
 
   $("select#player-filter-team").on 'change', ->
     val = $(@).val()
-    watchTable.column(3).search((if val then "^#{val}$" else val), true, false).draw()
+    watchTable.column(4).search((if val then "^#{val}$" else val), true, false).draw()
 
 
   watchBtn = $('#player-watch-list')
