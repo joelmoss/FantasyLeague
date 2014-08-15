@@ -1,0 +1,9 @@
+<tr>
+  <td><%= link_to team, team %></td>
+  <td><%= link_to team.manager, team.manager %></td>
+  <td><%= team.players.count %></td>
+  <td><%= team.formation %></td>
+  <td class="text-right">&pound;<%= team.budget %>m</td>
+  <td><%= link_to icon('pencil'), [:edit, team]if current_manager.admin? %></td>
+  <td><%= link_to icon('times'), team, method: :delete, data: { confirm: 'Are you sure?' } if current_manager.admin? %></td>
+</tr>
