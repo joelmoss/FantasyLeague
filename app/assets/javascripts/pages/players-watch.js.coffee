@@ -6,7 +6,7 @@ $ ->
   watchTable = $('#player-watch-list').DataTable
     paging: false
     order: []
-    columnDefs: [ { targets: 10, orderable: false } ]
+    columnDefs: [ { targets: [2,11], orderable: false } ]
 
   $("select#player-filter-position").on 'change', ->
     val = $(@).val()

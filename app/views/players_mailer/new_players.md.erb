@@ -20,6 +20,6 @@ The following players have been **removed** from the Fantasy League and are no l
 The following players have **moved clubs**:
 
 <%- @changed_club.each do |player| -%>
-- [<%= player[:player].position %>] <%= player[:player] %> (<%= player[:old_club] %> > <%= player.club.short_name %>)
+- [<%= player[:player].position %>] <%= player[:player] %> (<%= Club.find(player[:club_change][0]).short_name %> > <%= Club.find(player[:club_change][1]).short_name %>)
 <%- end -%>
 <%- end -%>

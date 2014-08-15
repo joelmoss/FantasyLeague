@@ -16,6 +16,7 @@
         <tr>
           <th width="10">Pos</th>
           <th>Name</th>
+          <th width="10"></th>
           <th>Club</th>
           <th>Team</th>
           <%- %w( pld gls ass cs ga ).each do |type| -%>
@@ -34,6 +35,17 @@
             <td>
               <%= link_to player.short_name, player %>
               <%= content_tag(:span, 'new', class: 'label label-warning') if player.is_new? %>
+            </td>
+            <td>
+              <%- if player.status == 'injured' -%>
+                <%= icon :ambulance, '', title: "Injured: #{player.status_notes}", data: { toggle: 'tooltip' } %>
+              <%- elsif player.status == 'latefitnesstest' -%>
+                <%= icon :stethoscope, '', title: player.status_notes, data: { toggle: 'tooltip' } %>
+              <%- elsif player.status == 'doubtful' -%>
+                <%= icon :medkit, '', title: "Doubtful: #{player.status_notes}", data: { toggle: 'tooltip' } %>
+              <%- elsif player.status == 'suspended' -%>
+                <%= icon :ban, '', title: "Suspended #{player.status_notes}", data: { toggle: 'tooltip' } %>
+              <%- end -%>
             </td>
             <td><%= player.club.short_name %></td>
             <td>

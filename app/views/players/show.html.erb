@@ -30,7 +30,7 @@
 
       <%= simple_form_for @player, html: { class: 'form-inline' }, wrapper: :inline_form do |f| %>
         <%= f.simple_fields_for :team_player, TeamPlayer.new do |tpf| %>
-          <%= tpf.association :team, as: :select, collection: Team.all, prompt: 'Team?', input_html: { class: 'input-sm' } %>
+          <%= tpf.association :team, as: :select, collection: Team.all, prompt: 'Team?', input_html: { class: 'input-sm', autofocus: true } %>
           <%= tpf.input :purchase_price, required: true, placeholder: 'purchased for?', input_html: { class: 'input-sm' } %>
         <%- end -%>
         <%= f.button :submit, 'Save', class: 'btn-sm' %>

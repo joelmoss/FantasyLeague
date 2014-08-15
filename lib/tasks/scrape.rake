@@ -38,9 +38,33 @@ task scrape: :environment do
 
     player_link = player.css('td:nth-child(2) a').first
     @short_name = player_link.content
+
+    status = player.css('td:nth-child(3) > .playerstatus')
+    if status.empty?
+      @status, @status_notes = nil
+    else
+      status = status.first
+      classes = status[:class].split
+      if classes.include? 'injured'
+        @status = 'injured'
+        @status_notes = status['title'].strip
+      elsif classes.include? 'doubtful'
+        @status = 'doubtful'
+        @status_notes = status['title'].strip
+      elsif classes.include? 'suspended'
+        @status = 'suspended'
+        @status_notes = status['title'].strip
+      elsif classes.include? 'latefitnesstest'
+        @status = 'latefitnesstest'
+        @status_notes = status['title'].strip
+      else
+        @status, @status_notes = nil
+      end
+    end
+
     @club = Club.find_by(short_name: player.css('td:nth-child(5) a').first.content.strip.downcase)
 
-    sleep 2
+    sleep 1
 
     begin
       agent.transact do
@@ -88,6 +112,9 @@ task scrape: :environment do
         record.image = @image
         record.position = @position
         record.is_new = @is_new
+        record.status = @status
+        record.status_notes = @status_notes
+        club_id_changed = false
 
         # Is the player new?
         if record.new_record?
@@ -96,16 +123,16 @@ task scrape: :environment do
           record.save
           new_players << record
         else
-          # Has the players club changed?
-          if record.club_id_changed?
-            # TODO: send notification that club has changed
+          if record.changed?
             puts " ± [#{Player::POSITIONS[@position][:abbr]}] #{@short_name.ljust(20)} (#{@club.short_name})"
-            changed_club << { player: record, old_club: Club.find(record.club_id_was) }
-          end
+            puts "   #{record.changes}"
 
-          record.save
+            club_id_changed = record.club_id_changed? ? record.club_id_change : false
+            puts "   FAILED to save!" unless record.save
+          end
         end
 
+        changed_club << { player: record, club_change: club_id_changed } if club_id_changed
         records_updated << record.id
 
         # Premier League Form

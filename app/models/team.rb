@@ -15,6 +15,8 @@ class Team < ActiveRecord::Base
     end
   end
 
+  default_scope { order :name }
+
   DEFAULT_BUDGET = 100.0
   FORMATIONS = %w( 4-4-2 5-3-2 4-5-1 5-4-1 4-3-3 )
 

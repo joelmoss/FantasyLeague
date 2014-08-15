@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140813204639) do
+ActiveRecord::Schema.define(version: 20140815140135) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -104,15 +104,17 @@ ActiveRecord::Schema.define(version: 20140813204639) do
   add_index "player_seasons", ["season", "player_id"], name: "index_player_seasons_on_season_and_player_id", unique: true, using: :btree
 
   create_table "players", force: true do |t|
-    t.string   "short_name", limit: 64,                 null: false
-    t.string   "full_name",  limit: 64,                 null: false
-    t.string   "image",                                 null: false
+    t.string   "short_name",   limit: 64,                 null: false
+    t.string   "full_name",    limit: 64,                 null: false
+    t.string   "image",                                   null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "is_new",                default: false, null: false
+    t.boolean  "is_new",                  default: false, null: false
     t.integer  "club_id"
     t.datetime "deleted_at"
-    t.integer  "position",   limit: 2
+    t.integer  "position",     limit: 2
+    t.string   "status"
+    t.string   "status_notes"
   end
 
   add_index "players", ["club_id"], name: "index_players_on_club_id", using: :btree

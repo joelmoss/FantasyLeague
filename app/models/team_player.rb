@@ -30,7 +30,7 @@ class TeamPlayer < ActiveRecord::Base
 
     def valid_squad?
       errors.add :base, "Team '#{team}' cannot have more than 2 players per club." unless valid_club_quota?
-      errors.add :base, "Team '#{team}' cannot have more than 16 players." unless valid_max_size?
+      errors.add :base, "Team '#{team}' cannot have more than 15 players." unless valid_max_size?
       errors.add :base, "Team '#{team}' cannot have a negative budget." unless valid_budget?
     end
 

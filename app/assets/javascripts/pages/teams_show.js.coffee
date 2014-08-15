@@ -7,6 +7,7 @@ $ ->
   teamPlayerTable = $('#team-player-list').DataTable
     paging: false
     order: []
+    columnDefs: [ { targets: 3, orderable: false } ]
 
   $("select#player-filter-position").on 'change', ->
     val = $(@).val()
