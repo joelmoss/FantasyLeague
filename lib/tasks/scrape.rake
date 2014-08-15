@@ -135,6 +135,7 @@ task scrape: :environment do
         changed_club << { player: record, club_change: club_id_changed } if club_id_changed
         records_updated << record.id
 
+
         # Premier League Form
         current_season = Date.today.year
         points = metrics
@@ -148,6 +149,7 @@ task scrape: :environment do
         else
           record.seasons.create({ season: current_season }.merge(points))
         end
+
 
         # Previous seasons
         seasons_page = if testing

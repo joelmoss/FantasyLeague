@@ -11,31 +11,72 @@
   <p id="team-status"><%= render 'status' %></p>
 </h4>
 
-<%- if @players.empty? -%>
+<%- if @squad.empty? -%>
   <h4 class="page-header">This team needs building. Ready for the auction?</h4>
   <p>Check out the <%= link_to 'player list', players_path %> for help on planning your auction targets.</p>
 <%- else -%>
 
-  <section class="datatable">
+  <ul class="nav nav-tabs" role="tablist">
+    <li class="active"><a href="#squad" role="tab" data-toggle="tab"><strong>Squad</strong></a></li>
+    <%- unless @teamsheet.empty? -%>
+      <li><a href="#teamsheet" role="tab" data-toggle="tab"><strong>Team Sheet</strong></a></li>
+    <%- end -%>
+  </ul>
 
-    <%= render 'player_filters' %>
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div class="tab-pane active datatable" id="squad">
 
-    <table id="team-player-list" class="table table-striped table-hover">
-      <thead>
-        <tr>
-          <th width="10" class="substitute"></th>
-          <th width="10">Pos</th>
-          <th>Name</th>
-          <th width="10"></th>
-          <th>Club</th>
-          <th>Purchase Price</th>
-        </tr>
-      </thead>
-      <tbody>
-        <%= render @players %>
-      </tbody>
-    </table>
+      <%- if current_manager == @team.manager -%>
+        <div class="alert alert-info">
+          <strong>Substitutions and formation changes</strong> can be made at any time right here. However, any changes you do make will only be applied at midnight. After midnight your team sheet will be locked for the following day.
+        </div>
+      <%- end -%>
 
-  </section>
+      <%= render 'player_filters' %>
+
+      <table id="team-player-list" class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th width="10" class="substitute"></th>
+            <th width="10">Pos</th>
+            <th>Name</th>
+            <th width="10"></th>
+            <th>Club</th>
+            <th>Purchase Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= render partial: 'teams/squad_player', collection: @squad, as: :team_player %>
+        </tbody>
+      </table>
+
+    </div>
+    <%- unless @teamsheet.empty? -%>
+      <div class="tab-pane" id="teamsheet">
+
+        <%- if current_manager == @team.manager -%>
+          <div class="alert alert-info">
+            <strong>Your Team Sheet is locked down at midnight each day</strong>, and is built from your starting 11 players (not including subs). The total points scored by these players today (midnight to midnight) will be added to your team's total points. So if you wish to make substitution or formation changes for any matches, you must do so before midnight of the previous evening.
+          </div>
+        <%- end -%>
+
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th width="10">Pos</th>
+              <th>Name</th>
+              <th width="10"></th>
+              <th>Club</th>
+            </tr>
+          </thead>
+          <tbody>
+            <%= render partial: 'teams/teamsheet_player', collection: @teamsheet, as: :team_player %>
+          </tbody>
+        </table>
+
+      </div>
+    <%- end -%>
+  </div>
 
 <%- end -%>

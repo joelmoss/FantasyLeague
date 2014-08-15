@@ -13,6 +13,10 @@ class Team < ActiveRecord::Base
     def starting_lineup
       proxy_association.owner.team_players.where substitute: false
     end
+
+    def teamsheet
+      proxy_association.owner.team_players.where starting: true
+    end
   end
 
   default_scope { order :name }

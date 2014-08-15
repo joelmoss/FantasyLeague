@@ -42,7 +42,8 @@ class TeamsController < ApplicationController
 
   def show
     add_breadcrumb @team, @team
-    @players = @team.team_players.includes(player: :club).joins(:player).order 'substitute ASC, players.position ASC'
+    @squad = @team.team_players.includes(player: :club).joins(:player).order 'substitute ASC, players.position ASC'
+    @teamsheet = @team.players.teamsheet.includes(player: :club).joins(:player).order 'players.position'
   end
 
   # DELETE /teams/1
