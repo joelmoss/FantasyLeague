@@ -4,7 +4,7 @@ class TeamPlayer < ActiveRecord::Base
   include PublicActivity::Model
   tracked params: { purchase_price: :purchase_price, old_team: :team_id_was, new_team: :team_id },
           on: {
-            create: false, # TODO: set to true after the auction
+            create: proc { false }, # TODO: set to true after the auction
             destroy: true,
             update: proc { |model| model.team_id_changed? }
           }
