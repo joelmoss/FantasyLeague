@@ -1,4 +1,4 @@
-<tr>
+<tr class="<%= 'active' if current_manager == team.manager %>">
   <td><%= link_to team, team %></td>
   <td><%= link_to team.manager, team.manager %></td>
   <td><%= team.players.count %></td>

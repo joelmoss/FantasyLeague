@@ -14,27 +14,7 @@
     </thead>
 
     <tbody>
-      <% @managers.each do |manager| %>
-        <tr>
-          <td><%= mail_to manager.email, icon('envelope') %></td>
-          <td>
-            <%= link_to manager, manager %>
-            <%- if manager.approved? -%>
-              <%- if manager.admin? -%>
-                <div class="label label-info" data-toggle="tooltip" data-placement="right" title="Administrator">admin</div>
-              <%- end -%>
-            <%- else -%>
-              <%= link_to 'approve', approve_manager_path(manager), method: :patch, class: 'btn btn-xs btn-warning' %>
-            <%- end -%>
-          </td>
-          <td><%= manager.team ? link_to(manager.team, manager.team) : 'n/a' %></td>
-          <td class="text-right"><%= manager.watches.count %></td>
-          <td><%= link_to icon('pencil'), [:edit, manager] if current_manager.admin? %></td>
-          <td>
-            <%= link_to icon('times'), manager, method: :delete, data: { confirm: 'Are you sure?' } if current_manager != manager && current_manager.admin? %>
-          </td>
-        </tr>
-      <% end %>
+      <%= render @managers %>
     </tbody>
   </table>
 </div>
