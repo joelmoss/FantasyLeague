@@ -10,6 +10,7 @@ class Manager < ActiveRecord::Base
   has_many :watches
   has_many :watchings, through: :watches, source: :player
 
+  default_scope { order :name }
   scope :approved, -> { where approved: true }
   scope :unapproved, -> { where approved: false }
 

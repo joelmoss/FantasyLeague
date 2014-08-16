@@ -49,6 +49,10 @@ h1.page-header {
     font-size: 0.4em;
     margin-top: 20px;
 
+    &.btn {
+      margin-top: 8px;
+    }
+
     .substitute {
       .fa-stack {
         width: 1.6em;

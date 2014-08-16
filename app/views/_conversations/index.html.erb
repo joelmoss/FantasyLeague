@@ -1,0 +1,62 @@
+<%= content_for :title, 'Conversations' %>
+<h1 class="page-header"><%= content_for :title %></h1>
+
+<ul class="nav nav-tabs" role="tablist">
+  <li class="active"><a href="#inbox" role="tab" data-toggle="tab"><strong>Inbox</strong></a></li>
+  <li><a href="#sentbox" role="tab" data-toggle="tab"><strong>Sent</strong></a></li>
+  <li><a href="#trash" role="tab" data-toggle="tab"><strong>Trash</strong></a></li>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane active datatable" id="inbox">
+
+    <table class="table table-hover table-striped">
+      <thead>
+        <tr>
+          <th>Subject</th>
+          <th>Created</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render collection: mailbox.inbox, partial: 'conversation' %>
+      </tbody>
+    </table>
+
+  </div>
+  <div class="tab-pane datatable" id="sentbox">
+
+    <table class="table table-hover table-striped">
+      <thead>
+        <tr>
+          <th>Subject</th>
+          <th>Created</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render collection: mailbox.sentbox, partial: 'conversation' %>
+      </tbody>
+    </table>
+
+  </div>
+  <div class="tab-pane datatable" id="trash">
+
+    <table class="table table-hover table-striped">
+      <thead>
+        <tr>
+          <th>Subject</th>
+          <th>Created</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render collection: mailbox.trash, partial: 'conversation' %>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+<%= link_to 'Send message...', :new_conversation, class: 'btn btn-default' %>

@@ -1,3 +1,5 @@
+<%- content_for :title, 'Auction Rules' -%>
+
 # Auction
 
 The season begins with the player auction. This is where all manager get together and bid for the players they want in their team. All managers have a fixed budget at the beginning of the auction.

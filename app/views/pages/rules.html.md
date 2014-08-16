@@ -1,3 +1,4 @@
+<%- content_for :title, 'Rules' -%>
 <%- add_breadcrumb 'Rules', :rules_path -%>
 
 # Fantasy League Rules

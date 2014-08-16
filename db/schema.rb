@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140815140135) do
+ActiveRecord::Schema.define(version: 20140816143329) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,19 @@ ActiveRecord::Schema.define(version: 20140815140135) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "conversations", force: true do |t|
+    t.string   "subject"
+    t.integer  "recipient_id"
+    t.integer  "creator_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+  end
+
+  add_index "conversations", ["creator_id"], name: "index_conversations_on_creator_id", using: :btree
+  add_index "conversations", ["deleted_at"], name: "index_conversations_on_deleted_at", using: :btree
+  add_index "conversations", ["recipient_id"], name: "index_conversations_on_recipient_id", using: :btree
 
   create_table "fixtures", force: true do |t|
     t.string   "home_team",  limit: 32, null: false
@@ -87,6 +100,15 @@ ActiveRecord::Schema.define(version: 20140815140135) do
   add_index "managers", ["approved"], name: "index_managers_on_approved", using: :btree
   add_index "managers", ["email"], name: "index_managers_on_email", unique: true, using: :btree
   add_index "managers", ["reset_password_token"], name: "index_managers_on_reset_password_token", unique: true, using: :btree
+
+  create_table "messages", force: true do |t|
+    t.text     "body"
+    t.integer  "conversation_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "messages", ["conversation_id"], name: "index_messages_on_conversation_id", using: :btree
 
   create_table "player_seasons", force: true do |t|
     t.integer  "season",                 null: false

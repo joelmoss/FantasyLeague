@@ -3,6 +3,9 @@ $ ->
   # Enable tooltips
   $('[data-toggle=tooltip]').tooltip()
 
+  # Initialize select2
+  $('select').select2()
+
   loadScreen = $('#load-screen')
   doc = $(document)
   doc.on "page:fetch", ->

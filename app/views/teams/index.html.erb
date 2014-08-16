@@ -1,8 +1,9 @@
+<%= content_for :title, 'Teams' %>
 <h1 class="page-header">
   <div class="pull-right">
     <%= link_to 'Create Team', new_team_path unless current_manager.team %>
   </div>
-  Teams
+  <%= content_for :title %>
 </h1>
 
 <div class="datatable">

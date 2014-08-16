@@ -1,0 +1,16 @@
+<%= simple_form_for setup_conversation(@conversation) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.association :recipient %>
+    <%= f.input :subject %>
+    <%= f.simple_fields_for :messages do |mf| %>
+      <%= mf.input :body, as: :text, input_html: { rows: 6 } %>
+    <%- end -%>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+    <%= link_to 'or go back', @conversation.new_record? ? conversations_path : @conversation %>
+  </div>
+<% end %>

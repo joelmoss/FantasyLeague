@@ -1,0 +1,22 @@
+<%= content_for :title, "Message: #{@conversation}" %>
+<h1 class="page-header">Message <small><%= @conversation %></small></h1>
+
+<ul>
+  <%- @conversation.messages.each do |msg| -%>
+    <li><%= msg.body %></li>
+  <%- end -%>
+</ul>
+
+
+<%= simple_form_for [@conversation, @conversation.messages.build] do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :body, as: :text, input_html: { rows: 6 } %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+    <%= link_to 'or go back', @conversation.new_record? ? conversations_path : @conversation %>
+  </div>
+<% end %>

@@ -1,6 +1,7 @@
 {
   "name": "dsl-generated dependencies",
   "dependencies": {
-    "drop": "latest"
+    "drop": "latest",
+    "select2": "latest"
   }
 }

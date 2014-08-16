@@ -1,8 +1,9 @@
+<%= content_for :title, 'New Team' %>
 <h1 class="page-header">
   <div class="pull-right">
     <%= link_to raw('&laquo; back'), teams_path %>
   </div>
-  Create Team
+  <%= content_for :title %>
 </h1>
 
 <%= render 'form' %>

@@ -1,0 +1,9 @@
+<tr>
+  <td><%= link_to conversation, conversation %></td>
+  <td><%= link_to conversation.recipient, conversation.recipient %></td>
+  <td><small>
+    <abbr><%= time_ago_in_words conversation.created_at %> ago</abbr>
+  </small></td>
+  <td><%= link_to icon('pencil'), [:edit, conversation]if current_manager.admin? %></td>
+  <td><%= link_to icon('times'), conversation, method: :delete, data: { confirm: 'Are you sure?' } if current_manager.admin? %></td>
+</tr>

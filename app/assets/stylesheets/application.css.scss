@@ -10,17 +10,19 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
+ *= require select2
  *= require nprogress
  *= require nprogress-bootstrap
  *= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
  *= require drop/css/drop-theme-arrows-bounce-dark
- *= require_tree ./lib
+ *= require ./lib/datatables
  *= require_tree ./pages
  *= require_self
  */
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "lib/select2_bootstrap";
 @import "bootstrap/theme";
 @import "font-awesome";
 @import "utilities";

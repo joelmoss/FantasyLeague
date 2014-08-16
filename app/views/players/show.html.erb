@@ -1,3 +1,4 @@
+<%= content_for :title, @player %>
 <h1 class="page-header">
   <div class="pull-right">
     <%- if @player.team_player -%>
@@ -16,7 +17,7 @@
   </div>
 
   <div class="label label-primary" title="<%= @player.full_position %>" data-toggle="tooltip"><%= @player.position %></div>
-  <%= @player %>
+  <%= content_for :title %>
   <small><%= @player.club %></small>
 </h1>
 

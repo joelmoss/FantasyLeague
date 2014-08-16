@@ -12,14 +12,25 @@ Rails.application.routes.draw do
       delete :release, on: :member
     end
   end
+
   resources :players, only: [ :index, :show, :update ] do
     post :watch, on: :member
     delete :unwatch, on: :member
     post :toggle_watch, on: :member
     get :watching, on: :collection
   end
+
   resources :managers, except: [ :new, :create ] do
     patch :approve, on: :member
+  end
+
+  resources :conversations do
+    resources :messages
+    # member do
+    #   post :reply
+    #   post :trash
+    #   post :untrash
+    # end
   end
 
 end

@@ -1,8 +1,9 @@
+<%= content_for :title, @manager %>
 <h1 class="page-header">
   <div class="pull-right">
     <%= link_to icon('pencil', 'edit'), [:edit, @manager] if current_manager.admin? %>
   </div>
-  <%= @manager %>
+  <%= content_for :title %>
 </h1>
 
 <dl>

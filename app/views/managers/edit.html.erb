@@ -1,8 +1,9 @@
+<%= content_for :title, @manager %>
 <h1 class="page-header">
   <div class="pull-right">
     <%= link_to raw('&laquo; back'), @manager %>
   </div>
-  <%= @manager %>
+  <%= content_for :title %>
   <small>Editing</small>
 </h1>
 

@@ -1,0 +1,11 @@
+<%= content_for :title, 'Conversation' %>
+<h1 class="page-header"><%= content_for :title %> <small><%= conversation.subject %></small></h1>
+
+<ul>
+  <%= content_tag_for(:li, conversation.receipts_for(current_manager)) do |receipt| %>
+    <h3><%= receipt.message.subject %></h3>
+    <p><%= receipt.message.body %></p>
+  <%- end -%>
+</ul>
+
+<%= render 'messages/form', conversation: conversation %>

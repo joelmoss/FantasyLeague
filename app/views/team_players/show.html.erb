@@ -1,3 +1,4 @@
+<%= content_for :title, @player %>
 <h1 class="page-header">
   <div class="pull-right">
     <%- if @player.substitute? -%>
@@ -12,7 +13,7 @@
   </div>
 
   <div class="label label-<%= position_colour @player.position %>" title="<%= @player.full_position %>" data-toggle="tooltip"><%= @player.position %></div>
-  <%= @player %>
+  <%= content_for :title %>
   <small><%= @player.club %></small>
 </h1>
 <h4 class="page-sub-header">
