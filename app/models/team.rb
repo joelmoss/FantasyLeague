@@ -44,7 +44,7 @@ class Team < ActiveRecord::Base
   end
 
   def current_points
-    seasons.current.tot
+    seasons.current.try(:tot) || 0
   end
 
   def formation(additional_player = false)
