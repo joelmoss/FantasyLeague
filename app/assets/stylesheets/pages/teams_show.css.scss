@@ -15,28 +15,24 @@ body.teams.show {
       }
     }
 
-    tr.substitute > td {
-      padding: 9px 0 8px 8px !important;
+    tr.substitute > td .toggle-sub {
+      .fa-stack {
+        width: 1.6em;
+        height: 1.6em;
+      }
 
-      .toggle-sub {
-        .fa-stack {
-          width: 1.6em;
-          height: 1.6em;
-        }
+      .fa-stack-2x {
+        font-size: 1.6em;
+        color: #bbb;
+      }
 
-        .fa-stack-2x {
-          font-size: 1.6em;
-          color: #bbb;
-        }
+      &.highlight .fa-stack-2x {
+        color: green;
+      }
 
-        &.highlight .fa-stack-2x {
-          color: green;
-        }
-
-        .fa-stack-1x {
-          position: relative;
-          top: -3px;
-        }
+      .fa-stack-1x {
+        position: relative;
+        top: -3px;
       }
     }
   }

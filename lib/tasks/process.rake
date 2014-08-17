@@ -12,6 +12,4 @@ task process: :environment do
     end
   end
 
-  # Scan all fixtures
-
 end

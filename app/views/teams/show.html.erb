@@ -93,6 +93,7 @@
             <th width="10"></th>
             <th width="10">Score</th>
             <th width="10"></th>
+            <th class="text-right">Players</th>
             <%- FixturePlayer::METRICS.each do |k,v| -%>
               <%- next if k == :pld -%>
               <th class="text-right"><%= k.to_s.upcase %></th>

@@ -32,4 +32,9 @@ class Fixture < ActiveRecord::Base
     metrics
   end
 
+  def players_for_team(team)
+    playing = team.team_sheets.where(date: date.to_date).pluck(:player_id)
+    fixture_players.where(player_id: playing)
+  end
+
 end
