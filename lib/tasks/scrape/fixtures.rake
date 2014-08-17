@@ -36,7 +36,7 @@ namespace :scrape do
   desc 'Scrape fixture and result data from FantasyLeague.com'
   task fixtures: :environment do
 
-    puts "\n Beginning a new fixtures scrape...\n"
+    puts "\n Beginning a new fixtures scrape...\n\n"
 
     datetime = ''
     next_up = true
@@ -44,23 +44,22 @@ namespace :scrape do
     agent = Mechanize.new
     page = agent.get('http://www.fantasyleague.com/Pro/Stats/ResultsAndFixtures.aspx')
     page.search('#matches .results-container tr').each do |row|
-      next unless next_up
-
       if row[:id] && row[:id].start_with?('day_')
         time, date = row.search('th > div')
         datetime = DateTime.parse "#{time.content} #{date.content}"
 
-        next unless next_up = DateTime.now > datetime
-
-        puts "\n #{datetime.to_s :short}\n"
+        # Skip this fixture if it is not taking place today
+        next unless next_up = Date.today == datetime.to_date
       elsif row[:class] && row[:class].include?('top')
+        next unless next_up
+
         home_club = Club.find_by(short_name: club_alt_names[row.search('td:nth-child(2) h2').first.content])
         away_club = Club.find_by(short_name: club_alt_names[row.search('td:nth-child(4) h2').first.content])
 
         match = row.search('td:nth-child(3) a').first
         score = match.content
 
-        puts "#{home_club.to_s.rjust(15)}  #{score}  #{away_club.to_s.ljust(15)}"
+        puts " >>>> #{datetime.to_s(:short)}    #{home_club} #{score} #{away_club}"
 
         # Find or initialize the fixture
         if fixture = Fixture.find_by(home_club_id: home_club.id, away_club_id: away_club.id, date: datetime.to_date)
@@ -81,13 +80,13 @@ namespace :scrape do
         agent.transact do
           match = agent.click match
 
-          puts " Home team players..."
+          puts " ---> Scraping home team players..."
 
           match.search('.results-home tbody tr').each do |player|
             name = player.search('td:nth-child(2) a').first.content
 
             unless db_player = Player.unscoped.find_by(short_name: name)
-              puts "ERROR: Failed to find player '#{name}'."
+              puts "      ERROR: Failed to find player '#{name}'. Creating..."
 
               db_player = Player.create do |r|
                 position = player.css('td:nth-child(1) div').first[:class].split
@@ -100,8 +99,6 @@ namespace :scrape do
               end
             end
 
-            puts " #{name.ljust(25)}"
-
             if fixture.players.exists? db_player
               fp = fixture.fixture_players.find_by(player_id: db_player.id)
             else
@@ -122,13 +119,13 @@ namespace :scrape do
             fp.save!
           end
 
-          puts " Away team players..."
+          puts " ---> Scraping away team players..."
 
           match.search('.results-away tbody tr').each do |player|
             name = player.search('td:nth-child(2) a').first.content
 
             unless db_player = Player.unscoped.find_by(short_name: name)
-              puts "ERROR: Failed to find player '#{name}'."
+              puts "      ERROR: Failed to find player '#{name}'. Creating..."
 
               db_player = Player.create do |r|
                 position = player.css('td:nth-child(1) div').first[:class].split
@@ -141,8 +138,6 @@ namespace :scrape do
               end
             end
 
-            puts " #{name.ljust(25)}"
-
             if fixture.players.exists? db_player
               fp = fixture.fixture_players.find_by(player_id: db_player.id)
             else
@@ -164,6 +159,8 @@ namespace :scrape do
           end
         end
 
+        puts " ---> Adding today's fixtures to team's points..."
+
         # Update team season points
         year = Date.today.month <= 6 ? Date.today.year - 1 : Date.today.year
         Team.all.each do |team|
@@ -175,11 +172,12 @@ namespace :scrape do
             end
 
             points.delete(:pld)
-            puts "  #{team}: #{points}"
+            puts "      #{team.to_s.ljust(25)}#{points}"
             team.seasons.find_or_initialize_by(season: year).update(points)
           end
-
         end
+
+        puts ""
 
       end
     end
