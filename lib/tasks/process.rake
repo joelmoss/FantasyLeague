@@ -8,10 +8,6 @@ task process: :environment do
 
     # Create the team sheets
     team.players.starting_lineup.each do |rec|
-      team.team_sheets.create player: rec.player, date: Date.yesterday
-    end
-
-    team.players.starting_lineup.each do |rec|
       team.team_sheets.create player: rec.player, date: Date.today
     end
   end
