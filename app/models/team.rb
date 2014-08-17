@@ -4,6 +4,13 @@ class Team < ActiveRecord::Base
   tracked only: [ :create ]
 
   belongs_to :manager
+  has_many :team_sheets
+  has_many :seasons, class_name: "TeamSeason" do
+    def current
+      year = Date.today.month <= 6 ? Date.today.year - 1 : Date.today.year
+      find_by(season: year)
+    end
+  end
   has_many :team_players
   has_many :players, through: :team_players do
     def substitutes
@@ -34,6 +41,10 @@ class Team < ActiveRecord::Base
 
   def budget
     (val = read_attribute(:budget)).blank? ? DEFAULT_BUDGET : val
+  end
+
+  def current_points
+    seasons.current.tot
   end
 
   def formation(additional_player = false)

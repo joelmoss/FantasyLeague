@@ -16,7 +16,7 @@
         <%- %w( pld gls ass cs ga ).each do |type| -%>
           <th align="right"><%= type.upcase %></th>
         <%- end -%>
-        <th align="right"><%= from = Date.today.year - 1 %>/<%= (from + 1).to_s[-2,2] %></th>
+        <th align="right">Total</th>
         <th></th>
       </tr>
     </thead>
@@ -50,12 +50,12 @@
 
           <%- %w( pld gls ass cs ga ).each do |type| -%>
             <td align="right">
-              <%= player.previous_season.try(type) || '-' %>
+              <%= player.season.try(type) || '-' %>
             </td>
           <%- end -%>
 
           <td align="right">
-            <%= player.previous_season.try(:tot) || '-' %>
+            <%= player.season.try(:tot) || '0' %>
           </td>
 
           <td>

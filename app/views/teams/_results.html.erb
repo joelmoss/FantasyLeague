@@ -1,0 +1,11 @@
+<tr>
+  <td><%= @date == fixture.date ? '~' : @date = fixture.date %></td>
+  <td><small><%= @time = fixture.time unless @time == fixture.time %></small></td>
+  <td class="text-right"><%= fixture.home_club.short_name %></td>
+  <td class="text-center"><%= fixture.home_score %> - <%= fixture.away_score %></td>
+  <td><%= fixture.away_club.short_name %></td>
+  <%- FixturePlayer::METRICS.each do |k,v| -%>
+    <%- next if k == :pld -%>
+    <td class="text-right"><%= fixture.points_for_team(@team)[k] %></td>
+  <%- end -%>
+</tr>

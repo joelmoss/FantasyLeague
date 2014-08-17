@@ -3,11 +3,11 @@
   <div class="pull-right">
     <%= link_to icon('pencil', 'edit'), [:edit, @team] if current_manager.admin? %>
   </div>
-  <%= content_for :title %>
+  <%= content_for :title %> <small><%= @team.current_points %> points</small>
 </h1>
 
 <h4 class="page-sub-header">
-  <div class="pull-right">budget: &pound;<%= @team.budget %>m</div>
+  <div class="pull-right text-right">budget: &pound;<%= @team.budget %>m</div>
   <p>managed by <%= link_to @team.manager, @team.manager %></p>
   <p id="team-status"><%= render 'status' %></p>
 </h4>
@@ -20,8 +20,9 @@
   <ul class="nav nav-tabs" role="tablist">
     <li class="active"><a href="#squad" role="tab" data-toggle="tab"><strong>Squad</strong></a></li>
     <%- unless @teamsheet.empty? -%>
-      <li><a href="#teamsheet" role="tab" data-toggle="tab"><strong>Team Sheet</strong></a></li>
+      <li><a href="#teamsheet" role="tab" data-toggle="tab"><strong>Today's Team Sheet</strong></a></li>
     <%- end -%>
+    <li><a href="#results" role="tab" data-toggle="tab"><strong>Results</strong></a></li>
   </ul>
 
   <!-- Tab panes -->
@@ -45,6 +46,9 @@
             <th width="10"></th>
             <th>Club</th>
             <th>Purchase Price</th>
+            <%- FixturePlayer::METRICS.keys.each do |k| -%>
+              <th align="right"><%= k.to_s.upcase %></th>
+            <%- end -%>
           </tr>
         </thead>
         <tbody>
@@ -78,6 +82,29 @@
 
       </div>
     <%- end -%>
+
+    <div class="tab-pane" id="results">
+
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th width="110">Date</th>
+            <th></th>
+            <th width="10"></th>
+            <th width="10">Score</th>
+            <th width="10"></th>
+            <%- FixturePlayer::METRICS.each do |k,v| -%>
+              <%- next if k == :pld -%>
+              <th class="text-right"><%= k.to_s.upcase %></th>
+            <%- end -%>
+          </tr>
+        </thead>
+        <tbody>
+          <%= render partial: 'teams/results', collection: @results, as: :fixture %>
+        </tbody>
+      </table>
+
+    </div>
   </div>
 
 <%- end -%>

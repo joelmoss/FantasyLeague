@@ -7,7 +7,7 @@ class PlayersController < ApplicationController
 
 
   def index
-    @players = Player.includes(:team_player, :club, :previous_season, :team, :watchers)
+    @players = Player.includes(:team_player, :club, :season, :team, :watchers)
   end
 
   def show
@@ -35,7 +35,7 @@ class PlayersController < ApplicationController
   end
 
   def watching
-    @players = current_manager.watchings.includes(:club, :team, :previous_season, :team_player)
+    @players = current_manager.watchings.includes(:club, :team, :season, :team_player)
     add_breadcrumb 'Watch list', watching_players_path
   end
 

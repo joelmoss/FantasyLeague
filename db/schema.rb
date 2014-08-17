@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140816143329) do
+ActiveRecord::Schema.define(version: 20140817102810) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,31 +53,39 @@ ActiveRecord::Schema.define(version: 20140816143329) do
   add_index "conversations", ["deleted_at"], name: "index_conversations_on_deleted_at", using: :btree
   add_index "conversations", ["recipient_id"], name: "index_conversations_on_recipient_id", using: :btree
 
-  create_table "fixtures", force: true do |t|
-    t.string   "home_team",  limit: 32, null: false
-    t.string   "away_team",  limit: 32, null: false
-    t.integer  "home_score",            null: false
-    t.integer  "away_score",            null: false
-    t.date     "date",                  null: false
-    t.time     "time",                  null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "fixtures", ["home_team", "away_team", "date"], name: "index_fixtures_on_home_team_and_away_team_and_date", unique: true, using: :btree
-
-  create_table "fixtures_players", id: false, force: true do |t|
-    t.integer "fixture_id", null: false
-    t.integer "player_id",  null: false
+  create_table "fixture_players", force: true do |t|
+    t.integer "fixture_id"
+    t.integer "player_id"
     t.integer "pld"
     t.integer "gls"
     t.integer "ass"
     t.integer "cs"
     t.integer "ga"
     t.integer "tot"
+    t.boolean "red_card"
+    t.boolean "yellow_card"
+    t.boolean "full_game"
+    t.boolean "subbed_off"
+    t.boolean "subbed_on"
   end
 
-  add_index "fixtures_players", ["fixture_id", "player_id"], name: "index_fixtures_players_on_fixture_id_and_player_id", using: :btree
+  add_index "fixture_players", ["fixture_id"], name: "index_fixture_players_on_fixture_id", using: :btree
+  add_index "fixture_players", ["player_id"], name: "index_fixture_players_on_player_id", using: :btree
+
+  create_table "fixtures", force: true do |t|
+    t.integer  "home_club_id", null: false
+    t.integer  "away_club_id", null: false
+    t.integer  "home_score"
+    t.integer  "away_score"
+    t.date     "date",         null: false
+    t.time     "time",         null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "fixtures", ["away_club_id"], name: "index_fixtures_on_away_club_id", using: :btree
+  add_index "fixtures", ["home_club_id", "away_club_id", "date"], name: "index_fixtures_on_home_club_id_and_away_club_id_and_date", unique: true, using: :btree
+  add_index "fixtures", ["home_club_id"], name: "index_fixtures_on_home_club_id", using: :btree
 
   create_table "managers", force: true do |t|
     t.string   "email",                             default: "",    null: false
@@ -158,6 +166,34 @@ ActiveRecord::Schema.define(version: 20140816143329) do
   add_index "team_players", ["deleted_at"], name: "index_team_players_on_deleted_at", using: :btree
   add_index "team_players", ["player_id", "team_id"], name: "index_team_players_on_player_id_and_team_id", using: :btree
   add_index "team_players", ["starting"], name: "index_team_players_on_starting", using: :btree
+
+  create_table "team_seasons", force: true do |t|
+    t.integer  "season"
+    t.integer  "team_id"
+    t.integer  "gls"
+    t.integer  "ass"
+    t.integer  "cs"
+    t.integer  "ga"
+    t.integer  "tot"
+    t.integer  "red_cards"
+    t.integer  "yellow_cards"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "team_seasons", ["season"], name: "index_team_seasons_on_season", using: :btree
+  add_index "team_seasons", ["team_id"], name: "index_team_seasons_on_team_id", using: :btree
+
+  create_table "team_sheets", force: true do |t|
+    t.integer  "player_id"
+    t.integer  "team_id"
+    t.date     "date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "team_sheets", ["player_id"], name: "index_team_sheets_on_player_id", using: :btree
+  add_index "team_sheets", ["team_id"], name: "index_team_sheets_on_team_id", using: :btree
 
   create_table "teams", force: true do |t|
     t.string   "name",                               null: false

@@ -4,12 +4,13 @@ class Player < ActiveRecord::Base
   include PublicActivity::Model
   tracked params: { old_club: :club_id_was, new_club: :club_id },
           on: {
+            create: proc { |model| !model.image.blank? },
             update: proc { |model, controller|
               model.club_id_changed?
             }
           }
   acts_as_paranoid
-  default_scope { order :club_id, :position }
+  default_scope { order(:club_id, :position).where("image != ''") }
 
   has_many :seasons, class_name: 'PlayerSeason'
   has_many :previous_seasons, -> { where.not(season: Date.today.year) }, class_name: 'PlayerSeason'
@@ -20,6 +21,8 @@ class Player < ActiveRecord::Base
   has_many :watches
   has_many :watchers, through: :watches, source: :manager
   belongs_to :club
+  has_many :fixture_players
+  has_many :fixtures, through: :fixture_players
 
   accepts_nested_attributes_for :team_player
 

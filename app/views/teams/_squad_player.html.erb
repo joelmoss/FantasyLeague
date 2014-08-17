@@ -29,4 +29,9 @@
   </td>
   <td><%= team_player.player.club.short_name %></td>
   <td>&pound;<%= team_player.purchase_price %>m</td>
+  <%- FixturePlayer::METRICS.keys.each do |type| -%>
+    <td align="right">
+      <%= team_player.player.season.try(type) || '-' %>
+    </td>
+  <%- end -%>
 </tr>

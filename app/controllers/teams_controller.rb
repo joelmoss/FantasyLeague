@@ -8,7 +8,7 @@ class TeamsController < ApplicationController
 
   # GET /teams
   def index
-    @teams = Team.all
+    @teams = Team.all.sort_by(&:current_points).reverse
   end
 
   def new
@@ -44,6 +44,7 @@ class TeamsController < ApplicationController
     add_breadcrumb @team, @team
     @squad = @team.team_players.includes(player: :club).joins(:player).order 'substitute ASC, players.position ASC'
     @teamsheet = @team.players.teamsheet.includes(player: :club).joins(:player).order 'players.position'
+    @results = Fixture.all.group(:id, :date).includes(:home_club, :away_club, :fixture_players)
   end
 
   # DELETE /teams/1
