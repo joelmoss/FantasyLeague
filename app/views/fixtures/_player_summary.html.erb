@@ -1,0 +1,15 @@
+<%- player = pl.player -%>
+<tr>
+  <td class="text-right">
+    <span class="label label-<%= position_colour player.position %>" title="<%= player.full_position %>" data-toggle="tooltip", data-placement="right"><%= player.position %></span>
+  </td>
+  <td><%= link_to player.short_name, player %></td>
+  <td><%= icon :file, '', class: 'yellow' if pl.yellow_card %></td>
+  <td><%= icon :file, '', class: 'red' if pl.red_card %></td>
+  <td>
+    <%= icon :reply, '', class: 'red' if pl.subbed_off %>
+    <%= icon :share, '', class: 'green' if pl.subbed_on %>
+  </td>
+  <td class="text-right"><strong><%= pl.gls > 0 ? pl.gls : '' %></strong></td>
+  <td class="text-right"><strong><%= pl.tot %></strong></td>
+</tr>

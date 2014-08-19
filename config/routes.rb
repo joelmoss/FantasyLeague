@@ -24,6 +24,8 @@ Rails.application.routes.draw do
     patch :approve, on: :member
   end
 
+  resources :fixtures, only: [ :index, :show ]
+
   resources :conversations do
     resources :messages
     # member do
