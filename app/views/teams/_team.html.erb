@@ -1,6 +1,6 @@
-<tr class="<%= 'active' if current_manager == team.manager %>">
-  <td><%= link_to team, team %></td>
-  <td><%= link_to team.manager, team.manager %></td>
+<tr>
+  <td><%= raw('<strong>') if current_manager == team.manager %><%= link_to team, team %><%= raw('</strong>') if current_manager == team.manager %></td>
+  <td><%= raw('<strong>') if current_manager == team.manager %><%= link_to team.manager, team.manager %><%= raw('<strong>') if current_manager == team.manager %></td>
   <td><%= team.players.count %></td>
   <td><%= team.formation %></td>
   <td class="text-right"><%= team.current_points %></td>

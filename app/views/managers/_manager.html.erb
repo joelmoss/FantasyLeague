@@ -1,7 +1,7 @@
-<tr class="<%= 'active' if current_manager == manager %>">
+<tr>
   <td><%= mail_to manager.email, icon('envelope') %></td>
   <td>
-    <%= link_to manager, manager %>
+    <%= raw('<strong>') if current_manager == manager %><%= link_to manager, manager %><%= raw('<strong>') if current_manager == manager %>
     <%- if manager.approved? -%>
       <%- if manager.admin? -%>
         <div class="label label-info" data-toggle="tooltip" data-placement="right" title="Administrator">admin</div>
@@ -10,7 +10,7 @@
       <%= link_to 'approve', approve_manager_path(manager), method: :patch, class: 'btn btn-xs btn-warning' %>
     <%- end -%>
   </td>
-  <td><%= manager.team ? link_to(manager.team, manager.team) : 'n/a' %></td>
+  <td><%= raw('<strong>') if current_manager == manager %><%= manager.team ? link_to(manager.team, manager.team) : 'n/a' %><%= raw('<strong>') if current_manager == manager %></td>
   <td class="text-right"><%= manager.watches.count %></td>
   <td><%= link_to icon('pencil'), [:edit, manager] if current_manager.admin? %></td>
   <td>
