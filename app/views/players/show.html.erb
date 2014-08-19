@@ -1,6 +1,21 @@
 <%= content_for :title, @player %>
 <h1 class="page-header">
   <div class="pull-right">
+    <%- if @player.status -%>
+      <span>
+        <%- if @player.status == 'injured' -%>
+          <%= icon :ambulance, '', title: "Injured: #{@player.status_notes}", class: 'fa-lg red', data: { toggle: 'tooltip' } %>
+        <%- elsif @player.status == 'latefitnesstest' -%>
+          <%= icon :stethoscope, '', title: @player.status_notes, class: 'fa-lg red', data: { toggle: 'tooltip' } %>
+        <%- elsif @player.status == 'doubtful' -%>
+          <%= icon :medkit, '', title: "Doubtful: #{@player.status_notes}", class: 'fa-lg red', data: { toggle: 'tooltip' } %>
+        <%- elsif @player.status == 'suspended' -%>
+          <%= icon :ban, '', title: "Suspended #{@player.status_notes}", class: 'fa-lg red', data: { toggle: 'tooltip' } %>
+        <%- end -%>
+        &nbsp;&nbsp;
+      </span>
+    <%- end -%>
+
     <%- if @player.team_player -%>
       <%- if @player.team_player.substitute? -%>
         <span class="substitute fa-stack" title="Substitute" data-toggle="tooltip" data-placement="left">
