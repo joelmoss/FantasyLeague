@@ -1,0 +1,146 @@
+<%= content_for :title, "#{@fixture.home_club.short_name} vs #{@fixture.away_club.short_name} (#{@fixture.date})" %>
+
+<div class="row">
+  <div class="col-md-5">
+    <h2 class="page-header text-right"><%= @fixture.home_club %></h2>
+  </div>
+  <div class="col-md-2 text-center">
+    <h2 class="page-header"><%= @fixture.home_score %> - <%= @fixture.away_score %></h2>
+  </div>
+  <div class="col-md-5">
+    <h2 class="page-header"><%= @fixture.away_club %></h2>
+  </div>
+</div>
+
+<h4 class="pull-right">
+  <%= @fixture.date %> <small><%= @fixture.time %></small>
+</h4>
+
+<ul class="nav nav-tabs" role="tablist">
+  <li class="active"><a href="#summary" role="tab" data-toggle="tab"><strong>Summary</strong></a></li>
+  <li><a href="#home" role="tab" data-toggle="tab"><strong>Home Club</strong></a></li>
+  <li><a href="#away" role="tab" data-toggle="tab"><strong>Away Club</strong></a></li>
+</ul>
+
+<div class="tab-content">
+  <div class="tab-pane active" id="summary">
+
+    <div class="row">
+      <div class="col-md-6">
+
+        <table class="table table-hover table-striped">
+          <thead>
+            <tr>
+              <th width="10"></th>
+              <th>Name</th>
+              <th width="10"></th>
+              <th width="10"></th>
+              <th width="10"></th>
+              <th class="text-right">Goals</th>
+              <th class="text-right">Points</th>
+            </tr>
+          </thead>
+          <tbody>
+            <%= render partial: 'player_summary', collection: @fixture.fixture_players.home.starters, as: :pl -%>
+            <tr><td colspan="7"></td></tr>
+            <%= render partial: 'player_summary', collection: @fixture.fixture_players.home.subs, as: :pl -%>
+          </tfoot>
+        </table>
+
+      </div>
+      <div class="col-md-6">
+
+        <table class="table table-hover table-striped">
+          <thead>
+            <tr>
+              <th width="10"></th>
+              <th>Name</th>
+              <th width="10"></th>
+              <th width="10"></th>
+              <th width="10"></th>
+              <th class="text-right">Goals</th>
+              <th class="text-right">Points</th>
+            </tr>
+          </thead>
+          <tbody>
+            <%= render partial: 'player_summary', collection: @fixture.fixture_players.away.starters, as: :pl -%>
+            <tr><td colspan="7"></td></tr>
+            <%= render partial: 'player_summary', collection: @fixture.fixture_players.away.subs, as: :pl -%>
+          </tfoot>
+        </table>
+
+      </div>
+    </div>
+
+  </div>
+  <div class="tab-pane" id="home">
+
+    <h3><%= @fixture.home_club %></h3>
+
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th colspan="11"></th>
+          <th colspan="6" class="text-center active">Season Stats</th>
+        </tr>
+        <tr>
+          <th width="10">Pos</th>
+          <th>Name</th>
+          <th>Team</th>
+          <th width="10"></th>
+          <th width="10"></th>
+          <th width="10"></th>
+          <%- %w( gls ass cs ga ).each do |type| -%>
+            <th class="text-right"><%= type.upcase %></th>
+          <%- end -%>
+          <th class="text-right">TOT</th>
+          <%- %w( pld gls ass cs ga ).each do |type| -%>
+            <th class="text-right"><%= type.upcase %></th>
+          <%- end -%>
+          <th class="text-right">TOT</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render partial: 'player_detail', collection: @fixture.fixture_players.home.starters, as: :pl -%>
+        <tr><td colspan="11"></td></tr>
+        <%= render partial: 'player_detail', collection: @fixture.fixture_players.home.subs, as: :pl -%>
+      </tbody>
+    </table>
+
+  </div>
+  <div class="tab-pane" id="away">
+
+    <h3><%= @fixture.away_club %></h3>
+
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th colspan="11"></th>
+          <th colspan="6" class="text-center active">Season Stats</th>
+        </tr>
+        <tr>
+          <th width="10">Pos</th>
+          <th>Name</th>
+          <th>Team</th>
+          <th width="10"></th>
+          <th width="10"></th>
+          <th width="10"></th>
+          <%- %w( gls ass cs ga ).each do |type| -%>
+            <th class="text-right"><%= type.upcase %></th>
+          <%- end -%>
+          <th class="text-right">TOT</th>
+          <%- %w( pld gls ass cs ga ).each do |type| -%>
+            <th class="text-right"><%= type.upcase %></th>
+          <%- end -%>
+          <th class="text-right">TOT</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render partial: 'player_detail', collection: @fixture.fixture_players.away.starters, as: :pl -%>
+        <tr><td colspan="11"></td></tr>
+        <%= render partial: 'player_detail', collection: @fixture.fixture_players.away.subs, as: :pl -%>
+      </tbody>
+    </table>
+
+  </div>
+</div>

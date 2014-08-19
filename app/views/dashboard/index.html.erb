@@ -23,7 +23,7 @@
 <%- end -%>
 
 <div class="row">
-  <div class="col-md-5 col-sm-5">
+  <div class="col-md-4 col-sm-5">
 
     <%- if current_manager.admin? -%>
       <%- unless @unaproved_managers.empty? -%>
@@ -41,19 +41,23 @@
     </ul>
 
   </div>
-  <div class="col-md-3">
+  <div class="col-md-4">
 
-    <h4 class="page-header">Latest Results</h4>
+    <h4 class="page-header">
+      <div class="pull-right"><small><%= link_to 'show more...', fixtures_path %></small></div>
+      Latest Results
+    </h4>
     <table class="table table-hover table-striped">
-      <%- @results.each do |res| -%>
-        <tr>
-          <td class="text-right"><%= res.home_club.short_name %></td>
-          <td class="text-right" width="10"><%= res.home_score %></td>
-          <td width="10">-</td>
-          <td width="10"><%= res.away_score %></td>
-          <td><%= res.away_club.short_name %></td>
-        </tr>
-      <%- end -%>
+      <tbody>
+        <%- @results.each do |res| -%>
+          <tr>
+            <td class="text-right" width="100"><small><%= @date == res.date ? '~' : @date = res.date %></small></td>
+            <td class="text-right"><%= res.home_club.short_name %></td>
+            <td class="text-center"><%= link_to "#{res.home_score} - #{res.away_score}", res %></td>
+            <td><%= res.away_club.short_name %></td>
+          </tr>
+        <%- end -%>
+      </tbody>
     </table>
 
   </div>

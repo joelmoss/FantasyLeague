@@ -52,8 +52,9 @@
                 </ul>
               </li>
 
-              <li class="<%= 'active' if controller_name == 'managers' %>"><%= link_to 'Managers', managers_path %></li>
               <li class="<%= 'active' if %w(teams team_players).include?(controller_name) %>"><%= link_to 'Teams', teams_path %></li>
+              <li class="<%= 'active' if controller_name == 'fixtures' %>"><%= link_to 'Fixtures', fixtures_path %></li>
+              <li class="<%= 'active' if controller_name == 'managers' %>"><%= link_to 'Managers', managers_path %></li>
               <li class="<%= 'active' if controller_name == 'pages' && action_name == 'rules' %>"><%= link_to 'Rules', rules_path %></li>
             </ul>
             <%- end -%>

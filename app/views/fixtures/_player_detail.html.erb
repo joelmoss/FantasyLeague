@@ -1,0 +1,29 @@
+<%- player = pl.player -%>
+<tr>
+  <td>
+    <span class="label label-<%= position_colour player.position %>" title="<%= player.full_position %>" data-toggle="tooltip", data-placement="right"><%= player.position %></span>
+  </td>
+  <td><%= link_to player.short_name, player %></td>
+  <td>
+    <%= link_to_unless player.free_agent?, player.team, player.team do %>
+      -
+    <%- end -%>
+  </td>
+
+  <td><%= icon :file, '', class: 'yellow' if pl.yellow_card %></td>
+  <td><%= icon :file, '', class: 'red' if pl.red_card %></td>
+  <td>
+    <%= icon :reply, '', class: 'red' if pl.subbed_off %>
+    <%= icon :share, '', class: 'green' if pl.subbed_on %>
+  </td>
+
+  <%- %w( gls ass cs ga ).each do |type| -%>
+    <td class="text-right"><%= pl.send type %></td>
+  <%- end -%>
+  <td class="text-right"><strong><%= pl.tot %></strong></td>
+
+  <%- %w( pld gls ass cs ga ).each do |type| -%>
+    <td class="text-right active"><%= player.season.try(type) || 0 %></td>
+  <%- end -%>
+  <td class="text-right active"><strong><%= player.season.try(:tot) || 0 %></strong></td>
+</tr>

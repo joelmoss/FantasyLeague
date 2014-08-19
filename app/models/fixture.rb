@@ -1,6 +1,19 @@
 class Fixture < ActiveRecord::Base
 
-  has_many :fixture_players
+  has_many :fixture_players do
+    def home
+      joins(:player).where('players.club_id' => proxy_association.owner.home_club).order('players.position')
+    end
+    def starters
+      where subbed_on: false
+    end
+    def subs
+      where subbed_on: true
+    end
+    def away
+      joins(:player).where('players.club_id' => proxy_association.owner.away_club).order('players.position')
+    end
+  end
   has_many :players, through: :fixture_players do
     def for_team(team)
       team.team_sheets.find_by(date: proxy_association.owner.date.to_date)
@@ -9,8 +22,12 @@ class Fixture < ActiveRecord::Base
   belongs_to :home_club, class_name: 'Club'
   belongs_to :away_club, class_name: 'Club'
 
-  default_scope { order :date, :time }
+  default_scope { order date: :desc, time: :asc }
 
+
+  def to_s
+    "#{home_club} vs. #{away_club}"
+  end
 
   def date
     read_attribute(:date).to_s(:rfc822)
