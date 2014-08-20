@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140817102810) do
+ActiveRecord::Schema.define(version: 20140820183408) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -151,6 +151,19 @@ ActiveRecord::Schema.define(version: 20140817102810) do
   add_index "players", ["deleted_at"], name: "index_players_on_deleted_at", using: :btree
   add_index "players", ["full_name"], name: "index_players_on_full_name", unique: true, using: :btree
   add_index "players", ["short_name"], name: "index_players_on_short_name", using: :btree
+
+  create_table "sealed_bids", force: true do |t|
+    t.integer  "player_id"
+    t.integer  "manager_id"
+    t.decimal  "bid",        precision: 5, scale: 2
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+  end
+
+  add_index "sealed_bids", ["deleted_at"], name: "index_sealed_bids_on_deleted_at", using: :btree
+  add_index "sealed_bids", ["manager_id"], name: "index_sealed_bids_on_manager_id", using: :btree
+  add_index "sealed_bids", ["player_id"], name: "index_sealed_bids_on_player_id", using: :btree
 
   create_table "team_players", force: true do |t|
     t.boolean  "substitute",                             default: true,  null: false

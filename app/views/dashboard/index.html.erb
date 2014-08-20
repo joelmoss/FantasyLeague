@@ -14,6 +14,13 @@
     </div>
   <%- end -%>
 
+  <%- if current_manager.has_bid? -%>
+    <div class="alert alert-warning">
+      <strong>You have a bid of &pound;<%= current_manager.sealed_bids.first.bid %>m tabled for <%= link_to current_manager.sealed_bids.first.player, current_manager.sealed_bids.first.player %>!</strong>
+      Come back here after 11pm on Sunday to see if you have won the bid.</p>
+    </div>
+  <%- end -%>
+
 <%- else -%>
 
   <div class="alert alert-warning">

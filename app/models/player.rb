@@ -23,8 +23,9 @@ class Player < ActiveRecord::Base
   belongs_to :club
   has_many :fixture_players
   has_many :fixtures, through: :fixture_players
+  has_many :sealed_bids
 
-  accepts_nested_attributes_for :team_player
+  accepts_nested_attributes_for :team_player, :sealed_bids
 
   POSITIONS = [
     {

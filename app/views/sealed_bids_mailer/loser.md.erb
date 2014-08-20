@@ -1,0 +1,6 @@
+Hi <%= @bid.manager %>,
+
+Sorry to say, but your Sealed Bid of **<%= @bid.bid %>m** for <%= link_to @bid.player, @bid.player %> was
+unsuccessful. You lost out to <%= @winner.manager %>, who successfully bid <%= @winner.bid %>m.
+
+Better luck next time ;)

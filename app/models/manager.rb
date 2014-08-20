@@ -9,6 +9,7 @@ class Manager < ActiveRecord::Base
   has_one :team
   has_many :watches
   has_many :watchings, through: :watches, source: :player
+  has_many :sealed_bids
 
   default_scope { order :name }
   scope :approved, -> { where approved: true }
@@ -35,6 +36,10 @@ class Manager < ActiveRecord::Base
     else
       super # Use whatever other message
     end
+  end
+
+  def has_bid?(player=nil)
+    player ? sealed_bids.exists?(player: player) : sealed_bids.exists?
   end
 
 

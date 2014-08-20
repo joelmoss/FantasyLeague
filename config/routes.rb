@@ -18,6 +18,8 @@ Rails.application.routes.draw do
     delete :unwatch, on: :member
     post :toggle_watch, on: :member
     get :watching, on: :collection
+
+    resources :sealed_bids
   end
 
   resources :managers, except: [ :new, :create ] do

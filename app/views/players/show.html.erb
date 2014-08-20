@@ -46,13 +46,20 @@
 
       <%= simple_form_for @player, html: { class: 'form-inline' }, wrapper: :inline_form do |f| %>
         <%= f.simple_fields_for :team_player, TeamPlayer.new do |tpf| %>
-          <%= tpf.association :team, as: :select, collection: Team.all, prompt: 'Team?', input_html: { class: 'input-sm', autofocus: true } %>
-          <%= tpf.input :purchase_price, required: true, placeholder: 'purchased for?', input_html: { class: 'input-sm' } %>
+          <%= tpf.association :team, as: :select, collection: Team.all, prompt: 'New team?', input_html: { autofocus: true } %>
+          <%= tpf.input :purchase_price, required: true, placeholder: 'price?' %>
         <%- end -%>
         <%= f.button :submit, 'Save', class: 'btn-sm' %>
       <%- end -%>
 
     <%- end -%>
+
+    <%= simple_form_for [@player, @sealed_bid], html: { class: 'form-inline' }, wrapper: :inline_form do |f| %>
+      <%= f.input :bid, required: true, placeholder: 'sealed bid?' %>
+      <%= f.button :submit, 'Submit Bid', class: 'btn-sm' %>
+      <small><a href="#" data-toggle="modal" data-target="#myModal">What's a Sealed Bid?</a></small>
+    <%- end if @player.free_agent? && !current_manager.has_bid? -%>
+
   </div>
   <div class="col-md-5 right">
     <%- if current_manager.watchings.exists? @player -%>
@@ -62,6 +69,10 @@
     <%- end -%>
   </div>
 </div>
+
+<%- if current_manager.has_bid?(@player) -%>
+  <p class="alert alert-warning"><strong>You have a bid of &pound;<%= @player.sealed_bids.find_by(manager: current_manager).bid %>m tabled for this player!</strong> Come back here after 11pm on Sunday to see if you have won the bid.</p>
+<%- end -%>
 
 <section>
   <h3 class="page-header">Points this Season</h3>
@@ -123,3 +134,31 @@
   </table>
 </section>
 
+
+
+
+<!-- Sealed Bid Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Sealed Bids</h4>
+      </div>
+      <div class="modal-body">
+        <p>Bids can be tabled for any player that is a Free Agent (a player that does not play for another Fantasy League Team). These bids are sealed and no other managers will see the amount you have bid, or what player you have bid on.</p>
+        <p>The following rules apply to Sealed Bids:</p>
+        <ul>
+          <li>You can place a sealed bid for only one player at any given time.</li>
+          <li>You cannot bid an amount that is more than your current budget.</li>
+          <li>All other squad rules apply.</li>
+        </ul>
+        <p>Every Sunday evening at 11pm, the system will collect all sealed bids submitted during the 7 days previous, and will determine the winner of each player that is bid for. The manager who bid the most will win the player.</p>
+        <p>In the result of a tie, the manager highest in the league table at that time will win the bid.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

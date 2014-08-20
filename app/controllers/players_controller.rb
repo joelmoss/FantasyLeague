@@ -12,6 +12,7 @@ class PlayersController < ApplicationController
 
   def show
     add_breadcrumb @player.short_name, @player
+    @sealed_bid = @player.sealed_bids.build manager: current_manager
   end
 
   def update
@@ -49,7 +50,8 @@ class PlayersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def player_params
-      params.require(:player).permit(team_player_attributes: [ :team_id, :purchase_price ])
+      params.require(:player).permit(team_player_attributes: [ :team_id, :purchase_price ],
+                                     sealed_bids_attributes: [ :bid ])
     end
 
 end

@@ -58,7 +58,7 @@ class TeamPlayer < ActiveRecord::Base
     def valid_club_quota?
       grouped = team.players.group_by(&:club_id)
       grouped[player.club_id] = [] if grouped[player.club_id].nil?
-      grouped[player.club_id] << player if player.new_record?
+      grouped[player.club_id] << player if new_record?
       !grouped.any? { |k,v| v.count > 2 }
     end
 
