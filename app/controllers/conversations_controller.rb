@@ -8,7 +8,7 @@ class ConversationsController < ApplicationController
 
   # GET /conversations
   def index
-    @conversations = Conversation.all
+    @conversations = conversations
   end
 
   def show
@@ -57,9 +57,13 @@ class ConversationsController < ApplicationController
 
   private
 
+    def conversations
+      @conversations ||= Conversation.participating(current_manager)
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def fetch_conversation
-      @conversation = Conversation.find(params[:id])
+      @conversation = conversations.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.

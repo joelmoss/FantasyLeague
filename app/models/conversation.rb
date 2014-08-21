@@ -24,7 +24,11 @@ class Conversation < ActiveRecord::Base
     messages.each do |m|
       managers << m.manager
     end
-    managers
+    managers.uniq
+  end
+
+  def self.participating(man)
+    joins(:messages).where('conversations.recipient_id = ? OR messages.manager_id = ?', man.id, man.id)
   end
 
 

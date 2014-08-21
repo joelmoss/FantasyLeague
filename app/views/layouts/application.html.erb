@@ -39,7 +39,7 @@
                   <%- if current_manager.team -%>
                   <li><%= link_to 'Your Squad', team_path(current_manager.team) %></li>
                   <%- end -%>
-                  <li><%= link_to 'Messages', conversations_path %></li>
+                  <li><%= link_to 'Conversations', conversations_path %></li>
                 </ul>
               </li>
               <li class="dropdown<%= ' active' if controller_name == 'players' %>">
@@ -61,6 +61,11 @@
 
             <ul class="nav navbar-nav navbar-right">
               <%- if signed_in? -%>
+                <li>
+                  <%= link_to conversations_path do %>
+                    <span class="label label-<%= current_manager.unread_messages > 0 ? 'danger' : 'default' %>"><%= current_manager.unread_messages %></span>
+                  <%- end -%>
+                </li>
                 <li class="navbar-text">Signed in as <%= current_manager %></li>
                 <li><%= link_to icon('sign-out', 'Sign out'), destroy_manager_session_path, method: :delete, data: { confirm: 'Are you sure?' } %></li>
               <%- else -%>

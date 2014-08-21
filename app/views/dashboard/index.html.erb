@@ -29,6 +29,13 @@
 
 <%- end -%>
 
+<%- if current_manager.unread_messages > 0 -%>
+  <div class="alert alert-success">
+    <strong>You have <%= pluralize current_manager.unread_messages, 'conversation' %>.</strong>
+    <%= link_to 'Click here', conversations_path, class: 'alert-link' %> to view and/or reply to them.
+  </div>
+<%- end -%>
+
 <div class="row">
   <div class="col-md-4 col-sm-5">
 

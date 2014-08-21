@@ -43,6 +43,10 @@ class Manager < ActiveRecord::Base
     player ? sealed_bids.exists?(player: player) : sealed_bids.exists?
   end
 
+  def unread_messages
+    Conversation.participating(self).count
+  end
+
 
   private
 
