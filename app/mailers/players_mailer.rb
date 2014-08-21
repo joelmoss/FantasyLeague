@@ -1,5 +1,5 @@
 class PlayersMailer < ActionMailer::Base
-  default from: "joel@developwithstyle.com"
+  default from: "Fantasy League <joel@developwithstyle.com>"
 
 
   # Subject can be set in your I18n file at config/locales/en.yml

@@ -1,5 +1,5 @@
 class ManagerMailer < ActionMailer::Base
-  default from: "joel@developwithstyle.com"
+  default from: "Fantasy League <joel@developwithstyle.com>"
 
 
   def approved(manager)

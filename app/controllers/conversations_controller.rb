@@ -2,13 +2,17 @@ class ConversationsController < ApplicationController
   before_action :authenticate_manager!, :require_mobile!
   # before_action :new_conversation, only: [:new, :create]
   before_action :fetch_conversation, only: [:show, :edit, :update, :destroy]
-  add_breadcrumb 'Messages', :conversations_path
+  add_breadcrumb 'Conversations', :conversations_path
   helper_method :setup_conversation
 
 
   # GET /conversations
   def index
     @conversations = Conversation.all
+  end
+
+  def show
+    add_breadcrumb @conversation, @conversation
   end
 
   # GET /conversations/new
@@ -21,6 +25,7 @@ class ConversationsController < ApplicationController
   # POST /conversations
   def create
     @conversation = Conversation.new(conversation_params)
+    @conversation.creator = current_manager
 
     if @conversation.save
       redirect_to @conversation, notice: 'Conversation was successfully created.'
@@ -59,12 +64,12 @@ class ConversationsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def conversation_params
-      params.require(:conversation).permit(:subject, :recipient_id, messages_attributes: [:body])
+      params.require(:conversation).permit(:subject, :recipient_id, messages_attributes: [:body, :manager_id])
     end
 
     def setup_conversation(conversation)
       conversation.tap do |rec|
-        rec.messages.build if rec.messages.empty?
+        rec.messages.build manager: current_manager if rec.messages.empty?
       end
     end
 end

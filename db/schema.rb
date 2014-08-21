@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140821195506) do
+ActiveRecord::Schema.define(version: 20140821200921) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -115,9 +115,11 @@ ActiveRecord::Schema.define(version: 20140821195506) do
     t.integer  "conversation_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "manager_id"
   end
 
   add_index "messages", ["conversation_id"], name: "index_messages_on_conversation_id", using: :btree
+  add_index "messages", ["manager_id"], name: "index_messages_on_manager_id", using: :btree
 
   create_table "player_seasons", force: true do |t|
     t.integer  "season",                 null: false

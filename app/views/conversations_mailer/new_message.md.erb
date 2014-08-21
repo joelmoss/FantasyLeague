@@ -1,0 +1,10 @@
+Hi <%= @manager %>,
+
+<%= @message.manager %> has replied to a [conversation](<%= url_for @message.conversation %>) on
+Fantasy League that you are a part of.
+
+The reply is as follows:
+
+> <%= @message.body %>
+
+[View the message and conversation in full and reply](<%= url_for @message.conversation %>).

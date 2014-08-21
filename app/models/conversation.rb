@@ -9,9 +9,29 @@ class Conversation < ActiveRecord::Base
   default_scope { order created_at: :desc }
   validates :subject, presence: true
   validates :recipient, presence: true
+  after_create :notify_recipient
 
   def to_s
     subject
   end
+
+  def body
+    messages.first.body
+  end
+
+  def participants
+    managers = [recipient]
+    messages.each do |m|
+      managers << m.manager
+    end
+    managers
+  end
+
+
+  private
+
+    def notify_recipient
+      ConversationsMailer.new_conversation(self).deliver
+    end
 
 end

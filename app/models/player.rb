@@ -73,8 +73,10 @@ class Player < ActiveRecord::Base
   private
 
     def notify_manager_of_removal
-      manager = self.class.unscoped { team_player }.team.manager
-      PlayersMailer.removed(self, manager).deliver unless free_agent?
+      unless free_agent?
+        manager = TeamPlayer.unscoped { team_player }.team.manager
+        PlayersMailer.removed(self, manager).deliver
+      end
     end
 
 end

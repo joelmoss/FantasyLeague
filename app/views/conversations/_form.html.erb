@@ -5,6 +5,7 @@
     <%= f.association :recipient %>
     <%= f.input :subject %>
     <%= f.simple_fields_for :messages do |mf| %>
+      <%= mf.input :manager_id, as: :hidden %>
       <%= mf.input :body, as: :text, input_html: { rows: 6 } %>
     <%- end -%>
   </div>

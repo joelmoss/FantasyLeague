@@ -39,7 +39,7 @@
                   <%- if current_manager.team -%>
                   <li><%= link_to 'Your Squad', team_path(current_manager.team) %></li>
                   <%- end -%>
-                  <li><%# link_to 'Messages', conversations_path %></li>
+                  <li><%= link_to 'Messages', conversations_path %></li>
                 </ul>
               </li>
               <li class="dropdown<%= ' active' if controller_name == 'players' %>">

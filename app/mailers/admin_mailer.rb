@@ -1,5 +1,5 @@
 class AdminMailer < ActionMailer::Base
-  default from: "joel@developwithstyle.com"
+  default from: "Fantasy League <joel@developwithstyle.com>"
 
 
   def new_user_waiting_for_approval(manager)

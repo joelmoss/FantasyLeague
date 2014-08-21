@@ -1,0 +1,8 @@
+Hi <%= @conversation.recipient %>,
+
+<%= @conversation.creator %> has sent you a [new message](<%= url_for @conversation %>) via the
+Fantasy League. The message is as follows:
+
+> <%= @conversation.body %>
+
+[View the message in full and reply](<%= url_for @conversation %>).
