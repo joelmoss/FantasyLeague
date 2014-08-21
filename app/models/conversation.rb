@@ -9,7 +9,7 @@ class Conversation < ActiveRecord::Base
   default_scope { order created_at: :desc }
   validates :subject, presence: true
   validates :recipient, presence: true
-  after_create :notify_recipient
+
 
   def to_s
     subject
@@ -30,12 +30,5 @@ class Conversation < ActiveRecord::Base
   def self.participating(man)
     joins(:messages).where('conversations.recipient_id = ? OR messages.manager_id = ?', man.id, man.id)
   end
-
-
-  private
-
-    def notify_recipient
-      ConversationsMailer.new_conversation(self).deliver
-    end
 
 end

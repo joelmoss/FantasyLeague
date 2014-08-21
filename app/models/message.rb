@@ -15,6 +15,8 @@ class Message < ActiveRecord::Base
         conversation.participants.each do |man|
           ConversationsMailer.new_message(self, man).deliver unless man == self.manager
         end
+      else
+        ConversationsMailer.new_conversation(conversation).deliver
       end
     end
 

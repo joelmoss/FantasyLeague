@@ -1,9 +1,0 @@
-<%= simple_form_for @conversation, url: :conversations do |f| %>
-  <%= f.input :recipients, as: :select, collection: Manager.all, input_html: { multiple: true }, placeholder: 'Select one or more managers to message...' %>
-  <%= f.input :subject %>
-  <%= f.input :body, as: :text %>
-  <div class="form-actions">
-    <%= f.button :submit %>
-    <%= f.button :submit, 'Cancel', type: :reset %>
-  </div>
-<%- end -%>

@@ -75,7 +75,14 @@ class Player < ActiveRecord::Base
     def notify_manager_of_removal
       unless free_agent?
         manager = TeamPlayer.unscoped { team_player }.team.manager
-        PlayersMailer.removed(self, manager).deliver
+        con = Conversation.create subject: "Player removed from your team: #{self}",
+                                  creator: manager,
+                                  recipient: manager
+        con.messages.create manager: manager,
+                            body: "Sorry to tell you that #{self} has been removed from the player "+
+                                  "list, and therefore has also been removed from your Team with "+
+                                  "immediate effect. Any previous points that he gained you in the "+
+                                  "past will remain in place."
       end
     end
 
