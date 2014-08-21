@@ -1,5 +1,5 @@
 class FixturesController < ApplicationController
-  before_action :authenticate_manager!
+  before_action :authenticate_manager!, :require_mobile!
   add_breadcrumb 'Fixtures', :fixtures_path
 
 

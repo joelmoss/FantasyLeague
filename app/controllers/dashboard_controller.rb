@@ -1,6 +1,6 @@
 class DashboardController < ApplicationController
 
-  before_action :authenticate_manager!
+  before_action :authenticate_manager!, :require_mobile!
 
   def index
     @league = Team.all.sort_by(&:current_points).reverse

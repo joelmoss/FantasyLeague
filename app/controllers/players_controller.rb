@@ -1,6 +1,6 @@
 class PlayersController < ApplicationController
 
-  before_action :authenticate_manager!
+  before_action :authenticate_manager!, :require_mobile!
   before_action :set_player, only: [ :show, :update, :toggle_watch ]
 
   add_breadcrumb 'Players', :players_path

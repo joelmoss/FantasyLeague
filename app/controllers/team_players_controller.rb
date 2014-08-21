@@ -1,6 +1,6 @@
 class TeamPlayersController < ApplicationController
 
-  before_action :authenticate_manager!
+  before_action :authenticate_manager!, :require_mobile!
   before_action :set_player, only: [ :show, :toggle_sub, :release ]
 
 

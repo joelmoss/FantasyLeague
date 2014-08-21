@@ -12,4 +12,12 @@ class ApplicationController < ActionController::Base
       devise_parameter_sanitizer.for(:sign_up) << :name
     end
 
+    def require_mobile!
+      unless current_manager.mobile_number
+        redirect_to edit_manager_url(current_manager), alert: "Please enter your mobile phone " +
+                                                              "number. Just enter a hyphen if " +
+                                                              "you don't have a mobile."
+      end
+    end
+
 end

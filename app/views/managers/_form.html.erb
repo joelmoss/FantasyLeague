@@ -1,18 +1,7 @@
 <%= simple_form_for @manager do |f| %>
-  <% if @manager.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@manager.errors.count, "error") %> prohibited this manager from being saved:</h2>
-
-      <ul>
-      <% @manager.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
   <%= f.input :name, placeholder: 'Managers name...', required: true %>
   <%= f.input :email, required: true %>
+  <%= f.input :mobile_number, required: true %>
 
   <div class="form-actions">
     <%= f.button :submit %>

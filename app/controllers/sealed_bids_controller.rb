@@ -1,7 +1,6 @@
 class SealedBidsController < ApplicationController
 
-  before_action :authenticate_manager!
-  # before_action :set_player, only: [ :show, :edit, :update, :destroy, :approve ]
+  before_action :authenticate_manager!, :require_mobile!
 
 
   def create

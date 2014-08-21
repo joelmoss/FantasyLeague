@@ -1,6 +1,7 @@
 class ManagersController < ApplicationController
 
   before_action :authenticate_manager!
+  before_action :require_mobile!, except: [ :edit, :update ]
   before_action :set_manager, only: [ :show, :edit, :update, :destroy, :approve ]
 
   add_breadcrumb 'Managers', :managers_path
@@ -64,7 +65,7 @@ class ManagersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def manager_params
-      params.require(:manager).permit(:name, :email)
+      params.require(:manager).permit(:name, :email, :mobile_number)
     end
 
 end

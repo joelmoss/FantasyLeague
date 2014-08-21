@@ -1,16 +1,18 @@
 <%= content_for :title, @manager %>
 <h1 class="page-header">
   <div class="pull-right">
-    <%= link_to icon('pencil', 'edit'), [:edit, @manager] if current_manager.admin? %>
+    <%= link_to icon('pencil', 'edit'), [:edit, @manager] if current_manager.admin? || current_manager == @manager %>
   </div>
   <%= content_for :title %>
 </h1>
 
-<dl>
+<dl class="dl-horizontal">
   <dt>Name</dt>
     <dd><%= @manager.name %></dd>
   <dt>Email</dt>
     <dd><%= mail_to @manager.email %></dd>
   <dt>Team</dt>
     <dd><%= @manager.team ? link_to(@manager.team, @manager.team) : 'n/a' %></dd>
+  <dt>Mobile</dt>
+    <dd><%= @manager.mobile_number %></dd>
 </dl>

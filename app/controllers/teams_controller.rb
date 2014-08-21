@@ -1,6 +1,6 @@
 class TeamsController < ApplicationController
 
-  before_action :authenticate_manager!
+  before_action :authenticate_manager!, :require_mobile!
   before_action :set_team, only: [ :show, :edit, :update, :destroy, :approve ]
 
   add_breadcrumb 'Teams', :teams_path
