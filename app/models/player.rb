@@ -16,14 +16,16 @@ class Player < ActiveRecord::Base
   has_many :previous_seasons, -> { where.not(season: Date.today.year) }, class_name: 'PlayerSeason'
   has_one :previous_season, -> { where(season: Date.today.year-1) }, class_name: 'PlayerSeason'
   has_one :season, -> { where(season: Date.today.year) }, class_name: 'PlayerSeason'
-  has_one :team_player, validate: true
+  has_one :team_player, validate: true, dependent: :destroy
   has_one :team, through: :team_player
-  has_many :watches
+  has_many :watches, dependent: :destroy
   has_many :watchers, through: :watches, source: :manager
   belongs_to :club
   has_many :fixture_players
   has_many :fixtures, through: :fixture_players
-  has_many :sealed_bids
+  has_many :sealed_bids, dependent: :destroy
+
+  before_destroy :notify_manager_of_removal
 
   accepts_nested_attributes_for :team_player, :sealed_bids
 
@@ -66,5 +68,13 @@ class Player < ActiveRecord::Base
   def free_agent?
     !team_player.present?
   end
+
+
+  private
+
+    def notify_manager_of_removal
+      manager = self.class.unscoped { team_player }.team.manager
+      PlayersMailer.removed(self, manager).deliver unless free_agent?
+    end
 
 end

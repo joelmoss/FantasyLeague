@@ -40,7 +40,9 @@ class TeamPlayersController < ApplicationController
 
     def set_player
       @player = team.team_players.with_deleted.find(params[:id])
-      redirect_to @player.player if @player.destroyed?
+      if @player.destroyed?
+        redirect_to (@player.player || team), alert: 'This player no longer plays for this team or is not on the player list'
+      end
     end
 
     def team

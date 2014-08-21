@@ -1,0 +1,6 @@
+Hi <%= @manager %>,
+
+Sorry to tell you that <%= @player %> has been removed from the player list, and therefore has also been removed from
+your Team with immediate effect. Any previous points that he gained you in the past will remain in place.
+
+You now have <%= @manager.team.players.count %> players in your [squad](<%= url_for @manager.team %>).

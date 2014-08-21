@@ -124,6 +124,7 @@ namespace :scrape do
             if record.changed?
               puts " ± [#{Player::POSITIONS[@position][:abbr]}] #{@short_name.ljust(20)} (#{@club.short_name})"
               puts "   #{record.changes}"
+              puts "   Plays for #{record.team} (#{record.team.manager})" if record.team
 
               club_id_changed = record.club_id_changed? ? record.club_id_change : false
               puts "   FAILED to save!" unless record.save
@@ -181,7 +182,8 @@ namespace :scrape do
     (Player.all.pluck(:id) - records_updated).each do |id|
       player = Player.find(id)
       removed_players << player
-      puts " - [#{player.position}] #{player.to_s.ljust(20)} (#{player.club.short_name})"
+      puts " - [#{player.position}] #{player.short_name.ljust(20)} (#{player.club.short_name})"
+      puts "   Played for #{player.team} (#{player.team.manager})" if player.team
       player.destroy
     end
 

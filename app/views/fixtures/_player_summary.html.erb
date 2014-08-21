@@ -1,4 +1,4 @@
-<%- player = pl.player -%>
+<%- player = Player.unscoped { pl.player } -%>
 <tr>
   <td class="text-right">
     <span class="label label-<%= position_colour player.position %>" title="<%= player.full_position %>" data-toggle="tooltip", data-placement="right"><%= player.position %></span>

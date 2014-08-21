@@ -2,7 +2,7 @@ class Fixture < ActiveRecord::Base
 
   has_many :fixture_players do
     def home
-      joins(:player).where('players.club_id' => proxy_association.owner.home_club).order('players.position')
+      joins(:player).includes(:player).where('players.club_id' => proxy_association.owner.home_club).order('players.position')
     end
     def starters
       where subbed_on: false
@@ -11,7 +11,7 @@ class Fixture < ActiveRecord::Base
       where subbed_on: true
     end
     def away
-      joins(:player).where('players.club_id' => proxy_association.owner.away_club).order('players.position')
+      joins(:player).includes(:player).where('players.club_id' => proxy_association.owner.away_club).order('players.position')
     end
   end
   has_many :players, through: :fixture_players do

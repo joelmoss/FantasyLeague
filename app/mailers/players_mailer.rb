@@ -13,4 +13,10 @@ class PlayersMailer < ActionMailer::Base
     @changed_club = changed_club
     mail to: manager.email, subject: 'Fantasy League Player changes'
   end
+
+  def removed(player, manager)
+    @player, @manager = player, manager
+    mail to: manager.email, subject: 'Player removed from your team'
+  end
+
 end

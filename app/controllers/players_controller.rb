@@ -5,6 +5,8 @@ class PlayersController < ApplicationController
 
   add_breadcrumb 'Players', :players_path
 
+  rescue_from ActiveRecord::RecordNotFound, with: :player_not_found
+
 
   def index
     @players = Player.includes(:team_player, :club, :season, :team, :watchers)
@@ -52,6 +54,12 @@ class PlayersController < ApplicationController
     def player_params
       params.require(:player).permit(team_player_attributes: [ :team_id, :purchase_price ],
                                      sealed_bids_attributes: [ :bid ])
+    end
+
+    def player_not_found
+      redirect_to :back, alert: 'Player does not exist in the player list.'
+    rescue ActionController::RedirectBackError
+      redirect_to players_url, alert: 'Player does not exist in the player list.'
     end
 
 end

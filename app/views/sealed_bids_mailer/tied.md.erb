@@ -1,6 +1,6 @@
 Hi <%= @bid.manager %>,
 
-Sorry to say, but your Sealed Bid of **<%= @bid.bid %>m** for <%= link_to @bid.player, @bid.player %> was
+Sorry to say, but your Sealed Bid of **<%= @bid.bid %>m** for <%= url_for @bid.player %> was
 unsuccessful. One or more managers bid the same highest bid, so the result was a tie.
 
 The player is still a free agent, and you may place a new sealed bid for next week's deadline.
