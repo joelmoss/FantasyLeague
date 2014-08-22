@@ -8,7 +8,7 @@ class ConversationsMailer < ActionMailer::Base
   #
   def new_conversation(conversation)
     @conversation = conversation
-    mail to: conversation.recipient, subject: "New message: #{conversation}"
+    mail to: conversation.recipient.email, subject: "New message: #{conversation}"
   end
 
   # Subject can be set in your I18n file at config/locales/en.yml
@@ -18,6 +18,6 @@ class ConversationsMailer < ActionMailer::Base
   #
   def new_message(message, manager)
     @message, @manager = message, manager
-    mail to: manager, subject: "New reply to #{message.conversation}"
+    mail to: manager.email, subject: "New reply to #{message.conversation}"
   end
 end
