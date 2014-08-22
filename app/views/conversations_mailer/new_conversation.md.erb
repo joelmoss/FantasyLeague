@@ -1,6 +1,6 @@
 Hi <%= @conversation.recipient %>,
 
-<%= @conversation.creator %> has sent you a [new message](<%= conversation_url @conversation %>) via the
+<%= @conversation.creator == @conversation.recipient ? 'You have' : "#{@conversation.creator} has sent you" %> a [new message](<%= conversation_url @conversation %>) via the
 Fantasy League. The message is as follows:
 
 > <%= @conversation %>
