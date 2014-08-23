@@ -30,6 +30,8 @@ class Team < ActiveRecord::Base
 
   DEFAULT_BUDGET = 100.0
   FORMATIONS = %w( 4-4-2 5-3-2 4-5-1 5-4-1 4-3-3 )
+  WEEK_PRIZES = [ 1, 0.5, 0.2 ]
+  MONTH_PRIZES = [ 2, 1, 0.5 ]
 
   validates :name, presence: true,
                    uniqueness: { case_sensitive: false }
@@ -45,6 +47,20 @@ class Team < ActiveRecord::Base
 
   def current_points
     seasons.current.try(:tot) || 0
+  end
+
+  def award_week_prize!(place)
+    prize = WEEK_PRIZES[place]
+    increment! :budget, prize
+    create_conversation 'Team of the Week', 'You and your team have been declared as the Team of '+
+                                            "Week and have been awarded a prize of £#{prize}m."
+  end
+
+  def award_month_prize!(place)
+    prize = MONTH_PRIZES[place]
+    increment! :budget, prize
+    create_conversation 'Team of the Month', 'You and your team have been declared as the Team of '+
+                                             "Month and have been awarded a prize of £#{prize}m."
   end
 
   def formation(additional_player = false)
@@ -74,5 +90,13 @@ class Team < ActiveRecord::Base
 
     false
   end
+
+
+  private
+
+    def create_conversation(subject, body)
+      con = Conversation.create subject: subject, creator: manager, recipient: manager
+      con.messages.create manager: manager, body: body
+    end
 
 end

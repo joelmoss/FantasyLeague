@@ -11,6 +11,16 @@ class TeamsController < ApplicationController
     @teams = Team.all.sort_by(&:current_points).reverse
   end
 
+  def weeks
+    year = Date.today.month <= 6 ? Date.today.year - 1 : Date.today.year
+    @weeks = TeamWeek.where(season: year).order(:week).group_by(&:week)
+  end
+
+  def months
+    year = Date.today.month <= 6 ? Date.today.year - 1 : Date.today.year
+    @months = TeamMonth.where(season: year).order(:month).group_by(&:month)
+  end
+
   def new
     @team = current_manager.build_team
   end

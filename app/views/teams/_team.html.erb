@@ -1,10 +1,14 @@
 <tr>
-  <td><%= raw('<strong>') if current_manager == team.manager %><%= link_to team, team %><%= raw('</strong>') if current_manager == team.manager %></td>
-  <td><%= raw('<strong>') if current_manager == team.manager %><%= link_to team.manager, team.manager %><%= raw('<strong>') if current_manager == team.manager %></td>
-  <td><%= team.players.count %></td>
-  <td><%= team.formation %></td>
-  <td class="text-right"><%= team.current_points %></td>
-  <td class="text-right">&pound;<%= team.budget %>m</td>
-  <td><%= link_to icon('pencil'), [:edit, team]if current_manager.admin? %></td>
-  <td><%= link_to icon('times'), team, method: :delete, data: { confirm: 'Are you sure?' } if current_manager.admin? %></td>
+  <td>
+    <strong><%= link_to team, team %></strong>
+    <div><small><%= link_to team.manager, team.manager %></small></div>
+  </td>
+  <td>&pound;<%= team.budget %>m</td>
+  <td><%= team.formation || '-' %></td>
+  <%- %w( gls ass cs ga ).each do |type| -%>
+    <td align="right">
+      <%= team.seasons.current.try(type) || 0 %>
+    </td>
+  <%- end -%>
+  <td class="text-right"><strong><%= team.current_points %></strong></td>
 </tr>

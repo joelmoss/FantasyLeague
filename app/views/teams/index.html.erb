@@ -11,13 +11,12 @@
     <thead>
       <tr>
         <th>Name</th>
-        <th>Manager</th>
-        <th>Players</th>
+        <th>Budget</th>
         <th>Formation</th>
-        <th class="text-right">Points</th>
-        <th class="text-right">Budget</th>
-        <th width="10"></th>
-        <th width="10"></th>
+        <%- %w( gls ass cs ga ).each do |type| -%>
+          <th class="text-right"><%= type.upcase %></th>
+        <%- end -%>
+        <th class="text-right">Total</th>
       </tr>
     </thead>
 

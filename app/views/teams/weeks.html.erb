@@ -1,0 +1,30 @@
+<%= content_for :title, "Team of the Week: #{Date.today.year}" %>
+<h1 class="page-header">Team of the Week <small><%= Date.today.year %></small></h1>
+
+<div>
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th colspan="2">Week</th>
+        <th class="info">First</th>
+        <th>Second</th>
+        <th>Third</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <%- @weeks.each do |week,teams| -%>
+        <tr>
+          <td class="text-right"><strong><%= week %></strong></td>
+          <td>
+            <small>(<%= teams.first.week_beginning.to_s :short %> - <%= teams.first.week_beginning.end_of_week.to_s :short %>)</small>
+          </td>
+          <%- teams.sort_by(&:tot).reverse[0..2].each_with_index do |team,i| -%>
+            <td class="<%= 'info' if i == 0 %>"><%= link_to team.team, team.team %> (<%= team.tot %>)</td>
+          <%- end -%>
+        </tr>
+      <%- end -%>
+    </tbody>
+  </table>
+</div>
+

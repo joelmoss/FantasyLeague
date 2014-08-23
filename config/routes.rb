@@ -8,17 +8,25 @@ Rails.application.routes.draw do
 
   resources :teams do
     resources :team_players, path: :players, as: :players, except: [:index] do
-      post :toggle_sub, on: :member
-      delete :release, on: :member
+      member do
+        post :toggle_sub
+        delete :release
+      end
+    end
+
+    collection do
+      get :weeks
+      get :months
     end
   end
 
   resources :players, only: [ :index, :show, :update ] do
-    post :watch, on: :member
-    delete :unwatch, on: :member
-    post :toggle_watch, on: :member
+    member do
+      post :watch
+      delete :unwatch
+      post :toggle_watch
+    end
     get :watching, on: :collection
-
     resources :sealed_bids
   end
 
@@ -30,11 +38,6 @@ Rails.application.routes.draw do
 
   resources :conversations do
     resources :messages
-    # member do
-    #   post :reply
-    #   post :trash
-    #   post :untrash
-    # end
   end
 
 end

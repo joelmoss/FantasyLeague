@@ -5,7 +5,7 @@ class DashboardController < ApplicationController
   def index
     @league = Team.all.sort_by(&:current_points).reverse
     @unaproved_managers = Manager.unapproved
-    @activities = PublicActivity::Activity.all.order(created_at: :desc).limit(20)
+    @activities = PublicActivity::Activity.all.order(created_at: :desc).limit(15)
     @results = Fixture.all
   end
 

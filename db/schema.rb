@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140821200921) do
+ActiveRecord::Schema.define(version: 20140823132328) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -168,6 +168,22 @@ ActiveRecord::Schema.define(version: 20140821200921) do
   add_index "sealed_bids", ["manager_id"], name: "index_sealed_bids_on_manager_id", using: :btree
   add_index "sealed_bids", ["player_id"], name: "index_sealed_bids_on_player_id", using: :btree
 
+  create_table "team_months", force: true do |t|
+    t.integer  "season"
+    t.integer  "month"
+    t.date     "month_beginning"
+    t.integer  "team_id"
+    t.integer  "gls"
+    t.integer  "ass"
+    t.integer  "cs"
+    t.integer  "ga"
+    t.integer  "tot"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "team_months", ["team_id"], name: "index_team_months_on_team_id", using: :btree
+
   create_table "team_players", force: true do |t|
     t.boolean  "substitute",                             default: true,  null: false
     t.decimal  "purchase_price", precision: 5, scale: 2
@@ -210,6 +226,22 @@ ActiveRecord::Schema.define(version: 20140821200921) do
 
   add_index "team_sheets", ["player_id"], name: "index_team_sheets_on_player_id", using: :btree
   add_index "team_sheets", ["team_id"], name: "index_team_sheets_on_team_id", using: :btree
+
+  create_table "team_weeks", force: true do |t|
+    t.integer  "season"
+    t.integer  "week"
+    t.date     "week_beginning"
+    t.integer  "team_id"
+    t.integer  "gls"
+    t.integer  "ass"
+    t.integer  "cs"
+    t.integer  "ga"
+    t.integer  "tot"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "team_weeks", ["team_id"], name: "index_team_weeks_on_team_id", using: :btree
 
   create_table "teams", force: true do |t|
     t.string   "name",                               null: false
