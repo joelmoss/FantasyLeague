@@ -41,6 +41,9 @@
     <%- if @player.team_player -%>
       <h4>
         playing for <%= link_to @player.team, @player.team %>
+        <%- if @player.transfer_listed? -%>
+          <span class="label label-success">Player is transfer Listed!</span>
+        <%- end -%>
       </h4>
     <%- elsif current_manager.admin? -%>
 

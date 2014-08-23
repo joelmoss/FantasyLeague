@@ -70,6 +70,10 @@ class Player < ActiveRecord::Base
     !team_player.present?
   end
 
+  def transfer_listed?
+    team_player.try(:transfer_listed?)
+  end
+
 
   private
 

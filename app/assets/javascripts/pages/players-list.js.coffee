@@ -1,6 +1,6 @@
 $ ->
 
-  unless $('body').hasClass 'players index'
+  unless $('body').hasClass('players index') || $('body').hasClass('players transfer_listed')
     return
 
   playerTable = $('#player-list').DataTable

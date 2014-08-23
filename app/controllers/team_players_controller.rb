@@ -1,7 +1,7 @@
 class TeamPlayersController < ApplicationController
 
   before_action :authenticate_manager!, :require_mobile!
-  before_action :set_player, only: [ :show, :toggle_sub, :release ]
+  before_action :set_player, only: [ :show, :toggle_sub, :toggle_transfer_listed, :release ]
 
 
   def show
@@ -9,7 +9,7 @@ class TeamPlayersController < ApplicationController
   end
 
   def toggle_sub
-    if @player.toggle(:substitute).save
+    if @player.toggle!(:substitute)
       respond_to do |format|
         format.html { redirect_to(:back) }
         format.json {
@@ -26,6 +26,13 @@ class TeamPlayersController < ApplicationController
         }
       end
     end
+  rescue ActionController::RedirectBackError
+    redirect_to team
+  end
+
+  def toggle_transfer_listed
+    @player.toggle!(:transfer_listed)
+    redirect_to :back
   rescue ActionController::RedirectBackError
     redirect_to team
   end

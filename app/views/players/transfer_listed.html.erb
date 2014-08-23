@@ -1,5 +1,6 @@
-<%= content_for :title, 'Players' %>
+<%= content_for :title, 'Transfer Listed Players' %>
 <h1 class="page-header"><%= content_for :title %></h1>
+<div class="alert alert-info"><strong>The following players are listed as available to transfer from the current owner</strong>. To transfer a player on this list, simply contact the team manager and make an offer.</div>
 
 <section class="datatable">
 
@@ -29,9 +30,6 @@
           <td>
             <%= link_to player.short_name, player %>
             <%= content_tag(:span, 'new', class: 'label label-warning') if player.is_new? %>
-            <%- if player.transfer_listed? -%>
-              <div class="label label-default" data-toggle="tooltip" title="Player is Transfer Listed">TRL</div>
-            <%- end -%>
           </td>
           <td>
             <%- if player.status == 'injured' -%>

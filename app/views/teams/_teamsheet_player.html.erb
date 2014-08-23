@@ -2,7 +2,12 @@
   <td>
     <span class="label label-<%= position_colour team_player.player.position %>" title="<%= team_player.player.full_position %>" data-toggle="tooltip", data-placement="right"><%= team_player.player.position %></span>
   </td>
-  <td><%= link_to team_player.player.short_name, team_player_path(@team, team_player) %></td>
+  <td>
+    <%= link_to team_player.player.short_name, team_player_path(@team, team_player) %>
+    <%- if team_player.transfer_listed? -%>
+      <div class="label label-default" data-toggle="tooltip" title="Player is Transfer Listed">TRL</div>
+    <%- end -%>
+  </td>
   <td>
     <%- if team_player.player.status == 'injured' -%>
       <%= icon :ambulance, '', title: "Injured: #{team_player.player.status_notes}", data: { toggle: 'tooltip' } %>

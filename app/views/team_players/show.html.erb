@@ -31,46 +31,57 @@
   <small><%= @player.club %></small>
 </h1>
 <h4 class="page-sub-header">
+  <%- if @player.transfer_listed? -%>
+    <div class="pull-right label label-success">Player is transfer Listed!</div>
+  <%- end -%>
   playing for <%= link_to @team, @team %>
 </h4>
 
+<br><br>
+
 <ul class="nav nav-tabs" role="tablist">
-  <li class="active"><a href="#details" role="tab" data-toggle="tab" data-no-turbolink>Details</a></li>
-  <li><a href="#seasons" role="tab" data-toggle="tab" data-no-turbolink>Previous Seasons <span class="badge"><%= @player.seasons.count %></span></a></li>
+  <li class="active"><a href="#details" role="tab" data-toggle="tab" data-no-turbolink><strong>Details</strong></a></li>
+  <li><a href="#seasons" role="tab" data-toggle="tab" data-no-turbolink><strong>Previous Seasons</strong> <span class="badge"><%= @player.seasons.count %></span></a></li>
 </ul>
 
 <div class="tab-content">
   <div class="tab-pane fade in active" id="details">
-    <p class="pull-right">
-      <%= link_to 'Release Player...', release_team_player_path(@team, @player), method: :delete, data: { confirm: 'Are you sure you want to release this player? This will permanently remove the player from your team, and you will receive no money.'}, class: 'btn btn-danger' if current_manager.admin? || current_manager == @team.manager %>
-    </p>
+    <%- if current_manager == @team.manager -%>
+      <p class="pull-right btn-group">
+        <%- if @player.transfer_listed? -%>
+          <%= link_to 'Remove from Transfer List', toggle_transfer_listed_team_player_path, class: 'btn btn-default', method: :post %>
+        <%- else -%>
+          <%= link_to 'Add to Transfer List', toggle_transfer_listed_team_player_path, class: 'btn btn-default', method: :post %>
+        <%- end -%>
+        <%= link_to 'Release Player...', release_team_player_path(@team, @player), method: :delete, data: { confirm: 'Are you sure you want to release this player? This will permanently remove the player from your team, and you will receive no compensation.'}, class: 'btn btn-danger' %>
+      </p>
+    <%- end -%>
 
-    <p><strong>Purchased</strong> <abbr title="<%= @player.created_at %>" data-toggle="tooltip"><%= time_ago_in_words @player.created_at %> ago</abbr> for &pound;<%= @player.purchase_price %>m.</p>
+    <h5><strong>Purchased</strong> <abbr title="<%= @player.created_at %>" data-toggle="tooltip"><%= time_ago_in_words @player.created_at %> ago</abbr> for &pound;<%= @player.purchase_price %>m.</h5>
 
     <section>
+      <br><br>
       <h3 class="page-header">Points this Season</h3>
       <table class="table table-striped table-hover">
         <thead>
           <tr>
-            <th>Season</th>
-            <th>PLD</th>
-            <th>GLS</th>
-            <th>ASS</th>
-            <th>CS</th>
-            <th>GA</th>
-            <th>Total</th>
+            <th class="text-right">PLD</th>
+            <th class="text-right">GLS</th>
+            <th class="text-right">ASS</th>
+            <th class="text-right">CS</th>
+            <th class="text-right">GA</th>
+            <th class="text-right">Total</th>
           </tr>
         </thead>
 
         <tbody>
           <tr>
-            <td><strong><%= @player.player.season %></strong></td>
-            <td><%= @player.player.season.pld %></td>
-            <td><%= @player.player.season.gls %></td>
-            <td><%= @player.player.season.ass %></td>
-            <td><%= @player.player.season.cs %></td>
-            <td><%= @player.player.season.ga %></td>
-            <td><%= @player.player.season.tot %></td>
+            <td class="text-right"><%= @player.player.season.pld %></td>
+            <td class="text-right"><%= @player.player.season.gls %></td>
+            <td class="text-right"><%= @player.player.season.ass %></td>
+            <td class="text-right"><%= @player.player.season.cs %></td>
+            <td class="text-right"><%= @player.player.season.ga %></td>
+            <td class="text-right"><strong><%= @player.player.season.tot %></strong></td>
           </tr>
         </tbody>
       </table>

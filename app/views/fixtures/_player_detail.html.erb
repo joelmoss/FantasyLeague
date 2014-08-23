@@ -3,7 +3,12 @@
   <td>
     <span class="label label-<%= position_colour player.position %>" title="<%= player.full_position %>" data-toggle="tooltip", data-placement="right"><%= player.position %></span>
   </td>
-  <td><%= link_to player.short_name, player %></td>
+  <td>
+    <%= link_to player.short_name, player %>
+    <%- if player.transfer_listed? -%>
+      <div class="label label-default" data-toggle="tooltip" title="Player is Transfer Listed">TRL</div>
+    <%- end -%>
+  </td>
   <td>
     <%= link_to_unless player.free_agent?, player.team, player.team do %>
       -

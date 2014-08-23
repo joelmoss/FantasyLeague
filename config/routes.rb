@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resources :team_players, path: :players, as: :players, except: [:index] do
       member do
         post :toggle_sub
+        post :toggle_transfer_listed
         delete :release
       end
     end
@@ -26,7 +27,10 @@ Rails.application.routes.draw do
       delete :unwatch
       post :toggle_watch
     end
-    get :watching, on: :collection
+    collection do
+      get :watching
+      get :transfer_listed
+    end
     resources :sealed_bids
   end
 

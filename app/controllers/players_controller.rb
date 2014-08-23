@@ -12,6 +12,11 @@ class PlayersController < ApplicationController
     @players = Player.includes(:team_player, :club, :season, :team, :watchers)
   end
 
+  def transfer_listed
+    add_breadcrumb 'Transfer Listed'
+    @players = Player.includes(:club, :season, :team, :watchers).where('team_players.transfer_listed' => true)
+  end
+
   def show
     add_breadcrumb @player.short_name, @player
     @sealed_bid = @player.sealed_bids.build manager: current_manager
