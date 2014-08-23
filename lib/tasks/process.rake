@@ -16,7 +16,7 @@ end
 
 namespace :calculate do
   task week: :environment do
-    # if Date.today.wday == 1
+    if Date.today.wday == 1
 
       year = Date.today.month <= 6 ? Date.today.year - 1 : Date.today.year
       week_beginning = Date.today.last_week.beginning_of_week
@@ -49,7 +49,7 @@ namespace :calculate do
       end
       puts "\n"
 
-    # end
+    end
   end
 
   task month: :environment do
