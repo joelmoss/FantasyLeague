@@ -20,4 +20,15 @@
     <%- end -%>
   </td>
   <td><%= team_player.player.club %></td>
+
+  <%- FixturePlayer::METRICS.keys.each_with_index do |k,i| -%>
+    <%- points = team_player.points_for_date(Date.today) -%>
+    <%- if k == :pld -%>
+      <td><%= icon(:check) if points[k] > 0 %></td>
+    <%- else -%>
+      <td class="text-right">
+        <%= raw('<strong>') if i == 5 %><%= points[k] %><%= raw('</strong>') if i == 5 %>
+      </td>
+    <%- end -%>
+  <%- end -%>
 </tr>

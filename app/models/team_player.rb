@@ -20,6 +20,22 @@ class TeamPlayer < ActiveRecord::Base
   after_create :recalculate_team_budget
 
 
+  def points_for_date(date)
+    metrics = Hash.new(FixturePlayer::METRICS.keys)
+    metrics.default = 0
+
+    Fixture.where(date: date.to_date).each do |fixture|
+      fixture.fixture_players.where(player: player).each do |fp|
+        FixturePlayer::METRICS.keys.each do |m|
+          metrics[m] = metrics[m] + fp[m]
+        end
+      end
+    end if team.team_sheets.exists?(date: date.to_date - 1, player: player)
+
+    metrics
+  end
+
+
   private
 
     def recalculate_team_budget

@@ -34,3 +34,11 @@ $ ->
       content: xhr.responseJSON.message
       position: 'top left'
     drop.open()
+
+
+  $('a[data-toggle="tab"]').on 'shown.bs.tab', (e)->
+    target = $(e.target)
+    ele = $(".tab-content #{target.data('target')}")
+    if ele.is(':empty')
+      ele.html '<i class="fa fa-cog fa-spin fa-2x"></i>'
+      ele.load target.attr('href')

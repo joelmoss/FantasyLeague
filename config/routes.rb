@@ -15,6 +15,11 @@ Rails.application.routes.draw do
       end
     end
 
+    member do
+      get :team_sheet
+      get :results
+    end
+
     collection do
       get :weeks
       get :months

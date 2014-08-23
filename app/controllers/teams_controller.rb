@@ -1,7 +1,7 @@
 class TeamsController < ApplicationController
 
   before_action :authenticate_manager!, :require_mobile!
-  before_action :set_team, only: [ :show, :edit, :update, :destroy, :approve ]
+  before_action :set_team, only: [ :show, :team_sheet, :results, :edit, :update, :destroy, :approve ]
 
   add_breadcrumb 'Teams', :teams_path
 
@@ -53,8 +53,16 @@ class TeamsController < ApplicationController
   def show
     add_breadcrumb @team, @team
     @squad = @team.team_players.includes(player: :club).joins(:player).order 'substitute ASC, players.position ASC'
+  end
+
+  def team_sheet
     @teamsheet = @team.players.teamsheet.includes(player: :club).joins(:player).order 'players.position'
+    render layout: false
+  end
+
+  def results
     @results = Fixture.all.group(:id, :date).includes(:home_club, :away_club, :fixture_players)
+    render layout: false
   end
 
   # DELETE /teams/1
