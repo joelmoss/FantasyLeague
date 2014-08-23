@@ -54,6 +54,11 @@ class Player < ActiveRecord::Base
   ]
 
 
+  def self.transfer_listed
+    where 'team_players.transfer_listed' => true
+  end
+
+
   def to_s
     full_name
   end

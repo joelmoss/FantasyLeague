@@ -93,5 +93,23 @@
       </tbody>
     </table>
 
+    <h4 class="page-header">
+      <div class="pull-right"><small><%= link_to 'show details...', teams_path %></small></div>
+      Transfer Listed
+    </h4>
+    <table class="table table-striped table-hover">
+      <tbody>
+        <%- @transfer_listed.each do |player| -%>
+          <tr>
+            <td width="10">
+              <span class="label label-<%= position_colour player.position %>" title="<%= player.full_position %>" data-toggle="tooltip", data-placement="right"><%= player.position %></span>
+            </td>
+            <td><%= link_to player, player %></td>
+            <td><%= player.club.short_name %></td>
+          </tr>
+        <%- end -%>
+      </tbody>
+    </table>
+
   </div>
 </div>

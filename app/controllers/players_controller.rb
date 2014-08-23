@@ -14,7 +14,7 @@ class PlayersController < ApplicationController
 
   def transfer_listed
     add_breadcrumb 'Transfer Listed'
-    @players = Player.includes(:club, :season, :team, :watchers).where('team_players.transfer_listed' => true)
+    @players = Player.includes(:team_player, :club, :season, :team, :watchers).transfer_listed
   end
 
   def show

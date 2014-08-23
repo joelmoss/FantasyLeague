@@ -7,6 +7,7 @@ class DashboardController < ApplicationController
     @unaproved_managers = Manager.unapproved
     @activities = PublicActivity::Activity.all.order(created_at: :desc).limit(15)
     @results = Fixture.all
+    @transfer_listed = Player.includes(:team_player, :club, :season).transfer_listed
   end
 
 end
