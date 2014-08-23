@@ -32,6 +32,7 @@ class Team < ActiveRecord::Base
   FORMATIONS = %w( 4-4-2 5-3-2 4-5-1 5-4-1 4-3-3 )
   WEEK_PRIZES = [ 1, 0.5, 0.2 ]
   MONTH_PRIZES = [ 2, 1, 0.5 ]
+  PRIZE_PLACE_NAMES = [ 'Winner', 'Runner-Up', 'Third Place' ]
 
   validates :name, presence: true,
                    uniqueness: { case_sensitive: false }
@@ -50,17 +51,17 @@ class Team < ActiveRecord::Base
   end
 
   def award_week_prize!(place)
-    prize = WEEK_PRIZES[place]
+    prize, prize_name = WEEK_PRIZES[place], PRIZE_PLACE_NAMES[place]
     increment! :budget, prize
-    create_conversation 'Team of the Week', 'You and your team have been declared as the Team of '+
-                                            "Week and have been awarded a prize of £#{prize}m."
+    create_conversation "Team of the Week #{prize_name}", 'You and your team have been declared as the Team of '+
+                                            "Week #{prize_name} and have been awarded a prize of £#{prize}m."
   end
 
   def award_month_prize!(place)
-    prize = MONTH_PRIZES[place]
+    prize, prize_name = MONTH_PRIZES[place], PRIZE_PLACE_NAMES[place]
     increment! :budget, prize
-    create_conversation 'Team of the Month', 'You and your team have been declared as the Team of '+
-                                             "Month and have been awarded a prize of £#{prize}m."
+    create_conversation "Team of the Month #{prize_name}", 'You and your team have been declared as the Team of '+
+                                             "Month #{prize_name} and have been awarded a prize of £#{prize}m."
   end
 
   def formation(additional_player = false)
