@@ -40,7 +40,7 @@ class Fixture < ActiveRecord::Base
   def points_for_team(team)
     metrics = Hash.new(FixturePlayer::METRICS.keys)
     metrics.default = 0
-    playing = team.team_sheets.where(date: date.to_date).pluck(:player_id)
+    playing = team.team_sheets.where(date: date.to_date - 1).pluck(:player_id)
     fixture_players.where(player_id: playing).each do |fp|
       FixturePlayer::METRICS.keys.each do |m|
         metrics[m] = metrics[m] + fp[m]
