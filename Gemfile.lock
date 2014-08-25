@@ -29,9 +29,10 @@ GEM
       tzinfo (~> 1.1)
     arel (5.0.1.20140414130214)
     bcrypt (3.1.7)
-    better_errors (1.1.0)
+    better_errors (2.0.0)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
+      rack (>= 0.9.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     bootstrap-sass (3.2.0.1)
@@ -61,7 +62,7 @@ GEM
       railties (>= 3.2.6, < 5)
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
-    domain_name (0.5.19)
+    domain_name (0.5.20)
       unf (>= 0.0.5, < 1.0.0)
     em-websocket (0.5.1)
       eventmachine (>= 0.12.9)
@@ -69,7 +70,7 @@ GEM
     erubis (2.7.0)
     eventmachine (1.0.3)
     execjs (2.2.1)
-    ffaker (1.24.0)
+    ffaker (1.25.0)
     ffi (1.9.3)
     font-awesome-sass (4.1.0)
       sass (~> 3.2)
@@ -94,7 +95,7 @@ GEM
       domain_name (~> 0.5)
     http_parser.rb (0.6.0)
     i18n (0.6.11)
-    jquery-datatables-rails (2.2.1)
+    jquery-datatables-rails (2.2.3)
       jquery-rails
       sass-rails
     jquery-rails (3.1.1)
@@ -144,11 +145,11 @@ GEM
       activerecord (~> 4.0)
     pg (0.17.1)
     polyglot (0.3.5)
-    pry (0.10.0)
+    pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
-    public_activity (1.4.1)
+    public_activity (1.4.2)
       actionpack (>= 3.0.0)
       activerecord (>= 3.0)
       i18n (>= 0.5.0)
@@ -186,6 +187,7 @@ GEM
     rb-inotify (0.9.5)
       ffi (>= 0.5.0)
     rdiscount (2.1.7.1)
+    redcarpet (3.1.2)
     sass (3.2.19)
     sass-rails (4.0.3)
       railties (>= 4.0.0, < 5.0)
@@ -213,7 +215,7 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
-    turbolinks (2.2.2)
+    turbolinks (2.3.0)
       coffee-rails
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
@@ -263,6 +265,7 @@ DEPENDENCIES
   rails (= 4.1.4)
   rails_12factor
   rdiscount
+  redcarpet
   sass-rails (~> 4.0.3)
   simple_form (= 3.1.0.rc2)
   spring

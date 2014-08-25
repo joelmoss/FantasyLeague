@@ -5,7 +5,7 @@
   <%- @conversation.messages.each do |msg| -%>
     <li class="well">
       <p><small>created <abbr title="<%= msg.created_at.to_s :short %>"><%= time_ago_in_words msg.created_at %> ago</abbr>, by <%= msg.manager %></small></p>
-      <%= msg.body %>
+      <%= markdown msg.body %>
     </li>
   <%- end -%>
 </ul>
