@@ -72,7 +72,7 @@
               <%- if signed_in? -%>
                 <li>
                   <%= link_to conversations_path do %>
-                    <span class="label label-<%= current_manager.unread_messages > 0 ? 'danger' : 'default' %>"><%= current_manager.unread_messages %></span>
+                    <span class="label label-<%= current_manager.unread_messages > 0 ? 'danger' : 'default' %>" data-toggle="tooltip", data-placement="left" title="messages"><%= current_manager.unread_messages %></span>
                   <%- end -%>
                 </li>
                 <li class="navbar-text">Signed in as <%= current_manager %></li>

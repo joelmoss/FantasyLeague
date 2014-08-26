@@ -28,7 +28,7 @@ class Conversation < ActiveRecord::Base
   end
 
   def self.participating(man)
-    joins(:messages).where('conversations.recipient_id = ? OR messages.manager_id = ?', man.id, man.id)
+    joins(:messages).where('conversations.recipient_id = ? OR messages.manager_id = ?', man.id, man.id).group('conversations.id')
   end
 
 end

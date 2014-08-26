@@ -7,7 +7,7 @@ class ConversationsController < ApplicationController
 
   # GET /conversations
   def index
-    @conversations = conversations.group('conversations.id')
+    @conversations = conversations
   end
 
   def show

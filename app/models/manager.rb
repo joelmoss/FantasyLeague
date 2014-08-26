@@ -44,7 +44,7 @@ class Manager < ActiveRecord::Base
   end
 
   def unread_messages
-    Conversation.participating(self).count
+    Conversation.participating(self).length
   end
 
 
