@@ -4,4 +4,4 @@
   player = Player.unscoped { a.trackable.player }
 -%>
 
-<%= link_to team, team %> <strong>released</strong> <%= link_to player, player %>, who is now a free agent.
+<%= link_to team, team %> <strong>released</strong> <%= link_to player.short_name, player %>, who is now a free agent.

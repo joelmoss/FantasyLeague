@@ -16,11 +16,11 @@
 
   <div class="form-inputs">
     <%= f.input :manager_id, as: :hidden %>
-    <%= f.input :body, as: :text, input_html: { rows: 6 } %>
+    <%= f.input :body, as: :text, label: false, placeholder: 'Enter your reply...', input_html: { rows: 4 } %>
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit %>
+    <%= f.button :submit, 'Reply' %>
     <%= link_to 'Delete', @conversation, class: 'btn btn-danger', method: :delete, data: { confirm: 'Are you sure?' } if current_manager == @conversation.creator %>
     <%= link_to 'or go back', @conversation.new_record? ? conversations_path : @conversation %>
   </div>
