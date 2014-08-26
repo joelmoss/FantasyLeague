@@ -1,22 +1,22 @@
 <tr>
-  <td>
+  <td><strong>
     <%- if conversation.creator == conversation.recipient -%>
       <div class="label label-success">IMPORTANT</div>
     <%- end -%>
     <%= raw('<strong>') if conversation.creator == conversation.recipient %>
     <%= link_to conversation, conversation %>
     <%= raw('</strong>') if conversation.creator == conversation.recipient %>
-  </td>
-  <td>
+  </strong></td>
+  <td><small>
     <%- if conversation.creator == conversation.recipient -%>
       The System
     <%- else -%>
       <%= link_to_unless(conversation.creator == current_manager, conversation.creator, conversation.creator) { 'You' } %>
     <%- end -%>
-  </td>
-  <td>
+  </small></td>
+  <td><small>
     <%= link_to_unless(conversation.recipient == current_manager, conversation.recipient, conversation.recipient) { 'You' } %>
-  </td>
+  </small></td>
   <td><small>
     <abbr><%= time_ago_in_words conversation.created_at %> ago</abbr>
   </small></td>

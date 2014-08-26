@@ -21,6 +21,7 @@
 
   <div class="form-actions">
     <%= f.button :submit %>
+    <%= link_to 'Delete', @conversation, class: 'btn btn-danger', method: :delete, data: { confirm: 'Are you sure?' } if current_manager == @conversation.creator %>
     <%= link_to 'or go back', @conversation.new_record? ? conversations_path : @conversation %>
   </div>
 <% end %>

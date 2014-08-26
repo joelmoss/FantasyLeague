@@ -1,6 +1,5 @@
 class ConversationsController < ApplicationController
   before_action :authenticate_manager!, :require_mobile!
-  # before_action :new_conversation, only: [:new, :create]
   before_action :fetch_conversation, only: [:show, :edit, :update, :destroy]
   add_breadcrumb 'Conversations', :conversations_path
   helper_method :setup_conversation
@@ -8,7 +7,7 @@ class ConversationsController < ApplicationController
 
   # GET /conversations
   def index
-    @conversations = conversations
+    @conversations = conversations.group('conversations.id')
   end
 
   def show
