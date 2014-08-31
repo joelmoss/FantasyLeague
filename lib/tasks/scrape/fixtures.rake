@@ -36,7 +36,7 @@ namespace :scrape do
   desc 'Scrape fixture and result data from FantasyLeague.com'
   task fixtures: :environment do
 
-    puts "\n Beginning a new fixtures scrape...\n\n"
+    puts "\n Beginning a new fixture scrape...\n\n"
 
     datetime = ''
     next_up = true
@@ -49,7 +49,7 @@ namespace :scrape do
         datetime = DateTime.parse "#{time.content} #{date.content}"
 
         # Skip this fixture if it is not taking place today
-        next unless next_up = Date.today == datetime.to_date
+        next unless next_up = Date.yesterday == datetime.to_date
       elsif row[:class] && row[:class].include?('top')
         next unless next_up
 
@@ -59,12 +59,12 @@ namespace :scrape do
         match = row.search('td:nth-child(3) a').first
         score = match.content
 
-        puts " >>>> #{datetime.to_s(:short)}    #{home_club} #{score} #{away_club}"
-
-        # Find or initialize the fixture
-        if fixture = Fixture.find_by(home_club_id: home_club.id, away_club_id: away_club.id, date: datetime.to_date)
-          fixture.update home_score: score.split(':').first, away_score: score.split(':').last
+        # Ignore if fixture already exists
+        if Fixture.exists?(home_club_id: home_club.id, away_club_id: away_club.id, date: datetime.to_date)
+          next
         else
+          puts " >>>> #{datetime.to_s(:short)}    #{home_club} #{score} #{away_club}"
+
           fixture = Fixture.create do |f|
             f.home_club = home_club
             f.away_club = away_club
