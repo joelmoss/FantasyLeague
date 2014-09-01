@@ -62,13 +62,13 @@ namespace :calculate do
 
       puts "\n     Month #{month_number} (#{month_beginning} - #{month_end})\n\n"
 
-      Fixture.where(date: month_beginning..month_beginning.end_of_month).each do |fixture|
+      Fixture.where(date: month_beginning..month_end).each do |fixture|
         puts " --> #{fixture}"
         Team.all.each do |team|
           points = fixture.points_for_team(team)
           puts "     #{team} #{points}"
 
-          query = {season: year, month: month_number, month_beginning: month_beginning, team: team}
+          query = { season: year, month: month_number, month_beginning: month_beginning, team: team }
           month = TeamMonth.find_or_initialize_by(query)
           month.gls = (month.gls || 0) + points[:gls]
           month.ass = (month.ass || 0) + points[:ass]
@@ -86,6 +86,16 @@ namespace :calculate do
       end
       puts "\n"
 
+    end
+  end
+
+  task fix: :environment do
+    TeamSheet.where("date > '2014-08-17'").order(:team_id, :created_at).each do |ts|
+      ts.update date: ts.date+1
+    end
+
+    TeamSheet.where(date: '2014-08-17').order(:team_id, :created_at).each do |ts|
+      ts.update date: ts.date+1 if ts.created_at.hour == 23
     end
   end
 end
