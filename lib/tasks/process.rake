@@ -89,13 +89,4 @@ namespace :calculate do
     end
   end
 
-  task fix: :environment do
-    TeamSheet.where("date > '2014-08-17'").order(:team_id, :created_at).each do |ts|
-      ts.update date: ts.date+1
-    end
-
-    TeamSheet.where(date: '2014-08-17').order(:team_id, :created_at).each do |ts|
-      ts.update date: ts.date+1 if ts.created_at.hour == 23
-    end
-  end
 end
