@@ -12,7 +12,7 @@ class TeamPlayer < ActiveRecord::Base
 
   delegate :full_position, :position, :club, :seasons, :to_s, :short_name, to: :player
 
-  # validate :valid_squad?, on: [ :create, :destroy ]
+  validate :valid_squad?, on: [ :create, :destroy ]
   validate :valid_starting_lineup?, on: :update, if: Proc.new { |tp| tp.substitute_changed? }
   validates :team_id, presence: true
   validates :purchase_price, presence: true
