@@ -3,6 +3,10 @@
   <span class="label label-danger" role="alert">
     This team has an incomplete starting line-up!
   </span>
+<%- elsif !@team.formation -%>
+  <span class="label label-danger" role="alert">
+    This team has an invalid formation!
+  </span>
 <%- else -%>
   Formation: <%= @team.formation %>
 <%- end -%>

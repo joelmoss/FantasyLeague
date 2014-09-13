@@ -5,6 +5,16 @@
   <h4 class="page-sub-header">
     <div class="pull-right">budget: &pound;<%= current_manager.team.budget %>m</div>
     your team: <%= link_to current_manager.team, current_manager.team %>
+
+    <%- if current_manager.team.players.starting_lineup.count != 11 -%>
+      <span class="label label-danger" role="alert">
+        Your team has an incomplete starting line-up!
+      </span>
+    <%- elsif !current_manager.team.formation -%>
+      <span class="label label-danger" role="alert">
+        Your team has an invalid formation!
+      </span>
+    <%- end -%>
   </h4>
 
   <%- if current_manager.team.players.empty? -%>
