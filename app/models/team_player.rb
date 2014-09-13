@@ -10,7 +10,7 @@ class TeamPlayer < ActiveRecord::Base
   belongs_to :player
   belongs_to :team
 
-  delegate :full_position, :position, :club, :seasons, :to_s, :short_name, to: :player
+  delegate :full_position, :position, :seasons, :to_s, :short_name, to: :player
 
   validate :valid_squad?, on: [ :create, :destroy ]
   validate :valid_starting_lineup?, on: :update, if: Proc.new { |tp| tp.substitute_changed? }
@@ -33,6 +33,23 @@ class TeamPlayer < ActiveRecord::Base
     end if team.team_sheets.exists?(date: date.to_date - 1, player: player)
 
     metrics
+  end
+
+  # Returns the club_id for the given player as it was at the start of the season.
+  def club_id
+    club_changed_from || player.club_id
+  end
+
+  def club_changed?
+    !club_changed_from.nil?
+  end
+
+  def club
+    Club.find club_id
+  end
+
+  def actual_club
+    player.club
   end
 
 
@@ -72,7 +89,7 @@ class TeamPlayer < ActiveRecord::Base
     end
 
     def valid_club_quota?
-      grouped = team.players.group_by(&:club_id)
+      grouped = team.team_players.group_by(&:club_id)
       grouped[player.club_id] = [] if grouped[player.club_id].nil?
       grouped[player.club_id] << player if new_record?
       !grouped.any? { |k,v| v.count > 2 }

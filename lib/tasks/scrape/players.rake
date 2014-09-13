@@ -78,31 +78,6 @@ namespace :scrape do
           content = content.search('> #playerProfile')
           @image = content.search('> img.profile-image').first[:src]
 
-          # Home/away form
-          # form = {
-          #   home: metrics,
-          #   away: metrics
-          # }
-          # home, away = content.search('#premierLeagueForm tbody tr')
-          # null, form[:home][:pld], form[:home][:gls], form[:home][:ass], form[:home][:cs], form[:home][:ga] = home.search('td').map do |i|
-          #   i.content.to_i
-          # end
-          # null, form[:away][:pld], form[:away][:gls], form[:away][:ass], form[:away][:cs], form[:away][:ga] = away.search('td').map do |i|
-          #   i.content.to_i
-          # end
-
-          # Fixtures & Results
-          # player_page.search('#All > table tbody tr').each do |row|
-          #   fixture = {}
-          #   cells = row.search('td')
-
-          #   fixture[:datetime] = "#{cells[0].content} #{cells[1].content} BST".to_datetime
-
-          #   opponent, location = cells[3].content.split('(')
-          #   fixture[:opponent] = opponent.strip
-          #   fixture[:location] = location.strip.sub(')', '')
-          # end
-
           # Create the player
           record = Player.find_or_initialize_by(full_name: @full_name)
           record.club = @club

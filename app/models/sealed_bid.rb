@@ -11,11 +11,11 @@ class SealedBid < ActiveRecord::Base
 
     def valid_bid
       if player.sealed_bids.exists? manager: manager
-        errors.add :base, 'You have already submitted a bid for this player.'
+        errors.add :base, 'You have already tabled a bid for this player.'
       end
 
       if manager.sealed_bids.exists?
-        errors.add :base, 'You currently already have a sealed bid tabled. You can only bid once per week.'
+        errors.add :base, 'You already have a sealed bid tabled for another player. You can only bid once per week.'
       end
 
       errors.add :bid, 'Bid cannot be more than your current budget.' if bid > manager.team.budget

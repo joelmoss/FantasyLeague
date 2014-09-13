@@ -32,7 +32,10 @@
       <%= icon :ban, '', title: "Suspended #{team_player.player.status_notes}", data: { toggle: 'tooltip' } %>
     <%- end -%>
   </td>
-  <td><%= team_player.player.club.short_name %></td>
+  <td>
+    <%= team_player.club.short_name %>
+    <%= icon('arrows-h', '', data: { toggle: 'tooltip' }, title: "Player moved clubs from #{team_player.club.short_name}, and actually plays for #{team_player.actual_club.short_name}", style: 'color:red;') if team_player.club_changed? %>
+  </td>
   <td>&pound;<%= team_player.purchase_price %>m</td>
   <%- FixturePlayer::METRICS.keys.each_with_index do |type,i| -%>
     <td align="right">

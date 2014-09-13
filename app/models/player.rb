@@ -25,6 +25,7 @@ class Player < ActiveRecord::Base
   has_many :fixtures, through: :fixture_players
   has_many :sealed_bids, dependent: :destroy
 
+  after_update :mark_club_change, if: ->{ club_id_changed? && team_player }
   after_update :notify_status_changes
   before_destroy :notify_manager_of_removal
 
@@ -120,6 +121,13 @@ class Player < ActiveRecord::Base
       manager = TeamPlayer.unscoped { team_player }.team.manager
       con = Conversation.create subject: subject, creator: manager, recipient: manager
       con.messages.create manager: manager, body: body
+    end
+
+    # Mark the players team player record has having changed clubs.
+    #
+    # TODO: Reset team player club changes at season end
+    def mark_club_change
+      team_player.update club_changed_from: club_id_was if club_changed_from.blank?
     end
 
 end
