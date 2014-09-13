@@ -16,6 +16,12 @@ $ ->
     loadScreen.fadeOut()
 
 
+  $('#results-teams-list').DataTable
+    paging: false
+    searching: false
+    order: [6, 'desc']
+
+
   watchBtn = $('body.players.show .toggle-watch-player')
   watchBtn.on 'ajax:before', (event, xhr, status)->
     $(@).text 'saving...'

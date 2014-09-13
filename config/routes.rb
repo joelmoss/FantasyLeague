@@ -43,7 +43,10 @@ Rails.application.routes.draw do
     patch :approve, on: :member
   end
 
-  resources :fixtures, only: [ :index, :show ]
+  namespace :results do
+    resources :matches, only: [ :index, :show ]
+    resources :teams, only: [ :index, :show ]
+  end
 
   resources :conversations do
     resources :messages

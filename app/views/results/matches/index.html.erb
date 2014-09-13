@@ -1,5 +1,5 @@
-<%= content_for :title, 'Fixtures' %>
-<h1 class="page-header"><%= content_for :title %> <small>with results</small></h1>
+<%= content_for :title, 'Results' %>
+<h1 class="page-header"><%= content_for :title %> <small>Matches</small></h1>
 
 <table class="table table-striped table-hover">
   <thead>
@@ -13,6 +13,6 @@
   </thead>
 
   <tbody>
-    <%= render @fixtures %>
+    <%= render partial: 'fixture', collection: @fixtures %>
   </tbody>
 </table>

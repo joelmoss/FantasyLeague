@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140913091844) do
+ActiveRecord::Schema.define(version: 20140913144141) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,6 +71,22 @@ ActiveRecord::Schema.define(version: 20140913091844) do
 
   add_index "fixture_players", ["fixture_id"], name: "index_fixture_players_on_fixture_id", using: :btree
   add_index "fixture_players", ["player_id"], name: "index_fixture_players_on_player_id", using: :btree
+
+  create_table "fixture_teams", force: true do |t|
+    t.integer  "fixture_id"
+    t.integer  "team_id"
+    t.integer  "pld",        default: 0
+    t.integer  "gls",        default: 0
+    t.integer  "ass",        default: 0
+    t.integer  "cs",         default: 0
+    t.integer  "ga",         default: 0
+    t.integer  "tot",        default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "fixture_teams", ["fixture_id"], name: "index_fixture_teams_on_fixture_id", using: :btree
+  add_index "fixture_teams", ["team_id"], name: "index_fixture_teams_on_team_id", using: :btree
 
   create_table "fixtures", force: true do |t|
     t.integer  "home_club_id", null: false

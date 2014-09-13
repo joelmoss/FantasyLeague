@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   alias_method :current_user, :current_manager
   add_breadcrumb 'Dashboard', :root_path
+  helper_method :results?
 
 
   protected
@@ -18,6 +19,12 @@ class ApplicationController < ActionController::Base
                                                               "number. Just enter a hyphen if " +
                                                               "you don't have a mobile."
       end
+    end
+
+  private
+
+    def results?
+      false
     end
 
 end

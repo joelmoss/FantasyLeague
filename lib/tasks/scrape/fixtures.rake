@@ -1,5 +1,14 @@
 namespace :scrape do
 
+  task fixture_teams: :environment do
+    Fixture.all.each do |fixture|
+      Team.all.each do |team|
+        ft = fixture.fixture_teams.create team: team
+        ft.update fixture.points_for_team(team)
+      end
+    end
+  end
+
   positions = %w( g f c m s )
   metrics = {
     pld: 'played',
@@ -43,7 +52,7 @@ namespace :scrape do
 
     agent = Mechanize.new
     page = agent.get('http://www.fantasyleague.com/Pro/Stats/ResultsAndFixtures.aspx')
-    page.search('#matches .results-container tr').each do |row|
+    page.search('#matches > table tr').each do |row|
       if row[:id] && row[:id].start_with?('day_')
         time, date = row.search('th > div')
         datetime = DateTime.parse "#{time.content} #{date.content}"
@@ -165,6 +174,10 @@ namespace :scrape do
         year = Date.today.month <= 6 ? Date.today.year - 1 : Date.today.year
         Team.all.each do |team|
           unless (points = fixture.points_for_team(team)).empty?
+            # collect all points for FixtureTeam
+            ft = fixture.fixture_teams.create team: team
+            ft.update points
+
             current = team.seasons.current
             FixturePlayer::METRICS.keys.map do |m|
               next if m === :pld

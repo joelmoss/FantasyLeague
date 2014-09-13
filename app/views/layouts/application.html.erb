@@ -42,7 +42,7 @@
                   <li><%= link_to 'Conversations', conversations_path %></li>
                 </ul>
               </li>
-              <li class="dropdown<%= ' active' if controller_name == 'teams' %>">
+              <li class="dropdown<%= ' active' if !results? && controller_name == 'teams' %>">
                 <%= link_to root_path, class: 'dropdown-toggle', data: { toggle: 'dropdown' } do %>
                   Tables <span class="caret"></span>
                 <%- end -%>
@@ -52,7 +52,15 @@
                   <li><%= link_to 'Team of the Week', weeks_teams_path %></li>
                 </ul>
               </li>
-              <li class="<%= 'active' if controller_name == 'fixtures' %>"><%= link_to 'Results', fixtures_path %></li>
+              <li class="dropdown<%= ' active' if results? %>">
+                <%= link_to root_path, class: 'dropdown-toggle', data: { toggle: 'dropdown' } do %>
+                  Results <span class="caret"></span>
+                <%- end -%>
+                <ul class="dropdown-menu" role="menu">
+                  <li class="<%= 'active' if results? && controller_name == 'teams' %>"><%= link_to 'Teams', results_teams_path %></li>
+                  <li class="<%= 'active' if results? && controller_name == 'matches' %>"><%= link_to 'Matches', results_matches_path %></li>
+                </ul>
+              </li>
               <li class="dropdown<%= ' active' if controller_name == 'players' %>">
                 <%= link_to root_path, class: 'dropdown-toggle', data: { toggle: 'dropdown' } do %>
                   Players <span class="caret"></span>

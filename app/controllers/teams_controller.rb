@@ -13,12 +13,12 @@ class TeamsController < ApplicationController
 
   def weeks
     year = Date.today.month <= 6 ? Date.today.year - 1 : Date.today.year
-    @weeks = TeamWeek.where(season: year).order(:week).group_by(&:week)
+    @weeks = TeamWeek.where(season: year).order(week: :desc).group_by(&:week)
   end
 
   def months
     year = Date.today.month <= 6 ? Date.today.year - 1 : Date.today.year
-    @months = TeamMonth.where(season: year).order(:month).group_by(&:month)
+    @months = TeamMonth.where(season: year).order(month: :desc).group_by(&:month)
   end
 
   def new

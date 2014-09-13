@@ -4,6 +4,7 @@ class Team < ActiveRecord::Base
   tracked only: [ :create ]
 
   belongs_to :manager
+  has_many :fixture_teams
   has_many :team_sheets
   has_many :seasons, class_name: "TeamSeason" do
     def current

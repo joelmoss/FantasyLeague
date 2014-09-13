@@ -1,0 +1,30 @@
+<%= content_for :title, "Team Results" %>
+<h1 class="page-header"><%= content_for :title %> <small><%= params[:id].to_date.to_s :short %></small></h1>
+
+<div class="datatable">
+  <table id="results-teams-list" class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th class="text-right">Players Played</th>
+        <%- %w( gls ass cs ga ).each do |type| -%>
+          <th class="text-right"><%= type.upcase %></th>
+        <%- end -%>
+        <th class="text-right">Total</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <%- @teams.each do |i,team| -%>
+        <tr>
+          <td><%= link_to team.first.team, team.first.team %></td>
+          <td class="text-right"><%= team.sum(&:pld) %></td>
+          <%- %w( gls ass cs ga ).each do |type| -%>
+            <td class="text-right"><%= team.sum(&type.to_sym) %></td>
+          <%- end -%>
+          <td class="text-right"><strong><%= team.sum(&:tot) %></strong></td>
+        </tr>
+      <%- end -%>
+    </tbody>
+  </table>
+</div>

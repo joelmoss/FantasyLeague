@@ -19,6 +19,7 @@ class Fixture < ActiveRecord::Base
       team.team_sheets.find_by(date: proxy_association.owner.date.to_date)
     end
   end
+  has_many :fixture_teams
   belongs_to :home_club, class_name: 'Club'
   belongs_to :away_club, class_name: 'Club'
 
