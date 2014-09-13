@@ -1,14 +1,5 @@
 namespace :scrape do
 
-  task fixture_teams: :environment do
-    Fixture.all.each do |fixture|
-      Team.all.each do |team|
-        ft = fixture.fixture_teams.create team: team
-        ft.update fixture.points_for_team(team)
-      end
-    end
-  end
-
   positions = %w( g f c m s )
   metrics = {
     pld: 'played',
