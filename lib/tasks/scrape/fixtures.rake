@@ -49,7 +49,7 @@ namespace :scrape do
         datetime = DateTime.parse "#{time.content} #{date.content}"
 
         # Skip this fixture if it is not taking place today
-        next unless next_up = Date.yesterday == datetime.to_date
+        next unless next_up = Date.today == datetime.to_date
       elsif row[:class] && row[:class].include?('top')
         next unless next_up
 
