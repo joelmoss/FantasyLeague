@@ -53,6 +53,9 @@ namespace :scrape do
       elsif row[:class] && row[:class].include?('top')
         next unless next_up
 
+        # exclude FA cup results
+        next if !row.search('td:first-child img.facup').empty?
+
         home_club = Club.find_by(short_name: club_alt_names[row.search('td:nth-child(2) h2').first.content])
         away_club = Club.find_by(short_name: club_alt_names[row.search('td:nth-child(4) h2').first.content])
 
