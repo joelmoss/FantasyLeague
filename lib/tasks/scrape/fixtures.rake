@@ -49,39 +49,33 @@ namespace :scrape do
         datetime = DateTime.parse "#{time.content} #{date.content}"
 
         # Skip this fixture if it is not taking place today
-        next unless next_up = Date.today == datetime.to_date
+        next unless next_up = (datetime.to_time + 3.hours) < Time.now
       elsif row[:class] && row[:class].include?('top')
         next unless next_up
 
         # exclude FA cup results
         next if !row.search('td:first-child img.facup').empty?
 
-        home_club = Club.find_by(short_name: club_alt_names[row.search('td:nth-child(2) h2').first.content])
-        away_club = Club.find_by(short_name: club_alt_names[row.search('td:nth-child(4) h2').first.content])
-
-        match = row.search('td:nth-child(3) a').first
-        score = match.content
-
-        # Ignore if fixture already exists
-        if Fixture.exists?(home_club_id: home_club.id, away_club_id: away_club.id, date: datetime.to_date)
-          next
-        else
-          puts " >>>> #{datetime.to_s(:short)}    #{home_club} #{score} #{away_club}"
-
-          fixture = Fixture.create do |f|
-            f.home_club = home_club
-            f.away_club = away_club
-            f.home_score = score.split(':').first
-            f.away_score = score.split(':').last
-            f.date = datetime
-            f.time = datetime
-          end
-        end
-
         sleep 1
 
         agent.transact do
-          match = agent.click match
+          match = agent.click(row.search('td:nth-child(3) a').first)
+
+          rule = '.matches-result-view tbody tr:first-child td:nth-child(2) h2'
+          home_club = Club.find_by(short_name: club_alt_names[match.search(rule).first.content])
+          rule = '.matches-result-view tbody tr:first-child td:nth-child(4) h2'
+          away_club = Club.find_by(short_name: club_alt_names[match.search(rule).first.content])
+
+          score = match.search('.matches-result-view tbody tr:first-child td:nth-child(3)').first.content
+
+          puts " >>>> #{datetime.to_s(:short)}    #{home_club} #{score} #{away_club}"
+
+          # Find or create the fixture.
+          fixture = Fixture.find_or_create_by(home_club_id: home_club.id, away_club_id: away_club.id, date: datetime) do |f|
+            f.home_score = score.split(':').first
+            f.away_score = score.split(':').last
+            f.time = datetime
+          end
 
           puts " ---> Scraping home team players..."
 
@@ -160,27 +154,27 @@ namespace :scrape do
             fp.subbed_on = !player.search('td:nth-child(3) div.cameon').empty?
             fp.save!
           end
-        end
 
-        puts " ---> Adding today's fixtures to team's points..."
+          puts " ---> Adding today's fixtures to team's points..."
 
-        # Update team season points
-        year = Date.today.month <= 6 ? Date.today.year - 1 : Date.today.year
-        Team.all.each do |team|
-          unless (points = fixture.points_for_team(team)).empty?
-            # collect all points for FixtureTeam
-            ft = fixture.fixture_teams.create team: team
-            ft.update points
+          # Update team season points
+          year = Date.today.month <= 6 ? Date.today.year - 1 : Date.today.year
+          Team.all.each do |team|
+            unless (points = fixture.points_for_team(team)).empty?
+              # collect all points for FixtureTeam
+              ft = fixture.fixture_teams.find_or_create_by team: team
+              ft.update points
 
-            current = team.seasons.current
-            FixturePlayer::METRICS.keys.map do |m|
-              next if m === :pld
-              points[m] = (current.try(m) || 0) + (points[m] || 0)
+              current = team.seasons.current
+              FixturePlayer::METRICS.keys.map do |m|
+                next if m === :pld
+                points[m] = (current.try(m) || 0) + (points[m] || 0)
+              end
+
+              points.delete(:pld)
+              puts "      #{team.to_s.ljust(25)}#{points}"
+              team.seasons.find_or_initialize_by(season: year).update(points)
             end
-
-            points.delete(:pld)
-            puts "      #{team.to_s.ljust(25)}#{points}"
-            team.seasons.find_or_initialize_by(season: year).update(points)
           end
         end
 
@@ -190,5 +184,31 @@ namespace :scrape do
     end
 
     puts "\n Completed fixture scrape!\n\n"
+  end
+end
+
+task fixturepoints: :environment do
+  TeamSeason.destroy_all
+
+  Fixture.all.each do |fixture|
+    year = fixture.date.to_date.month <= 6 ? fixture.date.to_date.year - 1 : fixture.date.to_date.year
+
+    Team.all.each do |team|
+      unless (points = fixture.points_for_team(team)).empty?
+        # collect all points for FixtureTeam
+        ft = fixture.fixture_teams.find_or_create_by team: team
+        ft.update points
+
+        current = team.seasons.find_or_initialize_by(season: year)
+        FixturePlayer::METRICS.keys.map do |m|
+          next if m === :pld
+          points[m] = (current.try(m) || 0) + (points[m] || 0)
+        end
+
+        points.delete(:pld)
+        puts "      #{team.to_s.ljust(25)}#{points}"
+        current.update points
+      end
+    end
   end
 end
