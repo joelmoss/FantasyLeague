@@ -15,8 +15,6 @@
  *= require nprogress-bootstrap
  *= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
  *= require drop/css/drop-theme-arrows-bounce-dark
- *= require ./lib/datatables
- *= require_tree ./pages
  *= require_self
  */
 
@@ -28,3 +26,10 @@
 @import "font-awesome";
 @import "utilities";
 @import "base";
+@import "lib/datatables";
+@import "pages/dashboard";
+@import "pages/fixtures";
+@import "pages/players";
+@import "pages/rules";
+@import "pages/team_players_show";
+@import "pages/teams_show";
