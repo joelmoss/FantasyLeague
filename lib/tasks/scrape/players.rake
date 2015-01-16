@@ -79,7 +79,15 @@ namespace :scrape do
           @image = content.search('> img.profile-image').first[:src]
 
           # Create the player
-          record = Player.find_or_initialize_by(full_name: @full_name)
+          record = Player.with_deleted.find_or_initialize_by(full_name: @full_name)
+
+          # Restore previously destroyed player
+          restored = false
+          if record.destroyed?
+            record.restore
+            restored = true
+          end
+
           record.club = @club
           record.short_name = @short_name
           record.image = @image
@@ -90,7 +98,7 @@ namespace :scrape do
           club_id_changed = false
 
           # Is the player new?
-          if record.new_record?
+          if restored || record.new_record?
             # TODO: send notification of new player
             puts " + [#{Player::POSITIONS[@position][:abbr]}] #{@short_name.ljust(20)} (#{@club.short_name})"
             record.save
