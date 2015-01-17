@@ -127,7 +127,7 @@ class Player < ActiveRecord::Base
     #
     # TODO: Reset team player club changes at season end
     def mark_club_change
-      team_player.update club_changed_from: club_id_was if club_changed_from.blank?
+      team_player.update club_changed_from: club_id_was if team_player.club_changed_from.blank?
     end
 
 end
