@@ -8,4 +8,10 @@ class AdminMailer < ActionMailer::Base
     mail to: admins, subject: 'New Manager needs Approval'
   end
 
+  def scrape_error(type, message)
+    @type, @message = type, message
+    admins = Manager.where(admin: true).pluck(:email)
+    mail to: admins, subject: "Scraping #{type} error"
+  end
+
 end

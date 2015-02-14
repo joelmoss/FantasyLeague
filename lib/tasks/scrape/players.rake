@@ -20,10 +20,18 @@ namespace :scrape do
 
     puts "\nBeginning a new players scrape...\n\n"
 
+    url = 'http://www.fantasyleague.com/Pro/Stats/playerlist.aspx?dpt=0'
     page = if testing
       agent.get('http://localhost:3000/scrapetest/playerlist.html')
     else
-      agent.get('http://www.fantasyleague.com/Pro/Stats/playerlist.aspx?dpt=0')
+      agent.get(url)
+    end
+
+    rows = page.search('#playerlist > .player-list-table > tbody > tr')
+    if rows.empty?
+      puts "\nFailed! Cannot find any players at all!\n"
+      AdminMailer.scrape_error(:players, "Player list at #{url} is empty!").deliver
+      exit 1
     end
 
     page.search('#playerlist > .player-list-table > tbody > tr').each do |player|
