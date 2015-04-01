@@ -1,6 +1,6 @@
 namespace :scrape do
 
-  positions = %w( g f c m s )
+  positions = %w( gk fb cb mf st )
   metrics = {
     pld: 'played',
     gls: 'goals',
@@ -36,9 +36,7 @@ namespace :scrape do
 
     page.search('#playerlist > .player-list-table > tbody > tr').each do |player|
 
-      position = player.css('td:nth-child(1) div').first[:class].split
-      position.delete('pos')
-      @position = (@position = position.first.last.to_i) == 6 ? @position-2 : @position-1
+      @position = positions.index(player.css('td:nth-child(1) div').first.content.downcase)
 
       @is_new = !player.css('td:nth-child(2) span.new').empty?
 
