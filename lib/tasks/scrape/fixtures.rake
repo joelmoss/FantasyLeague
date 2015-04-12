@@ -16,6 +16,7 @@ namespace :scrape do
     'Burnley' => 'bur',
     'Chelsea' => 'che',
     'Crystal Palace' => 'cp',
+    'C Palace' => 'cp',
     'Everton' => 'eve',
     'Hull' => 'hul',
     'Leicester' => 'lei',
@@ -49,7 +50,7 @@ namespace :scrape do
         datetime = DateTime.parse "#{time.content} #{date.content}"
 
         # Skip this fixture if it is not taking place today, or is in the future
-        next unless next_up = (Date.today == datetime.to_date) && ((datetime.to_time + 3.hours) < Time.now)
+        next unless next_up = (Date.yesterday == datetime.to_date)# && ((datetime.to_time + 3.hours) < Time.now)
       elsif row[:class] && row[:class].include?('top')
         next unless next_up
 
@@ -68,14 +69,18 @@ namespace :scrape do
 
           score = match.search('.matches-result-view tbody tr:first-child td:nth-child(3)').first.content
 
-          puts " >>>> #{datetime.to_s(:short)}    #{home_club} #{score} #{away_club}"
-
           # Find or create the fixture.
-          fixture = Fixture.find_or_create_by(home_club_id: home_club.id, away_club_id: away_club.id, date: datetime) do |f|
+          fixture = Fixture.find_or_initialize_by(home_club_id: home_club.id, away_club_id: away_club.id, date: datetime) do |f|
             f.home_score = score.split(':').first
             f.away_score = score.split(':').last
             f.time = datetime
           end
+
+          next unless fixture.new_record?
+
+          puts " >>>> #{datetime.to_s(:short)}    #{home_club} #{score} #{away_club}"
+
+          fixture.save
 
           puts " ---> Scraping home team players..."
 
