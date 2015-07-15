@@ -55,7 +55,7 @@ Managers may buy, sell and swap players at any time throughout the season.
 
 A player who does not play for a team is known as a Free Agent. Free Agents can be bought by managers at any time via sealed bids.
 
-- Sealed Bids are accepted on a monthly basis, with a deadline of the last Sunday of the month, at 9pm.
+- Sealed Bids are accepted on a monthly basis, with a deadline of the last Sunday of the month, at 11pm.
 - All sealed bids are opened after the deadline, with the highest bid winning the player being bid upon.
 - There is no minimum or maximum amounts for sealed bids, but you cannot bid more than your current budget.
 - In the event of a tie of sealed bids, the manager with the highest league position will win the bid.
