@@ -2,6 +2,9 @@ source 'https://rubygems.org'
 
 ruby '2.2.2'
 
+# RAM boost thx to https://twitter.com/schneems/status/603227060199272448
+gem 'mime-types', '~> 2.6.1', require: 'mime/types/columnar'
+
 gem 'rails'
 gem 'pg'
 gem 'sass-rails'

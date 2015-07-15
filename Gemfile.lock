@@ -283,6 +283,7 @@ DEPENDENCIES
   jquery-turbolinks
   maildown
   mechanize
+  mime-types (~> 2.6.1)
   nprogress-rails
   pages
   paranoia
