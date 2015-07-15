@@ -40,16 +40,19 @@
                   <li><%= link_to 'Your Squad', team_path(current_manager.team) %></li>
                   <%- end -%>
                   <li><%= link_to 'Conversations', conversations_path %></li>
+                  <li><%= link_to 'Your Watch List', watching_players_path %></li>
                 </ul>
               </li>
               <li class="dropdown<%= ' active' if !results? && controller_name == 'teams' %>">
                 <%= link_to root_path, class: 'dropdown-toggle', data: { toggle: 'dropdown' } do %>
-                  Tables <span class="caret"></span>
+                  League <span class="caret"></span>
                 <%- end -%>
                 <ul class="dropdown-menu" role="menu">
                   <li><%= link_to 'League Table', teams_path %></li>
                   <li><%= link_to 'Team of the Month', months_teams_path %></li>
                   <li><%= link_to 'Team of the Week', weeks_teams_path %></li>
+                  <li role="separator" class="divider"></li>
+                  <li><%= link_to 'Managers', managers_path %></li>
                 </ul>
               </li>
               <li class="dropdown<%= ' active' if results? %>">
@@ -68,10 +71,9 @@
                 <ul class="dropdown-menu" role="menu">
                   <li><%= link_to 'All Players', players_path %></li>
                   <li><%= link_to 'Transfer Listed', transfer_listed_players_path %></li>
-                  <li><%= link_to 'Watch List', watching_players_path %></li>
+                  <li><%= link_to 'Your Watch List', watching_players_path %></li>
                 </ul>
               </li>
-              <li class="<%= 'active' if controller_name == 'managers' %>"><%= link_to 'Managers', managers_path %></li>
               <li class="<%= 'active' if controller_name == 'pages' && action_name == 'rules' %>"><%= link_to 'Rules', rules_path %></li>
             </ul>
             <%- end -%>
@@ -84,7 +86,7 @@
                   <%- end -%>
                 </li>
                 <li class="navbar-text">Signed in as <%= current_manager %></li>
-                <li><%= link_to icon('sign-out', 'Sign out'), destroy_manager_session_path, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+                <li><%= link_to icon('sign-out'), destroy_manager_session_path, method: :delete, data: { confirm: 'Are you sure?' } %></li>
               <%- else -%>
                 <li><%= link_to icon('sign-in', 'Sign in'), new_manager_session_path %></li>
               <%- end -%>

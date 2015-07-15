@@ -34,7 +34,7 @@
 <%- else -%>
 
   <div class="alert alert-warning">
-    <strong>You don't yet have a team.</strong> Think of a name for your team, then <%= link_to 'create it', new_team_path, class: 'alert-link' %>.
+    <strong>You don't yet have a team.</strong> Think of a name for your team, then <%= link_to 'create it', new_team_path, class: 'alert-link' %>. You should also <%= link_to "check out the rules", :rules %>.
   </div>
 
 <%- end -%>
