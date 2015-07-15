@@ -3,6 +3,11 @@
 
 # Fantasy League Rules
 
+### Changes for the 2015-16 Season
+
+- **[Team Income](#team-income)** - Instead of only the top three receiving a monetary bonus for accumulating the most points in a week or month, the top 10 teams will all receive a bonus. Additionally, all teams will receive &pound;0.2m each week from gate receipts and television income.
+- **[Sealed Bids](#transfers)** - Sealed bids are now accepted once a month instead of weekly. This should make it more of a challenge and competitive when buying free agents.
+
 ### Scoring Points
 
 Your team will score points based upon how your chosen players perform in Barclays Premier League matches.
@@ -22,8 +27,23 @@ Points are awarded to players as follows:
   - **Clean Sheet** - 3 points *(minimum 75 minutes played, and includes appearance point)*
   - **Goal Conceded** - -1 point
 
+### Pre-Season Auction
 
-### Transfers
+The season begins with the player auction. This is where all manager get together and bid for the players they want in their team. All managers have a fixed budget at the beginning of the auction.
+
+- Budget of £100m.
+- Minimum 11, maximum 15 players.
+- Maximum 2 players per Premier League club.
+- Bids have a minimum increment of £0.5m.
+- Bids can start at £0, allowing managers to pick up players on a free transfer if no other managers are interested.
+- Managers choose which players to auction, in turn, one player at a time.
+- Once you have a full squad (15 players), you are out of the auction, and can no longer bid on any players.
+- Once you have a minimum squad size, you do not have to continue in the auction, and may drop out.
+- Bidding continues until all managers have either dropped out or do not have any money left.
+- When the auction ends, managers who have no money left and do not have a minimum squad of 11 players, and managers who dropped out of the auction with a squad size less than the maximum 15 players take part in a free transfer round.
+- Each manager taking part in the free transfer round take it in turns to choose a player until they have a minimum of 11 players, and/or maximum of 15.
+
+### <a name="transfers"></a>Transfers
 
 Managers may buy, sell and swap players at any time throughout the season.
 
@@ -31,14 +51,14 @@ Managers may buy, sell and swap players at any time throughout the season.
 - Transfers can be made at any time with a season deadline of March 1st.
 - Players can be transferred between managers, and can also be released back to the market, but doing so will not bring the team any money.
 
-#### Free Agents
+#### Free Agents &amp; Sealed Bids
 
 A player who does not play for a team is known as a Free Agent. Free Agents can be bought by managers at any time via sealed bids.
 
-- Sealed Bids are accepted on a weekly basis, with a deadline of Sunday at 9pm.
+- Sealed Bids are accepted on a monthly basis, with a deadline of the last Sunday of the month, at 11pm.
 - All sealed bids are opened after the deadline, with the highest bid winning the player being bid upon.
 - There is no minimum or maximum amounts for sealed bids, but you cannot bid more than your current budget.
-- In the event of a tie of sealed bids, the manager with the lowest league position will win the bid.
+- In the event of a tie of sealed bids, the manager with the highest league position will win the bid.
 
 #### New Players
 
@@ -70,8 +90,38 @@ Just like subs, formation changes can take place at any time, but will only be a
 - The **5-4-1** formation consists of one goalkeeper, two full-backs, three centre-backs, four midfielders and one striker.
 - The **4-3-3** formation consists of one goalkeeper, two full-backs, two centre-backs, three midfielders and three strikers.
 
-### Team Income
+### <a name="team-income"></a>Team Income
 
-Each week (Monday thru Sunday), the team with most points scored in that week will receive a monetary bonus of &pound;1m. The runner up will receive &pound;0.5m, and the 3rd placed team &pound;0.2m.
+#### Weekly Gate Receipts &amp; Television income
 
-Each calendar month, the team with most points scored in that month will receive a monetary bonus of &pound;2m. The runner up will receive &pound;1m, and the 3rd placed team &pound;0.5m.
+Each week, all teams will receive &pound;0.4m from gate receipts and television income.
+
+#### Team of the Week
+
+Each week (Monday thru Sunday), the team with most points scored in that week will receive a monetary bonus of &pound;1m. Money is awarded to the next nine teams in order of points scored:
+
+- 1st place = &pound;1.0m
+- 2nd place = &pound;0.9m
+- 3rd place = &pound;0.8m
+- 4th place = &pound;0.7m
+- 5th place = &pound;0.6m
+- 6th place = &pound;0.5m
+- 7th place = &pound;0.4m
+- 8th place = &pound;0.3m
+- 9th place = &pound;0.2m
+- 10th place = &pound;0.1m
+
+#### Team of the Month
+
+Each calendar month, the team with most points scored in that month will receive a monetary bonus of &pound;2m. Money is awarded to the next nine teams in order of points scored:
+
+- 1st place = &pound;2.0m
+- 2nd place = &pound;1.8m
+- 3rd place = &pound;1.6m
+- 4th place = &pound;1.4m
+- 5th place = &pound;1.2m
+- 6th place = &pound;1.0m
+- 7th place = &pound;0.8m
+- 8th place = &pound;0.6m
+- 9th place = &pound;0.4m
+- 10th place = &pound;0.2m

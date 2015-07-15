@@ -18,7 +18,7 @@ class Manager < ActiveRecord::Base
   before_create :make_first_approved
   after_create :send_admin_mail
 
-  validates :mobile_number, presence: true
+  validates :mobile_number, presence: true, on: :update
   validates :name, presence: true,
                    uniqueness: { case_sensitive: false }
 

@@ -18,7 +18,7 @@ namespace :scrape do
     changed_club = []
     agent = Mechanize.new
 
-    puts "\nBeginning a new players scrape...\n\n"
+    puts "\nBeginning a new player scrape...\n\n"
 
     url = 'http://www.fantasyleague.com/Pro/Stats/playerlist.aspx?dpt=0'
     page = if testing
@@ -111,7 +111,7 @@ namespace :scrape do
             new_players << record
           else
             if record.changed?
-              puts " ± [#{Player::POSITIONS[@position][:abbr]}] #{@short_name.ljust(20)} (#{@club.short_name})"
+              puts " ± [#{Player::POSITIONS[@position][:abbr].upcase}] #{@short_name.ljust(20)} (#{@club.short_name})"
               puts "   #{record.changes}"
               puts "   Plays for #{record.team} (#{record.team.manager})" if record.team
 
