@@ -37,7 +37,7 @@ class ManagersController < ApplicationController
   end
 
   def approve
-    if @manager.update(approved: true)
+    if @manager.toggle! :approved
       ManagerMailer.approved(@manager).deliver
       redirect_to :back, notice: 'Manager was successfully approved.'
     else
