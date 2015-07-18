@@ -37,7 +37,7 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     arel (6.0.2)
-    autoprefixer-rails (5.2.1)
+    autoprefixer-rails (5.2.1.1)
       execjs
       json
     bcrypt (3.1.10)
@@ -177,7 +177,7 @@ GEM
       activerecord (>= 3.0)
       i18n (>= 0.5.0)
       railties (>= 3.0.0)
-    puma (2.12.0)
+    puma (2.12.2)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
     rack (1.6.4)
@@ -221,6 +221,8 @@ GEM
     redcarpet (3.3.2)
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
+    rollbar (1.5.3)
+      multi_json (~> 1.3)
     sass (3.4.16)
     sass-rails (5.0.3)
       railties (>= 4.0.0, < 5.0)
@@ -295,6 +297,7 @@ DEPENDENCIES
   rails_12factor
   rdiscount
   redcarpet
+  rollbar
   sass-rails
   simple_form
   spring

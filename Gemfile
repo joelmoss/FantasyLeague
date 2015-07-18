@@ -35,6 +35,7 @@ gem 'public_activity'
 group :production do
   gem 'rails_12factor'
   gem 'unicorn'
+  gem 'rollbar'
 end
 
 group :development do
