@@ -9,7 +9,7 @@ class PlayersController < ApplicationController
 
 
   def index
-    @players = Player.includes(:team_player, :club, :season, :team, :watchers)
+    @players = Player.includes(:team_player, :club, :team, :watchers, :previous_season)
   end
 
   def transfer_listed

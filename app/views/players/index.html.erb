@@ -1,5 +1,8 @@
 <%= content_for :title, 'Players' %>
-<h1 class="page-header"><%= content_for :title %></h1>
+<h1 class="page-header">
+  <%= content_for :title %>
+  <small><i>Currently showing last seasons points</i></small>
+</h1>
 
 <section class="datatable">
 
@@ -13,9 +16,11 @@
         <th width="10"></th>
         <th>Club</th>
         <th>Team</th>
-        <%- %w( pld gls ass cs ga ).each do |type| -%>
-          <th align="right"><%= type.upcase %></th>
-        <%- end -%>
+        <th align="right" title="Matches played">PLD</th>
+        <th align="right" title="Goals">GLS</th>
+        <th align="right" title="Assists">ASS</th>
+        <th align="right" title="Clean Sheets">CS</th>
+        <th align="right" title="Goals Against">GA</th>
         <th align="right">Total</th>
         <th></th>
       </tr>
@@ -53,12 +58,12 @@
 
           <%- %w( pld gls ass cs ga ).each do |type| -%>
             <td align="right">
-              <%= player.season.try(type) || '-' %>
+              <%= player.previous_season.try(type) || '-' %>
             </td>
           <%- end -%>
 
           <td align="right">
-            <%= player.season.try(:tot) || '0' %>
+            <%= player.previous_season.try(:tot) || '0' %>
           </td>
 
           <td>
