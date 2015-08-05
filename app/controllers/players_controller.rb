@@ -9,7 +9,13 @@ class PlayersController < ApplicationController
 
 
   def index
-    @players = Player.includes(:team_player, :club, :team, :watchers, :previous_season)
+    if Rails.configuration.x.season_start_date > Date.today
+      @show_previous_season_points = true
+      @players = Player.includes(:team_player, :club, :team, :watchers, :previous_season)
+    else
+      @show_previous_season_points = false
+      @players = Player.includes(:team_player, :club, :team, :watchers, :season)
+    end
   end
 
   def transfer_listed
@@ -20,6 +26,7 @@ class PlayersController < ApplicationController
   def show
     add_breadcrumb @player.short_name, @player
     @sealed_bid = @player.sealed_bids.build manager: current_manager
+    @season_started = Date.today >= Rails.configuration.x.season_start_date
   end
 
   def update

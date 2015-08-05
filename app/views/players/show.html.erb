@@ -61,7 +61,7 @@
       <%= f.input :bid, required: true, placeholder: 'sealed bid?' %>
       <%= f.button :submit, 'Submit Bid', class: 'btn-sm' %>
       <small><a href="#" data-toggle="modal" data-target="#myModal">What's a Sealed Bid?</a></small>
-    <%- end if @player.free_agent? && !current_manager.has_bid? -%>
+    <%- end if @season_started && @player.free_agent? && !current_manager.has_bid? -%>
 
   </div>
   <div class="col-md-5 right">
@@ -77,34 +77,36 @@
   <p class="alert alert-warning"><strong>You have a bid of &pound;<%= @player.sealed_bids.find_by(manager: current_manager).bid %>m tabled for this player!</strong> Come back here after 11pm on Sunday to see if you have won the bid.</p>
 <%- end -%>
 
-<section>
-  <h3 class="page-header">Points this Season</h3>
-  <table class="table table-striped table-hover">
-    <thead>
-      <tr>
-        <th>Season</th>
-        <th>PLD</th>
-        <th>GLS</th>
-        <th>ASS</th>
-        <th>CS</th>
-        <th>GA</th>
-        <th>Total</th>
-      </tr>
-    </thead>
+<%- if @season_started -%>
+  <section>
+    <h3 class="page-header">Points this Season</h3>
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>Season</th>
+          <th>PLD</th>
+          <th>GLS</th>
+          <th>ASS</th>
+          <th>CS</th>
+          <th>GA</th>
+          <th>Total</th>
+        </tr>
+      </thead>
 
-    <tbody>
-      <tr>
-        <td><strong><%= @player.season %></strong></td>
-        <td><%= @player.season.pld %></td>
-        <td><%= @player.season.gls %></td>
-        <td><%= @player.season.ass %></td>
-        <td><%= @player.season.cs %></td>
-        <td><%= @player.season.ga %></td>
-        <td><%= @player.season.tot %></td>
-      </tr>
-    </tbody>
-  </table>
-</section>
+      <tbody>
+        <tr>
+          <td><strong><%= @player.season %></strong></td>
+          <td><%= @player.season.pld %></td>
+          <td><%= @player.season.gls %></td>
+          <td><%= @player.season.ass %></td>
+          <td><%= @player.season.cs %></td>
+          <td><%= @player.season.ga %></td>
+          <td><%= @player.season.tot %></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+<%- end -%>
 
 <section>
   <h4 class="page-header">Previous Seasons</h4>

@@ -1,7 +1,7 @@
 <%= content_for :title, 'Players' %>
 <h1 class="page-header">
   <%= content_for :title %>
-  <small><i>Currently showing last seasons points</i></small>
+  <%- if @show_previous_season_points -%><small><i>Currently showing last seasons points</i></small><%- end -%>
 </h1>
 
 <section class="datatable">
@@ -58,12 +58,12 @@
 
           <%- %w( pld gls ass cs ga ).each do |type| -%>
             <td align="right">
-              <%= player.previous_season.try(type) || '-' %>
+              <%= (@show_previous_season_points ? player.previous_season.try(type) : player.season.try(type)) || '-' %>
             </td>
           <%- end -%>
 
           <td align="right">
-            <%= player.previous_season.try(:tot) || '0' %>
+            <%= (@show_previous_season_points ? player.previous_season.try(:tot) : player.season.try(:tot)) || '0' %>
           </td>
 
           <td>
