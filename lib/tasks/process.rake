@@ -15,6 +15,12 @@ task process: :environment do
 end
 
 namespace :calculate do
+  task gate: :environment do
+    Team.all.each do |team|
+      team.update budget: team.budget+0.8
+    end
+  end
+
   task week: :environment do
     if Date.today.wday == 1
 
