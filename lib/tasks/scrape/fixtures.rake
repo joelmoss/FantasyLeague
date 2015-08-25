@@ -42,7 +42,7 @@ namespace :scrape do
     next_up = true
 
     agent = Mechanize.new
-    page = agent.get('http://www.fantasyleague.com/Pro/Stats/ResultsAndFixtures.aspx')
+    page = agent.get('http://www.fantasyleague.com/Pro/Stats/ResultsAndFixtures.aspx?phs=14')
     page.search('#matches > table tr').each do |row|
       if row[:id] && row[:id].start_with?('day_')
         time, date = row.search('th > div')
