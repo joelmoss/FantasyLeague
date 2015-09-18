@@ -94,7 +94,7 @@ Just like subs, formation changes can take place at any time, but will only be a
 
 #### Weekly Gate Receipts &amp; Television income
 
-Each week, all teams will receive &pound;0.4m from gate receipts and television income.
+Each week, all teams will receive &pound;0.2m from gate receipts and television income.
 
 #### Team of the Week
 

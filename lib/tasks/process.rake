@@ -17,7 +17,7 @@ end
 namespace :calculate do
   task gate: :environment do
     Team.all.each do |team|
-      team.update budget: team.budget+0.8
+      team.update budget: team.budget+0.2
     end
   end
 
@@ -49,7 +49,7 @@ namespace :calculate do
       end
 
       puts "\n     Awarding prize money...\n\n"
-      TeamWeek.last_week.order(tot: :desc).limit(3).each_with_index do |team,i|
+      TeamWeek.last_week.order(tot: :desc).limit(10).each_with_index do |team,i|
         puts "     #{team.tot.to_s.rjust(3)} - #{team.team}"
         team.team.award_week_prize! i
       end
@@ -86,7 +86,7 @@ namespace :calculate do
       end
 
       puts "\n     Awarding prize money...\n\n"
-      TeamMonth.last_month.order(tot: :desc).limit(3).each_with_index do |team,i|
+      TeamMonth.last_month.order(tot: :desc).limit(10).each_with_index do |team,i|
         puts "     #{team.tot.to_s.rjust(3)} - #{team.team}"
         team.team.award_month_prize! i
       end
