@@ -36,13 +36,16 @@ namespace :scrape do
   desc 'Scrape fixture and result data from FantasyLeague.com'
   task fixtures: :environment do
 
-    puts "\n Beginning a new fixture scrape...\n\n"
-
     datetime = ''
     next_up = true
+    default_fixture_url = 'http://www.fantasyleague.com/Pro/Stats/ResultsAndFixtures.aspx'
+    fixture_url = ENV['URL'] || default_fixture_url
+
+    puts "\n Beginning a new fixture scrape...\n"
+    puts " (#{fixture_url})\n\n"
 
     agent = Mechanize.new
-    page = agent.get('http://www.fantasyleague.com/Pro/Stats/ResultsAndFixtures.aspx')
+    page = agent.get(fixture_url)
     page.search('#matches > table tr').each do |row|
       if row[:id] && row[:id].start_with?('day_')
         time, date = row.search('th > div')
