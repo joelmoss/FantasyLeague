@@ -15,14 +15,16 @@ task process: :environment do
 end
 
 namespace :calculate do
-  task gate: :environment do
-    Team.all.each do |team|
-      team.update budget: team.budget+0.2
-    end
-  end
 
   task week: :environment do
     if Date.today.wday == 1
+
+      puts "\n     Awarding gate money...\n\n"
+      Team.all.each do |team|
+        puts "     #{team.team}"
+        team.update budget: team.budget+0.2
+      end
+      puts "\n"
 
       year = Date.today.month <= 6 ? Date.today.year - 1 : Date.today.year
       week_beginning = Date.today.last_week.beginning_of_week
